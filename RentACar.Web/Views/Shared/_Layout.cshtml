@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="~/RentACar.Web.styles.css" asp-append-version="true" />
 
     <style>
-        /* Hero секция, която покрива цялата височина на страницата */
         .hero {
             position: relative;
             width: 100%;
@@ -23,7 +22,7 @@
             overflow: hidden;
         }
 
-        /* Фоново изображение с ефект на замъгляване, което се разпростира зад навигационната лента */
+        
         .hero::before {
             content: "";
             position: fixed;
@@ -32,17 +31,17 @@
             width: 100%;
             height: 100%;
             background: url('/images/background.jpg') center center / cover no-repeat;
-            filter: blur(8px); /* Ефект на замъгляване */
-            z-index: -1; /* Уверява се, че е зад съдържанието */
+            filter: blur(8px); 
+            z-index: -1; 
         }
 
-        /* Съдържание в Hero секцията, което остава над замъгления фон */
+        
         .content {
             position: relative;
             z-index: 1;
         }
 
-        /* Презаписване на Bootstrap стилове за бутона в Hero секцията */
+        
         .hero .btn-primary {
             background-color: #ff9800 !important;
             border: none !important;
@@ -56,9 +55,9 @@
             background-color: #e68900 !important;
         }
 
-        /* Подравняване и презаписване на стилове за регистър и логин бутоните */
+        
         .navbar .btn-register, .navbar .btn-login {
-            background-color: #007bff !important; /* Примерен цвят */
+            background-color: #007bff !important; 
             color: #ffffff !important;
             padding: 6px 12px;
             font-weight: bold;
