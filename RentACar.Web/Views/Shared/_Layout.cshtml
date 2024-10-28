@@ -3,43 +3,114 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RentACar.Web</title>
+    <title>@ViewData["Title"] - RentACar</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/mdb.dark.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RentACar.Web.styles.css" asp-append-version="true" />
+
+    <style>
+        /* Hero секция, която покрива цялата височина на страницата */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* Фоново изображение с ефект на замъгляване, което се разпростира зад навигационната лента */
+        .hero::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/images/background.jpg') center center / cover no-repeat;
+            filter: blur(8px); /* Ефект на замъгляване */
+            z-index: -1; /* Уверява се, че е зад съдържанието */
+        }
+
+        /* Съдържание в Hero секцията, което остава над замъгления фон */
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Презаписване на Bootstrap стилове за бутона в Hero секцията */
+        .hero .btn-primary {
+            background-color: #ff9800 !important;
+            border: none !important;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero .btn-primary:hover {
+            background-color: #e68900 !important;
+        }
+
+        /* Подравняване и презаписване на стилове за регистър и логин бутоните */
+        .navbar .btn-register, .navbar .btn-login {
+            background-color: #007bff !important; /* Примерен цвят */
+            color: #ffffff !important;
+            padding: 6px 12px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .navbar .btn-register:hover, .navbar .btn-login:hover {
+            background-color: #0056b3 !important;
+        }
+
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-xxl navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RentACar.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">RentACar.Web</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link active" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-controller="Cars" asp-action="Index">Cars</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="About" asp-action="Index">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Contact" asp-action="Index">Contact</a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
                 </div>
+
+                <partial name="_LoginPartial" />
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
+    <div class="container-fluid hero">
+        <main role="main" class="pb-3 hero d-flex justify-content-center align-items-center">
+            <div class="content">
+                @RenderBody()
+            </div>
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer mt-auto">
         <div class="container">
-            &copy; 2024 - RentACar.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <p>&copy; 2024 RentACar.Web | Designed by Your Company</p>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
