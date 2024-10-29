@@ -2,9 +2,7 @@
 @import url('/css/CustomLayout/header.css');
 @import url('/css/CustomLayout/hero.css');
 @import url('/css/CustomLayout/main.css');
+@import url('/css/CustomLayout/btn.css');
 
-html {
-  position: relative;
-  min-height: 100%;
-}
+
 
