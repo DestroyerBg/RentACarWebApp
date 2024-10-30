@@ -1,4 +1,4 @@
-﻿/* Основен контейнер с тъмен фон */
+﻿
 .form-wrapper {
     background-color: #2b2b2b;
     padding: 40px;
@@ -8,7 +8,6 @@
     max-width: 400px;
 }
 
-/* Заглавия и текстове */
 .page-title {
     text-align: center;
     font-size: 1.8rem;
@@ -32,13 +31,11 @@
     color: #ff4f4f;
 }
 
-/* Полета и етикети */
 .form-field {
     position: relative;
     margin-bottom: 25px;
 }
 
-/* Стил за input полетата с тъмен фон */
 .custom-input {
     width: 100%;
     padding: 14px 10px;
@@ -51,16 +48,16 @@
     transition: all 0.3s ease;
 }
 
-    .custom-input::placeholder {
+.custom-input::placeholder {
         color: #999;
     }
 
-    .custom-input:focus {
+.custom-input:focus {
         border-color: #ff9800;
         box-shadow: 0 0 8px rgba(255, 152, 0, 0.3);
-    }
 
-/* Стил за етикетите (label) в тъмен режим */
+}
+
 .custom-label {
     position: absolute;
     top: 14px;
@@ -71,7 +68,7 @@
     transition: all 0.3s ease;
 }
 
-/* Плаващ ефект за label */
+
 .custom-input:focus + .custom-label,
 .custom-input:not(:placeholder-shown) + .custom-label {
     top: -10px;
@@ -83,7 +80,7 @@
     border-radius: 3px;
 }
 
-/* Чекбокс поле */
+
 .checkbox-field {
     display: flex;
     align-items: center;
@@ -98,7 +95,7 @@
     margin-right: 5px;
 }
 
-/* Бутон за вход */
+
 .custom-button {
     width: 100%;
     padding: 14px;
@@ -116,39 +113,18 @@
         background-color: #e67e22;
     }
 
-/* Линкове под формата */
+
 .additional-links {
     text-align: center;
     font-size: 0.9rem;
     color: #f1f1f1;
 }
 
-    .additional-links a {
-        color: #ff9800;
-        text-decoration: none;
-    }
+.additional-links a {
+    color: #ff9800;
+    text-decoration: none;
+}
 
-        .additional-links a:hover {
-            text-decoration: underline;
-        }
-
-/* Респонсивност */
-@media (max-width: 480px) {
-    .form-wrapper {
-        padding: 30px 20px;
-    }
-
-    .custom-label {
-        font-size: 0.9rem;
-    }
-
-    .custom-input {
-        padding: 12px 8px;
-        font-size: 0.9rem;
-    }
-
-    .custom-button {
-        padding: 12px;
-        font-size: 0.9rem;
-    }
+.additional-links a:hover {
+    text-decoration: underline;
 }

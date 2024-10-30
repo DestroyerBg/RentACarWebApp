@@ -1,0 +1,19 @@
+﻿@media (max-width: 480px) {
+    .form-wrapper {
+        padding: 30px 20px;
+    }
+
+    .custom-label {
+        font-size: 0.9rem;
+    }
+
+    .custom-input {
+        padding: 12px 8px;
+        font-size: 0.9rem;
+    }
+
+    .custom-button {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+}
