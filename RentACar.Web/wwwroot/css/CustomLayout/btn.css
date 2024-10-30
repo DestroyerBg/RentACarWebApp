@@ -41,3 +41,26 @@
     transition: all 0.3s ease !important;
     color: white !important;
 }
+
+
+.btn-primary {
+    background-color: #2196f3;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #1976d2;
+}
+
+.btn-outline-primary {
+    color: #2196f3;
+    border-color: #2196f3;
+    border-radius: 8px;
+}
+
+.btn-outline-primary:hover {
+    background-color: #2196f3;
+    color: white;
+}
