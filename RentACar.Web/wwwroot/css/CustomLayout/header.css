@@ -17,14 +17,11 @@
 .nav-link {
     font-size: 1.4em;
     font-weight: bold;
-
 }
 
-    .nav-link:hover {
+    .nav-link:hover, .navbar-brand:hover {
         transform: scale(1.05) !important;
         transition: all 0.3s ease !important;
         border: none !important;
         text-shadow: 0 0 1.8em rgba(255, 255,255, 0.8), 0 0 2em rgba(255, 255, 255, 0.6), 0 0 2.3em rgba(255, 255, 255, 0.4);
     }
-
-
