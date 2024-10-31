@@ -28,4 +28,8 @@
     <ContainerPort Include="8081" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RentACar.Data\RentACar.Data.csproj" />
+  </ItemGroup>
+
 </Project>
