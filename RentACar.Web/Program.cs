@@ -1,20 +1,17 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
 using RentACar.Data.Models;
 using RentACar.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.RegisterDbContext();
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services
-    .AddIdentity<ApplicationUser, IdentityRole<Guid>>()
-    .AddDefaultUI()
-    .AddEntityFrameworkStores<RentACarDbContext>()
-    .AddDefaultTokenProviders();
+// Add services to the container.
 
+builder.RegisterDbContext();
+
+builder.AddIdentity();
+
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 

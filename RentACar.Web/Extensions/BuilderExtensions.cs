@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
-
+using RentACar.Data.Models;
 using static RentACar.Common.ErrorMessages.DatabaseErrorMessages;
 namespace RentACar.Web.Extensions
 { 
@@ -20,6 +21,17 @@ namespace RentACar.Web.Extensions
                 options => options.UseSqlServer(connectionString));
 
             return builder;
-        } 
+        }
+
+        public static WebApplicationBuilder AddIdentity(this WebApplicationBuilder builder)
+        {
+            builder.Services
+                .AddIdentity<ApplicationUser, IdentityRole<Guid>>()
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<RentACarDbContext>()
+                .AddDefaultTokenProviders();
+
+            return builder;
+        }
     }
 }
