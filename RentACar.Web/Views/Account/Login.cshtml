@@ -1,0 +1,43 @@
+﻿@model RentACar.Web.ViewModels.Account.LoginViewModel
+
+<div class="form-wrapper">
+    <section>
+        <form id="account" method="post">
+            <h2 class="form-title">Use a local account to log in.</h2>
+            <hr class="divider" />
+            <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
+
+            <div class="form-field">
+                <input asp-for="@Model.Email" class="custom-input" autocomplete="username" aria-required="true" placeholder=" " />
+                <label asp-for="@Model.Email" class="custom-label">Email</label>
+                <span asp-validation-for="@Model.Email" class="text-danger validation-message"></span>
+            </div>
+
+            <div class="form-field">
+                <input asp-for="@Model.Password" class="custom-input" autocomplete="current-password" aria-required="true" placeholder=" " />
+                <label asp-for="@Model.Password" class="custom-label">Password</label>
+                <span asp-validation-for="@Model.Password" class="text-danger validation-message"></span>
+            </div>
+
+            <div class="form-field checkbox-field">
+                <label asp-for="@Model.RememberMe" class="checkbox-label">
+                    <input class="checkbox-input" asp-for="@Model.RememberMe" />
+                    @Html.DisplayNameFor(m => m.RememberMe)
+                </label>
+            </div>
+
+            <div class="form-field">
+                <button id="login-submit" type="submit" class="custom-button">Log in</button>
+            </div>
+
+            <div class="additional-links">
+                @*<p><a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a></p>*@
+                @*<p><a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a></p>*@
+            </div>
+        </form>
+    </section>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
