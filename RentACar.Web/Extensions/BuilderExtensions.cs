@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
 
+using static RentACar.Common.ErrorMessages.DatabaseErrorMessages;
 namespace RentACar.Web.Extensions
-{
-    using static RentACar.Common.ErrorMessages.DatabaseErrorMessages;
-
+{ 
     public static class BuilderExtensions
     {
         public static WebApplicationBuilder RegisterDbContext(this WebApplicationBuilder builder)
@@ -17,7 +16,8 @@ namespace RentACar.Web.Extensions
             string? connectionString = builder.Configuration.GetConnectionString("Development")
                 ?? throw new NullReferenceException(connectionStringNotAvailable);
 
-            builder.Services.AddDbContext<RentACarDbContext>(options => options.UseSqlServer(connectionString));
+            builder.Services.AddDbContext<RentACarDbContext>(
+                options => options.UseSqlServer(connectionString));
 
             return builder;
         } 

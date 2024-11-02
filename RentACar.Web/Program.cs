@@ -1,19 +1,21 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
+using RentACar.Data.Models;
 using RentACar.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlServer(connectionString));
 builder.RegisterDbContext();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services
+    .AddIdentity<ApplicationUser, IdentityRole<Guid>>()
+    .AddDefaultUI()
+    .AddEntityFrameworkStores<RentACarDbContext>()
+    .AddDefaultTokenProviders();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<RentACarDbContext>();
+builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -35,6 +37,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
