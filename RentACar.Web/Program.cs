@@ -1,9 +1,12 @@
-using Microsoft.AspNetCore.Identity;
-using RentACar.Data;
-using RentACar.Data.Models;
 using RentACar.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", true)
+    .AddJsonFile("secrets.json", true)
+    .AddUserSecrets<Program>();
 
 // Add services to the container.
 

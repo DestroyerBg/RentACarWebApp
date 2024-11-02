@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Configuration;
 using RentACar.Data;
 using RentACar.Data.Models;
 using static RentACar.Common.ErrorMessages.DatabaseErrorMessages;
@@ -9,11 +10,6 @@ namespace RentACar.Web.Extensions
     {
         public static WebApplicationBuilder RegisterDbContext(this WebApplicationBuilder builder)
         {
-            builder.Configuration
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("secrets.json", true)
-                .AddUserSecrets<Program>();
-
             string? connectionString = builder.Configuration.GetConnectionString("Development")
                 ?? throw new NullReferenceException(connectionStringNotAvailable);
 
@@ -25,13 +21,35 @@ namespace RentACar.Web.Extensions
 
         public static WebApplicationBuilder AddIdentity(this WebApplicationBuilder builder)
         {
+            IConfigurationSection settings = builder.Configuration.GetSection("Identity");
             builder.Services
-                .AddIdentity<ApplicationUser, IdentityRole<Guid>>()
+                .AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
+                {
+                    ConfigureIdentity(options, settings);
+                })
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<RentACarDbContext>()
                 .AddDefaultTokenProviders();
 
             return builder;
+        }
+
+        private static void ConfigureIdentity(IdentityOptions options, IConfigurationSection configurationSettings)
+        {
+            //Password
+            options.Password.RequireDigit = configurationSettings.GetValue<bool>("Password:RequireDigit");
+            options.Password.RequiredLength = configurationSettings.GetValue<int>("Password:RequiredLength");
+            options.Password.RequireNonAlphanumeric = configurationSettings.GetValue<bool>("Password:RequireNonAlphanumeric");
+            options.Password.RequireUppercase = configurationSettings.GetValue<bool>("Password:RequireUppercase");
+            options.Password.RequireLowercase = configurationSettings.GetValue<bool>("Password:RequireLowercase");
+
+            //Lockout
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(
+                configurationSettings.GetValue<int>("Lockout:DefaultLockoutTimeSpanInMinutes"));
+            options.Lockout.MaxFailedAccessAttempts =
+                configurationSettings.GetValue<int>("Lockout:MaxFailedAccessAttempts");
+            options.Lockout.AllowedForNewUsers =
+                configurationSettings.GetValue<bool>("Lockout:AllowedForNewUsers");
         }
     }
 }
