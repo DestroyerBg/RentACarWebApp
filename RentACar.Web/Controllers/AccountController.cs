@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
 using RentACar.Web.ViewModels.Account;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
@@ -10,30 +8,19 @@ namespace RentACar.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly ILogger<LoginViewModel> logger;
-        private readonly IUserStore<ApplicationUser> userStore;
-        private readonly IUserEmailStore<ApplicationUser> emailStore;
-        private readonly IEmailSender emailSender;
-
-        public AccountController(
-            SignInManager<ApplicationUser> _signInManager, 
-            ILogger<LoginViewModel> _logger,
-            UserManager<ApplicationUser> _userManager,
-            IUserStore<ApplicationUser> _userStore,
-            IEmailSender _emailSender)
+        private readonly IUserService<ApplicationUser, Guid> userService;
+        private readonly ILogger<AccountController> logger;
+        public AccountController(IUserService<ApplicationUser, Guid> _userService, 
+            ILogger<AccountController> _logger)
         {
-            signInManager = _signInManager;
-            userManager = _userManager;
+            userService = _userService;
             logger = _logger;
-            userStore = _userStore;
-            emailSender = _emailSender;
         }
         [HttpGet]
         public IActionResult Login()
         {
-            return View(new LoginViewModel());
+            LoginViewModel model = userService.CreateBlankLoginViewModel();
+            return View(model);
         }
 
         [HttpPost]
@@ -45,8 +32,8 @@ namespace RentACar.Web.Controllers
                 return View(model);
             }
 
-            SignInResult result = 
-                await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
+            SignInResult result = await userService.LoginUserAsync(model);
+                
 
             if (result.Succeeded)
             {
@@ -68,7 +55,8 @@ namespace RentACar.Web.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            return View(new RegisterViewModel());
+            RegisterViewModel model = userService.CreateBlankRegisterViewModel();
+            return View(model);
         }
 
         [HttpPost]
@@ -79,13 +67,9 @@ namespace RentACar.Web.Controllers
                 return View(model);
             }
 
-            ApplicationUser user = new ApplicationUser(); //TODO Create method which create instance of ApplicationUser
+            bool result = await userService.RegisterUserAsync(model);
 
-            await userStore.SetUserNameAsync(user, model.Email, CancellationToken.None);
-            await userManager.SetEmailAsync(user, model.Email);
-            IdentityResult result = await userManager.CreateAsync(user, model.Password);
-
-            if (result.Succeeded)
+            if (result == true)
             {
                 logger.LogInformation("User created a new account with password.");
             }
@@ -96,7 +80,7 @@ namespace RentACar.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await signInManager.SignOutAsync();
+            await userService.LogoutUserAsync();
             logger.LogInformation("User logged out.");
             return RedirectToAction("Index", "Home");
         }
