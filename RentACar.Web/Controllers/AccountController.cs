@@ -82,7 +82,7 @@ namespace RentACar.Web.Controllers
             ApplicationUser user = new ApplicationUser(); //TODO Create method which create instance of ApplicationUser
 
             await userStore.SetUserNameAsync(user, model.Email, CancellationToken.None);
-            await emailStore.SetEmailAsync(user, model.Email, CancellationToken.None);
+            await userManager.SetEmailAsync(user, model.Email);
             IdentityResult result = await userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
