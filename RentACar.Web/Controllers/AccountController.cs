@@ -93,6 +93,14 @@ namespace RentACar.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            logger.LogInformation("User logged out.");
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpGet]
         public IActionResult Lockout()
         {
