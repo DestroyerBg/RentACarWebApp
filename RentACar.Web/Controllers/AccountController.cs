@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RentACar.Common.Messages;
 using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
 using RentACar.Web.ViewModels.Account;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
-
+using static RentACar.Common.Messages.IdentityMessages;
 namespace RentACar.Web.Controllers
 {
     public class AccountController : Controller
@@ -37,17 +38,17 @@ namespace RentACar.Web.Controllers
 
             if (result.Succeeded)
             {
-                logger.LogInformation("User logged in.");
+                logger.LogInformation(Result.UserLoggedIn);
                 return RedirectToAction("Index", "Home");
             }
             if (result.IsLockedOut)
             {
-                logger.LogWarning("User account locked out.");
+                logger.LogWarning(Warning.UserLocked);
                 return RedirectToAction("Lockout");
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                ModelState.AddModelError(string.Empty, Error.InvalidLoginAttempt);
                 return View(model);
             }
         }
@@ -71,7 +72,7 @@ namespace RentACar.Web.Controllers
 
             if (result == true)
             {
-                logger.LogInformation("User created a new account with password.");
+                logger.LogInformation(Result.UserCreatedAccount);
             }
 
             return RedirectToAction("Index", "Home");
@@ -81,7 +82,7 @@ namespace RentACar.Web.Controllers
         public async Task<IActionResult> Logout()
         {
             await userService.LogoutUserAsync();
-            logger.LogInformation("User logged out.");
+            logger.LogInformation(Result.UserLogout);
             return RedirectToAction("Index", "Home");
         }
 

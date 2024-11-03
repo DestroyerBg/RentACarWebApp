@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using NuGet.Configuration;
 using RentACar.Data;
 using RentACar.Data.Models;
-using static RentACar.Common.ErrorMessages.DatabaseErrorMessages;
+using static RentACar.Common.Messages.ErrorMessages.DatabaseErrorMessages;
 namespace RentACar.Web.Extensions
-{ 
+{
     public static class BuilderExtensions
     {
         public static WebApplicationBuilder RegisterDbContext(this WebApplicationBuilder builder)

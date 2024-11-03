@@ -1,4 +1,4 @@
-﻿namespace RentACar.Common.ErrorMessages
+﻿namespace RentACar.Common.Messages.ErrorMessages
 {
     public static class DatabaseErrorMessages
     {
