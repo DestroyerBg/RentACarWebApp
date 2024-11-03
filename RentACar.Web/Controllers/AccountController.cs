@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Data.Models;
 using RentACar.Web.ViewModels.Account;
@@ -9,13 +11,24 @@ namespace RentACar.Web.Controllers
     public class AccountController : Controller
     {
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly ILogger<LoginViewModel> logger;
+        private readonly IUserStore<ApplicationUser> userStore;
+        private readonly IUserEmailStore<ApplicationUser> emailStore;
+        private readonly IEmailSender emailSender;
 
-        public AccountController(SignInManager<ApplicationUser> _signInManager, 
-            ILogger<LoginViewModel> _logger)
+        public AccountController(
+            SignInManager<ApplicationUser> _signInManager, 
+            ILogger<LoginViewModel> _logger,
+            UserManager<ApplicationUser> _userManager,
+            IUserStore<ApplicationUser> _userStore,
+            IEmailSender _emailSender)
         {
             signInManager = _signInManager;
+            userManager = _userManager;
             logger = _logger;
+            userStore = _userStore;
+            emailSender = _emailSender;
         }
         [HttpGet]
         public IActionResult Login()
@@ -53,9 +66,39 @@ namespace RentACar.Web.Controllers
         }
 
         [HttpGet]
+        public IActionResult Register()
+        {
+            return View(new RegisterViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            ApplicationUser user = new ApplicationUser(); //TODO Create method which create instance of ApplicationUser
+
+            await userStore.SetUserNameAsync(user, model.Email, CancellationToken.None);
+            await emailStore.SetEmailAsync(user, model.Email, CancellationToken.None);
+            IdentityResult result = await userManager.CreateAsync(user, model.Password);
+
+            if (result.Succeeded)
+            {
+                logger.LogInformation("User created a new account with password.");
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
         public IActionResult Lockout()
         {
             return View();
         }
+
+        
     }
 }

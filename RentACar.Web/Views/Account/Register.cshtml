@@ -1,0 +1,39 @@
+﻿@model RentACar.Web.ViewModels.Account.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="form-wrapper">
+        <section>
+            <form id="registerForm" method="post">
+                <h2>Create a new account.</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
+                <div class="form-field">
+                    <input asp-for="@Model.Email" class="custom-input" autocomplete="username" aria-required="true" placeholder="" />
+                    <label asp-for="@Model.Email" class="custom-label">Email</label>
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </div>
+                <div class="form-field">
+                    <input asp-for="@Model.Password" class="custom-input" autocomplete="new-password" aria-required="true" placeholder="" />
+                    <label asp-for="@Model.Password" class="custom-label">Password</label>
+                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                </div>
+                <div class="form-field">
+                    <input asp-for="@Model.ConfirmPassword" class="custom-input" autocomplete="new-password" aria-required="true" placeholder="" />
+                    <label asp-for="@Model.ConfirmPassword" class="custom-label">Confirm Password</label>
+                    <span asp-validation-for="@Model.ConfirmPassword" class="text-danger validation-message"></span>
+                </div>
+                <button id="registerSubmit" type="submit" class="custom-button">Register</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
