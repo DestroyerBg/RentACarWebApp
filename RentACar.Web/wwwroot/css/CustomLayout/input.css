@@ -1,7 +1,8 @@
-﻿
-.form-wrapper {
+﻿.form-wrapper {
     background-color: #2b2b2b;
     padding: 40px;
+    padding-bottom: 60px;
+    margin-top: 1em;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     width: 100%;
@@ -70,7 +71,7 @@
 
 
 .custom-input:focus + .custom-label,
-.custom-input:not(:placeholder-shown) + .custom-label {
+.custom-input:not(:placeholder-shown) + .custom-label{
     top: -10px;
     left: 10px;
     font-size: 0.85rem;
@@ -128,3 +129,48 @@
 .additional-links a:hover {
     text-decoration: underline;
 }
+
+
+.form-field {
+    position: relative;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-label-static {
+    font-size: 0.85rem;
+    color: #aaa;
+    font-weight: bold;
+    margin-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+
+.custom-input-static {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    color: #f1f1f1;
+    background-color: #333;
+    border: 2px solid #555;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.custom-input-static:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.3);
+}
+
+.custom-input-static:focus + .custom-label-static {
+    color: #ff9800;
+}
+
+
+
+
+
+
