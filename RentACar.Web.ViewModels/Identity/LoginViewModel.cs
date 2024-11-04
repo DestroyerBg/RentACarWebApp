@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RentACar.Web.ViewModels.Account
+namespace RentACar.Web.ViewModels.Identity
 {
-    public class LoginViewModel 
+    public class LoginViewModel
     {
         [Required]
         [EmailAddress]

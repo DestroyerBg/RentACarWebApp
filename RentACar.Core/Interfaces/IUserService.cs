@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using RentACar.Web.ViewModels.Account;
+using RentACar.Web.ViewModels.Identity;
 
 namespace RentACar.Core.Interfaces
 {

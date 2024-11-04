@@ -2,7 +2,7 @@
 using RentACar.Common.Messages;
 using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
-using RentACar.Web.ViewModels.Account;
+using RentACar.Web.ViewModels.Identity;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using static RentACar.Common.Messages.IdentityMessages;
 namespace RentACar.Web.Controllers

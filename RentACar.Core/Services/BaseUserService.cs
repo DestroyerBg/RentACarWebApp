@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Logging;
 using RentACar.Core.Interfaces;
-using RentACar.Web.ViewModels.Account;
+using RentACar.Web.ViewModels.Identity;
 
 namespace RentACar.Core.Services
 {

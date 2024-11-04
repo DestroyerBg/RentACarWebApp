@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Configuration;
 using RentACar.Data;
 using RentACar.Data.Models;
 using static RentACar.Common.Messages.ErrorMessages.DatabaseErrorMessages;
@@ -33,7 +32,6 @@ namespace RentACar.Web.Extensions
 
             return builder;
         }
-
 
         private static void ConfigureIdentity(IdentityOptions options, IConfigurationSection configurationSettings)
         {
