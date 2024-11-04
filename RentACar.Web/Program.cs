@@ -1,6 +1,3 @@
-using RentACar.Core.Interfaces;
-using RentACar.Core.Services;
-using RentACar.Data.Models;
 using RentACar.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,9 +15,12 @@ builder.RegisterDbContext();
 builder.AddIdentity();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 builder.Services.AddRazorPages();
+
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IUserService<ApplicationUser, Guid>, ApplicationUserService>();
+
+builder.Services.RegisterUserDefinedServices();
 
 var app = builder.Build();
 
@@ -43,6 +43,11 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 
 app.MapControllerRoute(
     name: "default",

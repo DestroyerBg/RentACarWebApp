@@ -34,6 +34,7 @@ namespace RentACar.Web.Extensions
             return builder;
         }
 
+
         private static void ConfigureIdentity(IdentityOptions options, IConfigurationSection configurationSettings)
         {
             //Password
