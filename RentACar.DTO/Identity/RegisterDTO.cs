@@ -2,33 +2,28 @@
 using RentACar.Common.ValidationAttributes;
 using RentACar.Web.Infrastructure.ValidationAttributes;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
-namespace RentACar.Web.ViewModels.Identity
+namespace RentACar.DTO.Identity
 {
-    public class RegisterViewModel
+    public class RegisterDTO
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Имейл")]
         public string Email { get; set; } = null!;
 
         [Required]
-        [Display(Name = "Потребителско име")]
         [CustomStringLength(UsernameNameMinLength, UsernameNameMaxLength, AnyInputLengthErrorMessage)]
         public string Username { get; set; } = null!;
 
         [Required]
         [CustomStringLength(FirstNameMinLength, FirstNameMaxLength, AnyInputLengthErrorMessage)]
-        [Display(Name = "Име")]
         public string FirstName { get; set; } = null!;
 
         [Required]
         [CustomStringLength(LastNameMinLength, LastNameMaxLength, AnyInputLengthErrorMessage)]
-        [Display(Name = "Фамилно име")]
         public string LastName { get; set; } = null!;
 
         [Required]
         [RegularExpression(PhoneNumberRegex, ErrorMessage = IncorrectPhoneNumberFormat)]
-        [Display(Name = "Телефонен номер")]
         public string PhoneNumber { get; set; } = null!;
 
         [Required]
@@ -38,11 +33,9 @@ namespace RentACar.Web.ViewModels.Identity
         [Required]
         [StringLength(PasswordMaxLength)]
         [DataType(DataType.Password)]
-        [Display(Name = "Парола")]
         public string Password { get; set; } = null!;
 
         [DataType(DataType.Password)]
-        [Display(Name = "Повторете паролата.")]
         [Compare("Password", ErrorMessage = PasswordsDoNotMatch)]
         public string ConfirmPassword { get; set; } = null!;
     }

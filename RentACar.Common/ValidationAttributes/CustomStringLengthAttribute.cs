@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RentACar.Web.ViewModels.ValidationAttributes
+namespace RentACar.Common.ValidationAttributes
 {
     public class CustomStringLengthAttribute : ValidationAttribute
     {

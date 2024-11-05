@@ -1,4 +1,8 @@
+using System.Reflection;
+using RentACar.Services.Infrastructure.AutoMapper;
 using RentACar.Web.Extensions;
+using RentACar.Web.Models;
+using RentACar.Web.ViewModels.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +26,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.RegisterUserDefinedServices();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
+
+AutoMapperConfig.RegisterMappings(typeof(LoginViewModel).Assembly);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -54,4 +60,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-app.Run();
+await app.RunAsync();

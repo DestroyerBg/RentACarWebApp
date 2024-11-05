@@ -1,21 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RentACar.Common.Messages;
 using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
+using RentACar.DTO.Identity;
 using RentACar.Web.ViewModels.Identity;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using static RentACar.Common.Messages.IdentityMessages;
+using Elfie.Serialization;
+using RentACar.Services.Infrastructure.AutoMapper;
 namespace RentACar.Web.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IUserService<ApplicationUser, Guid> userService;
         private readonly ILogger<AccountController> logger;
+        private readonly IMapService mapService;
         public AccountController(IUserService<ApplicationUser, Guid> _userService, 
-            ILogger<AccountController> _logger)
+            ILogger<AccountController> _logger,
+            IMapService _mapService)
         {
             userService = _userService;
             logger = _logger;
+            mapService = _mapService;
         }
         [HttpGet]
         public IActionResult Login()
@@ -33,7 +38,8 @@ namespace RentACar.Web.Controllers
                 return View(model);
             }
 
-            SignInResult result = await userService.LoginUserAsync(model);
+            LoginDTO dto = mapService.Map<LoginViewModel, LoginDTO>(model);
+            SignInResult result = await userService.LoginUserAsync(dto);
                 
 
             if (result.Succeeded)

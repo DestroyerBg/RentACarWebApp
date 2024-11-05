@@ -10,4 +10,9 @@
     <PackageReference Include="AutoMapper" Version="13.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RentACar.Common\RentACar.Common.csproj" />
+    <ProjectReference Include="..\RentACar.Web.Infrastructure\RentACar.Web.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using RentACar.DTO.Identity;
 using RentACar.Web.ViewModels.Identity;
 
 namespace RentACar.Core.Interfaces
@@ -8,7 +9,7 @@ namespace RentACar.Core.Interfaces
         where TKey : IEquatable<TKey>
     {
         Task<bool> RegisterUserAsync(RegisterViewModel model);
-        Task<SignInResult> LoginUserAsync(LoginViewModel model);
+        Task<SignInResult> LoginUserAsync(LoginDTO model);
         Task<bool> LogoutUserAsync();
         RegisterViewModel CreateBlankRegisterViewModel();
         LoginViewModel CreateBlankLoginViewModel();

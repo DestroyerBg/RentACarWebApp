@@ -9,7 +9,7 @@ namespace RentACar.Web.Extensions
         public static IServiceCollection RegisterUserDefinedServices(this IServiceCollection services)
         {
             services.AddScoped<IUserService<ApplicationUser, Guid>, ApplicationUserService>();
-
+            services.AddScoped<IMapService, AutoMapperService>();
             return services;
         }
     }

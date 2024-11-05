@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using RentACar.Core.Interfaces;
+using RentACar.DTO.Identity;
 using RentACar.Web.ViewModels.Identity;
 
 namespace RentACar.Core.Services
@@ -60,12 +61,12 @@ namespace RentACar.Core.Services
             return new LoginViewModel();
         }
 
-        public virtual async Task<SignInResult> LoginUserAsync(LoginViewModel model)
+        public virtual async Task<SignInResult> LoginUserAsync(LoginDTO dto)
         {
             SignInResult result =
                 await signInManager
-                    .PasswordSignInAsync(model.Email, 
-                        model.Password, model.RememberMe, lockoutOnFailure: true);
+                    .PasswordSignInAsync(dto.Email,
+                        dto.Password, dto.RememberMe, lockoutOnFailure: true);
 
             return result;
         }
