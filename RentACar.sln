@@ -15,11 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.Tests", "RentACar.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.Web.ViewModels", "RentACar.Web.ViewModels\RentACar.Web.ViewModels.csproj", "{7FDF1E37-046F-4934-8CE6-52C46228FFBA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.Web.Infrastructure", "RentACar.Web.Infrastructure\RentACar.Web.Infrastructure.csproj", "{8552C880-D36D-4C67-AD72-57C9DDC3BB06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.Core.Infrastructure", "RentACar.Services.Infrastructure\RentACar.Core.Infrastructure.csproj", "{E422A512-7E39-4254-9D63-CC563278DD75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACar.Services.Infrastructure", "RentACar.Services.Infrastructure\RentACar.Services.Infrastructure.csproj", "{E422A512-7E39-4254-9D63-CC563278DD75}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACar.DTO", "RentACar.DTO\RentACar.DTO.csproj", "{C082637E-485A-4230-98BB-A80C365DA91A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.DTO", "RentACar.DTO\RentACar.DTO.csproj", "{C082637E-485A-4230-98BB-A80C365DA91A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +49,6 @@ Global
 		{7FDF1E37-046F-4934-8CE6-52C46228FFBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FDF1E37-046F-4934-8CE6-52C46228FFBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FDF1E37-046F-4934-8CE6-52C46228FFBA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8552C880-D36D-4C67-AD72-57C9DDC3BB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8552C880-D36D-4C67-AD72-57C9DDC3BB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8552C880-D36D-4C67-AD72-57C9DDC3BB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8552C880-D36D-4C67-AD72-57C9DDC3BB06}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E422A512-7E39-4254-9D63-CC563278DD75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E422A512-7E39-4254-9D63-CC563278DD75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E422A512-7E39-4254-9D63-CC563278DD75}.Release|Any CPU.ActiveCfg = Release|Any CPU

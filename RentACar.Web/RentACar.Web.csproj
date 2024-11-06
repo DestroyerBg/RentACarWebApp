@@ -31,6 +31,7 @@
   <ItemGroup>
     <ProjectReference Include="..\RentACar.Core\RentACar.Core.csproj" />
     <ProjectReference Include="..\RentACar.Data\RentACar.Data.csproj" />
+    <ProjectReference Include="..\RentACar.Services.Infrastructure\RentACar.Core.Infrastructure.csproj" />
     <ProjectReference Include="..\RentACar.Web.ViewModels\RentACar.Web.ViewModels.csproj" />
   </ItemGroup>
 

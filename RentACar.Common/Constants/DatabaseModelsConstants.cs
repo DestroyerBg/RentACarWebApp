@@ -23,6 +23,7 @@ namespace RentACar.Common.Constants
                 "Некоректен формат за {0}! Моля въведете валиден формат за {1}.";
 
             public const string PasswordsDoNotMatch = "Двете пароли не съвпадат.";
+            public const string PasswordRequiresAtLeastOneDigit = "Задължително е паролата да съдържа поне 1 цифра.";
             public const int PasswordMaxLength = 100;
         }
     }
