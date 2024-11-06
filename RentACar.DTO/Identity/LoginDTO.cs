@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 namespace RentACar.DTO.Identity
 {
     public class LoginDTO

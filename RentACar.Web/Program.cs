@@ -1,9 +1,4 @@
-using System.Reflection;
-using RentACar.Services.Infrastructure.AutoMapper;
 using RentACar.Web.Extensions;
-using RentACar.Web.Models;
-using RentACar.Web.ViewModels.Identity;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration
@@ -28,7 +23,6 @@ builder.Services.RegisterUserDefinedServices();
 
 WebApplication app = builder.Build();
 
-AutoMapperConfig.RegisterMappings(typeof(LoginViewModel).Assembly);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

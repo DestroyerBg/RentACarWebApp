@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RentACar.Common\RentACar.Common.csproj" />
-    <ProjectReference Include="..\RentACar.DTO\RentACar.DTO.csproj" />
-    <ProjectReference Include="..\RentACar.Services.Infrastructure\RentACar.Services.Infrastructure.csproj" />
     <ProjectReference Include="..\RentACar.Web.Infrastructure\RentACar.Web.Infrastructure.csproj" />
   </ItemGroup>
 

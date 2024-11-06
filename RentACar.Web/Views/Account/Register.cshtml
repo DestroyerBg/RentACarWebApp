@@ -33,8 +33,8 @@
                     <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
                 </div>
                 <div class="form-field">
-                    <label for="birthDate" class="custom-label-static">Дата на раждане</label>
-                    <input type="text" id="birthDate" class="custom-input-static" placeholder="Изберете дата" />
+                    <label asp-for="@Model.BirthDate" class="custom-label-static">Дата на раждане</label>
+                    <input asp-for="@Model.BirthDate" id="birthDate" class="custom-input-static" placeholder="Изберете дата" />
                     <span asp-validation-for="@Model.BirthDate" class="text-danger validation-message"></span>
                 </div>
                 <div class="form-field">

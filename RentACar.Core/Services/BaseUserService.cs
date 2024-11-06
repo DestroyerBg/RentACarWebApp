@@ -1,13 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Globalization;
+using System.Runtime.InteropServices.JavaScript;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using RentACar.Core.Interfaces;
+using RentACar.Data.Models;
 using RentACar.DTO.Identity;
 using RentACar.Web.ViewModels.Identity;
-
+using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 namespace RentACar.Core.Services
 {
     public abstract class BaseUserService<TUser, TKey> : IUserService<TUser, TKey> 
-        where TUser : IdentityUser<TKey>
+        where TUser : ApplicationUser, new()
         where TKey : IEquatable<TKey>
     {
         private readonly SignInManager<TUser> signInManager;
@@ -15,17 +20,20 @@ namespace RentACar.Core.Services
         private readonly IUserStore<TUser> userStore;
         private readonly IUserEmailStore<TUser> emailStore;
         private readonly IEmailSender emailSender;
+        private readonly IMapper mapperService;
 
         protected BaseUserService(
             SignInManager<TUser> _signInManager,
             UserManager<TUser> _userManager,
             IUserStore<TUser> _userStore,
-            IEmailSender _emailSender)
+            IEmailSender _emailSender,
+            IMapper _mapperService)
         {
             signInManager = _signInManager;
             userManager = _userManager;
             userStore = _userStore;
             emailSender = _emailSender;
+            mapperService = _mapperService;
         }
 
         private TUser CreateNewUserInstance()
@@ -35,37 +43,35 @@ namespace RentACar.Core.Services
             return user;
         }
 
-        public virtual RegisterViewModel CreateBlankRegisterViewModel()
+        public virtual RegisterDTO CreateBlankRegisterViewModel()
         {
-            return new RegisterViewModel();
+            return new RegisterDTO();
         }
 
-        public virtual async Task<bool> RegisterUserAsync(RegisterViewModel model)
+        public virtual async Task<IdentityResult> RegisterUserAsync(RegisterDTO dto)
         {
             TUser user = CreateNewUserInstance();
+            user = mapperService.Map<RegisterDTO, TUser>(dto);
 
-            await userStore.SetUserNameAsync(user, model.Email, CancellationToken.None);
-            await userManager.SetEmailAsync(user, model.Email);
-            IdentityResult result = await userManager.CreateAsync(user, model.Password);
+            await userStore.SetUserNameAsync(user, dto.Username, CancellationToken.None);
+            await userManager.SetEmailAsync(user, dto.Email);
+           
+            IdentityResult result = await userManager.CreateAsync(user, dto.Password);
 
-            if (result.Succeeded)
-            {
-                return true;
-            }
-
-            return false;
+            return result;
         }
 
-        public virtual LoginViewModel CreateBlankLoginViewModel()
+        public virtual LoginDTO CreateBlankLoginViewModel()
         {
-            return new LoginViewModel();
+            return new LoginDTO();
         }
 
         public virtual async Task<SignInResult> LoginUserAsync(LoginDTO dto)
         {
+            TUser user = await userManager.FindByEmailAsync(dto.Email);
             SignInResult result =
                 await signInManager
-                    .PasswordSignInAsync(dto.Email,
+                    .PasswordSignInAsync(user.UserName,
                         dto.Password, dto.RememberMe, lockoutOnFailure: true);
 
             return result;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using RentACar.Data.Models;
 
@@ -10,7 +11,8 @@ namespace RentACar.Core.Services
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
-            IEmailSender emailSender) : base(signInManager, userManager, userStore,emailSender)
+            IEmailSender emailSender,
+            IMapper mapperService) : base(signInManager, userManager, userStore,emailSender, mapperService)
         {
             
         }

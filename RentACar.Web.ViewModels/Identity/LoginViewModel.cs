@@ -1,10 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using RentACar.DTO.Identity;
-using RentACar.Services.Infrastructure.AutoMapper;
-
 namespace RentACar.Web.ViewModels.Identity
 {
-    public class LoginViewModel : IMapTo<LoginDTO>
+    public class LoginViewModel
     {
         [Required]
         [EmailAddress]
