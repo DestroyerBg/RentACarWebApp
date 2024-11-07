@@ -27,6 +27,8 @@ namespace RentACar.Web.Extensions
                 {
                     ConfigureIdentity(options, settings);
                 })
+                .AddRoles<IdentityRole<Guid>>()
+                .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<RentACarDbContext>()
                 .AddErrorDescriber<CustomIdentityErrorDescriber>()

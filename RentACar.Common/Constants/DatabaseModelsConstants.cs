@@ -31,7 +31,7 @@ namespace RentACar.Common.Constants
                 "Задължително е паролата да съдържа поне 1 главна буква.";
 
             public const string PasswordRequireAtLeastOneNonAlphaNumericCharacter = "Задължително е паролата да съдържа поне един уникален символ.";
-            public const string PasswordTooShortMessage = "Паролата трябва да съдържа минимум {0} знака";
+            public const string PasswordTooShortMessage = "Паролата трябва да съдържа минимум {0} знака.";
             public const int PasswordMinlength = 8;
             public const int PasswordMaxLength = 100;
         }

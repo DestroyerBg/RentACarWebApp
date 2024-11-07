@@ -7,6 +7,8 @@ using RentACar.Web.ViewModels.Identity;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using static RentACar.Common.Messages.IdentityMessages;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 namespace RentACar.Web.Controllers
 {
     public class AccountController : Controller

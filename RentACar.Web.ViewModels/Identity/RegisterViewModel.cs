@@ -29,6 +29,7 @@ namespace RentACar.Web.ViewModels.Identity
 
     [Required]
     [RegularExpression(PhoneNumberRegex, ErrorMessage = IncorrectPhoneNumberFormat)]
+    [MaxLength(PhoneNumberLength)]
     [Display(Name = "Телефонен номер")]
     public string PhoneNumber { get; set; } = null!;
 

@@ -13,5 +13,6 @@ namespace RentACar.Web.Extensions
             services.AddAutoMapper(typeof(IdentityProfiles));
             return services;
         }
+
     }
 }

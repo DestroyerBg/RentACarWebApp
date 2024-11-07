@@ -17,6 +17,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RentACar.Common\RentACar.Common.csproj" />
+    <ProjectReference Include="..\RentACar.DTO\RentACar.DTO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Seeder\JSON\" />
   </ItemGroup>
 
 </Project>

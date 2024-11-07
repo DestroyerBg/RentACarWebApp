@@ -23,7 +23,7 @@ builder.Services.RegisterUserDefinedServices();
 
 WebApplication app = builder.Build();
 
-
+await app.SeedAdminAndRoles();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
