@@ -17,8 +17,35 @@ namespace RentACar.Web.ErrorDescribers
         {
             return new IdentityError()
             {
-                Code = nameof(PasswordRequiresDigit),
-                Description = PasswordRequiresAtLeastOneDigit
+                Code = nameof(PasswordRequiresLower),
+                Description = PasswordRequireAtLeastOneLowerCase
+            };
+        }
+
+        public override IdentityError PasswordRequiresUpper()
+        {
+            return new IdentityError()
+            {
+                Code = nameof(PasswordRequiresUpper),
+                Description = PasswordRequireAtLeastOneUpperCase,
+            };
+        }
+
+        public override IdentityError PasswordRequiresNonAlphanumeric()
+        {
+            return new IdentityError()
+            {
+                Code = nameof(PasswordRequiresNonAlphanumeric),
+                Description = PasswordRequireAtLeastOneNonAlphaNumericCharacter,
+            };
+        }
+
+        public override IdentityError PasswordTooShort(int length)
+        {
+            return new IdentityError()
+            {
+                Code = nameof(PasswordTooShort),
+                Description = String.Format(PasswordTooShortMessage, PasswordMinlength),
             };
         }
     }

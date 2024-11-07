@@ -24,6 +24,15 @@ namespace RentACar.Common.Constants
 
             public const string PasswordsDoNotMatch = "Двете пароли не съвпадат.";
             public const string PasswordRequiresAtLeastOneDigit = "Задължително е паролата да съдържа поне 1 цифра.";
+
+            public const string PasswordRequireAtLeastOneLowerCase =
+                "Задължително е паролата да съдържа поне 1 малка буква.";
+            public const string PasswordRequireAtLeastOneUpperCase =
+                "Задължително е паролата да съдържа поне 1 главна буква.";
+
+            public const string PasswordRequireAtLeastOneNonAlphaNumericCharacter = "Задължително е паролата да съдържа поне един уникален символ.";
+            public const string PasswordTooShortMessage = "Паролата трябва да съдържа минимум {0} знака";
+            public const int PasswordMinlength = 8;
             public const int PasswordMaxLength = 100;
         }
     }

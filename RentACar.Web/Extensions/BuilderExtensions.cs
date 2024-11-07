@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
 using RentACar.Data.Models;
+using RentACar.Web.ErrorDescribers;
 using static RentACar.Common.Messages.ErrorMessages.DatabaseErrorMessages;
 namespace RentACar.Web.Extensions
 {
@@ -28,6 +29,7 @@ namespace RentACar.Web.Extensions
                 })
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<RentACarDbContext>()
+                .AddErrorDescriber<CustomIdentityErrorDescriber>()
                 .AddDefaultTokenProviders();
 
             return builder;
