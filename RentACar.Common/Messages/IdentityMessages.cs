@@ -17,7 +17,7 @@
 
         public static class Error
         {
-            public const string InvalidLoginAttempt = "Invalid login attempt.";
+            public const string InvalidLoginAttempt = "Невалиден опит за влизане.";
         }
     }
 }

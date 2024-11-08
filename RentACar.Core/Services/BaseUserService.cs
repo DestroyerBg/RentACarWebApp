@@ -69,6 +69,11 @@ namespace RentACar.Core.Services
         public virtual async Task<SignInResult> LoginUserAsync(LoginDTO dto)
         {
             TUser user = await userManager.FindByEmailAsync(dto.Email);
+            if (user == null)
+            {
+                return new SignInResult();
+            }
+
             SignInResult result =
                 await signInManager
                     .PasswordSignInAsync(user.UserName,

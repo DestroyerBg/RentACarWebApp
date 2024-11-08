@@ -18,5 +18,7 @@ namespace RentACar.Data.Repository.Interfaces
         Task<bool> DeleteAsync(TType entity);
 
         Task<bool> UpdateAsync(TType item);
+
+        Task<bool> SaveChangesAsync();
     }
 }
