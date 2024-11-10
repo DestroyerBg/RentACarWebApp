@@ -36,6 +36,8 @@ namespace RentACar.Data.Models
         [Comment("Category of the car")]
         public Category Category { get; set; } = null!;
 
+        [Required] public ICollection<CustomerFeedback> Comments { get; set; } = new HashSet<CustomerFeedback>();
+
         public ICollection<CarFeature> CarFeatures = new HashSet<CarFeature>();
 
         public ICollection<Reservation> Reservations = new HashSet<Reservation>();

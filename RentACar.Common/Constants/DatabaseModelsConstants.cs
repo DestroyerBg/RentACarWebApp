@@ -81,5 +81,11 @@
             public const int InsuranceBenefitMaxLength = 20;
             public const string PricePrecision = "decimal(18, 2)";
         }
+
+        public static class CustomerFeedback
+        {
+            public const int DescriptionMinLength = 10;
+            public const int DescriptionMaxLength = 3000;
+        }
     }
 }

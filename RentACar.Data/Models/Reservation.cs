@@ -33,7 +33,7 @@ namespace RentACar.Data.Models
         [Comment("When the reservation ends")]
         public DateTime EndDate { get; set; }
 
-        public Guid InsuranceId { get; set; }
+        public Guid? InsuranceId { get; set; }
 
         public Insurance? Insurance { get; set; } 
 
@@ -44,5 +44,6 @@ namespace RentACar.Data.Models
 
         [Comment("Is the entity deleted?")]
         public bool IsDeleted { get; set; } = false;
+
     }
 }
