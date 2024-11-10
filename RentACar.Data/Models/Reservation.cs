@@ -33,6 +33,10 @@ namespace RentACar.Data.Models
         [Comment("When the reservation ends")]
         public DateTime EndDate { get; set; }
 
+        public Guid InsuranceId { get; set; }
+
+        public Insurance? Insurance { get; set; } 
+
         [Required]
         [Column(TypeName = PricePrecision)]
         [Comment("Total price for the reservation")]

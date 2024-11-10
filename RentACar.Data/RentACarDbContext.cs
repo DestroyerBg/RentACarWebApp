@@ -29,5 +29,9 @@ namespace RentACar.Data
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Reservation> Reservations { get; set; }
+
+        public DbSet<Insurance> Insurances { get; set; }
+
+        public DbSet<InsuranceBenefit> InsuranceBenefits { get; set; }
     }
 }

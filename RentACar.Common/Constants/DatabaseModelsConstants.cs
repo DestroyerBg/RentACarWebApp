@@ -67,5 +67,19 @@
         {
             public const string PricePrecision = "decimal(18, 2)";
         }
+
+        public static class Insurance
+        {
+            public const int InsuranceProviderMinLength = 3;
+            public const int InsuranceProviderMaxLength = 20;
+            public const string PricePrecision = "decimal(18, 2)";
+        }
+
+        public static class InsuranceBenefit
+        {
+            public const int InsuranceBenefitMinLength = 3;
+            public const int InsuranceBenefitMaxLength = 20;
+            public const string PricePrecision = "decimal(18, 2)";
+        }
     }
 }
