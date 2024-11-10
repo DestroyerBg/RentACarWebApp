@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentACar.Data;
 
@@ -11,9 +12,11 @@ using RentACar.Data;
 namespace RentACar.Data.Migrations
 {
     [DbContext(typeof(RentACarDbContext))]
-    partial class RentACarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241110161620_AddedReservationEntity")]
+    partial class AddedReservationEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,8 +166,7 @@ namespace RentACar.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("User's birthdate.");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -180,14 +182,12 @@ namespace RentACar.Data.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasComment("User's first name.");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasComment("User's last name");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -244,35 +244,29 @@ namespace RentACar.Data.Migrations
                     b.Property<string>("Brand")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasComment("E.G. BMW, Mercedes or etc");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("HorsePower")
-                        .HasColumnType("int")
-                        .HasComment("Car's horsepower");
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasComment("Is the entity deleted?");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Model")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasComment("E.G. model number like E36, E60 or w211");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("RegistrationNumber")
                         .IsRequired()
                         .HasMaxLength(7)
-                        .HasColumnType("nvarchar(7)")
-                        .HasComment("Car's registration number");
+                        .HasColumnType("nvarchar(7)");
 
                     b.Property<int>("YearOfManufacture")
-                        .HasColumnType("int")
-                        .HasComment("Year when car was produced");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -308,8 +302,7 @@ namespace RentACar.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasComment("Category name");
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -325,8 +318,7 @@ namespace RentACar.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasComment("Feature name");
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -340,28 +332,22 @@ namespace RentACar.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CarId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("This is car id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("This is customer id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("When the reservation ends");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasComment("Is the entity deleted?");
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("When the reservation begins");
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18, 2)")
-                        .HasComment("Total price for the reservation");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("Id");
 

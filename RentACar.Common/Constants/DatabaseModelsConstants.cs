@@ -62,5 +62,10 @@
             public const int NameMinlength = 3;
             public const int NameMaxLength = 20;
         }
+
+        public static class Reservation
+        {
+            public const string PricePrecision = "decimal(18, 2)";
+        }
     }
 }

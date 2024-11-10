@@ -27,5 +27,7 @@ namespace RentACar.Data
         public DbSet<CarFeature> CarsFeatures { get; set; }
 
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Reservation> Reservations { get; set; }
     }
 }
