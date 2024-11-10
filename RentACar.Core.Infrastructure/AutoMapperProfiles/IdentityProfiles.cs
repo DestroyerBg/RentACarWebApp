@@ -3,7 +3,7 @@ using RentACar.Data.Models;
 using RentACar.DTO.Identity;
 using RentACar.Web.ViewModels.Identity;
 
-namespace RentACar.Services.Infrastructure.AutoMapperProfiles
+namespace RentACar.Core.Infrastructure.AutoMapperProfiles
 {
     public class IdentityProfiles : Profile
     {

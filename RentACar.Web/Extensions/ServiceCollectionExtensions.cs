@@ -1,7 +1,7 @@
-﻿using RentACar.Core.Interfaces;
+﻿using RentACar.Core.Infrastructure.AutoMapperProfiles;
+using RentACar.Core.Interfaces;
 using RentACar.Core.Services;
 using RentACar.Data.Models;
-using RentACar.Services.Infrastructure.AutoMapperProfiles;
 
 namespace RentACar.Web.Extensions
 {
