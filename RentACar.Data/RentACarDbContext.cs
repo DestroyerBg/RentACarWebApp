@@ -35,5 +35,7 @@ namespace RentACar.Data
         public DbSet<InsuranceBenefit> InsuranceBenefits { get; set; }
 
         public DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
+
+        public DbSet<Location> Locations { get; set; }
     }
 }

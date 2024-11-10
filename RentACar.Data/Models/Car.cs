@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Data.Models.Interfaces;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Car;
@@ -36,7 +37,14 @@ namespace RentACar.Data.Models
         [Comment("Category of the car")]
         public Category Category { get; set; } = null!;
 
-        [Required] public ICollection<CustomerFeedback> Comments { get; set; } = new HashSet<CustomerFeedback>();
+        [Required]
+        [ForeignKey(nameof(Location))]
+        [Comment("Car's location")]
+        public Guid LocationId { get; set; }
+
+        public Location Location { get; set; } = null!;
+
+        public ICollection<CustomerFeedback> Comments { get; set; } = new HashSet<CustomerFeedback>();
 
         public ICollection<CarFeature> CarFeatures = new HashSet<CarFeature>();
 

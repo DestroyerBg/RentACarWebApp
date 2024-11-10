@@ -87,5 +87,11 @@
             public const int DescriptionMinLength = 10;
             public const int DescriptionMaxLength = 3000;
         }
+
+        public static class Location
+        {
+            public const int CityMinLength = 2;
+            public const int CityMaxLength = 50;
+        }
     }
 }
