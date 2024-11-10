@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Data.Models;
@@ -15,6 +16,16 @@ namespace RentACar.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
+
+        public DbSet<Car> Cars { get; set; }
+
+        public DbSet<Feature> Features { get; set; }
+
+        public DbSet<CarFeature> CarsFeatures { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
     }
 }

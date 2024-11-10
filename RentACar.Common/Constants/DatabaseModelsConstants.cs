@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace RentACar.Common.Constants
+﻿namespace RentACar.Common.Constants
 {
     public static class DatabaseModelsConstants
     {
@@ -34,6 +32,35 @@ namespace RentACar.Common.Constants
             public const string PasswordTooShortMessage = "Паролата трябва да съдържа минимум {0} знака.";
             public const int PasswordMinlength = 8;
             public const int PasswordMaxLength = 100;
+        }
+
+        public static class Car
+        {
+            public const int BrandMinLength = 2;
+            public const int BrandMaxLength = 20;
+
+            public const int ModelMinLength = 2;
+            public const int ModelMaxLength = 10;
+
+            public const int HorsePowerMinValue = 60;
+            public const int HorsePowerMaxValue = 5000;
+
+            public const string RegistrationNumberRegex = "[A-Я]{1}[0-9]{4}[А-Я]{2}";
+            public const int RegistrationNumberMaxLength = 7;
+
+            public const int YearOfManufactureMinValue = 1960;
+        }
+
+        public static class Feature
+        {
+            public const int NameMinLength = 3;
+            public const int NameMaxLength = 20;
+        }
+
+        public static class Category
+        {
+            public const int NameMinlength = 3;
+            public const int NameMaxLength = 20;
         }
     }
 }
