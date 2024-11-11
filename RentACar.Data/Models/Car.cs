@@ -34,7 +34,10 @@ namespace RentACar.Data.Models
         public int YearOfManufacture { get; set; }
 
         [Required]
+        [ForeignKey(nameof(Category))]
         [Comment("Category of the car")]
+        public Guid CategoryId { get; set; }
+
         public Category Category { get; set; } = null!;
 
         [Required]
@@ -43,6 +46,11 @@ namespace RentACar.Data.Models
         public Guid LocationId { get; set; }
 
         public Location Location { get; set; } = null!;
+
+        [Required]
+        [Comment("Car image url")]
+        [MaxLength(CarImageUrlMaxlength)]
+        public string ImageUrl { get; set; } = null!;
 
         public ICollection<CustomerFeedback> Comments { get; set; } = new HashSet<CustomerFeedback>();
 

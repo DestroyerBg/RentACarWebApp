@@ -49,6 +49,8 @@
             public const int RegistrationNumberMaxLength = 7;
 
             public const int YearOfManufactureMinValue = 1960;
+
+            public const int CarImageUrlMaxlength = 100;
         }
 
         public static class Feature

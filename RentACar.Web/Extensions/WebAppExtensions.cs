@@ -1,5 +1,4 @@
-﻿using System.ServiceProcess;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
 using RentACar.Data.Seeder;
 
@@ -25,7 +24,9 @@ namespace RentACar.Web.Extensions
 
             RentACarDbContext dbContext = serviceScope
                 .ServiceProvider
-                .GetRequiredService<RentACarDbContext>()!;
+                .GetRequiredService<RentACarDbContext>();
+
+            dbContext.Database.EnsureCreated();
             dbContext.Database.Migrate();
 
             return app;
