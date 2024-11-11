@@ -1,4 +1,6 @@
 ﻿using System.ServiceProcess;
+using Microsoft.EntityFrameworkCore;
+using RentACar.Data;
 using RentACar.Data.Seeder;
 
 namespace RentACar.Web.Extensions
@@ -13,6 +15,18 @@ namespace RentACar.Web.Extensions
 
                 await IdentitySeeder.SeedRoles(serviceProvider);
             }
+
+            return app;
+        }
+
+        public static IApplicationBuilder ApplyMigrations(this IApplicationBuilder app)
+        {
+            using IServiceScope serviceScope = app.ApplicationServices.CreateScope();
+
+            RentACarDbContext dbContext = serviceScope
+                .ServiceProvider
+                .GetRequiredService<RentACarDbContext>()!;
+            dbContext.Database.Migrate();
 
             return app;
         }

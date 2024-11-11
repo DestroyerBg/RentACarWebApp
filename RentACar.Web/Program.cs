@@ -54,4 +54,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
+app.ApplyMigrations();
+
 await app.RunAsync();
