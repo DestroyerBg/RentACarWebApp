@@ -12,8 +12,8 @@ using RentACar.Data;
 namespace RentACar.Data.Migrations
 {
     [DbContext(typeof(RentACarDbContext))]
-    [Migration("20241110192242_AddedLocation")]
-    partial class AddedLocation
+    [Migration("20241111114134_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace RentACar.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("InsuranceInsuranceBenefit", b =>
+                {
+                    b.Property<Guid>("InsuranceBenefitsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InsurancesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("InsuranceBenefitsId", "InsurancesId");
+
+                    b.HasIndex("InsurancesId");
+
+                    b.ToTable("InsuranceInsuranceBenefit");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
@@ -323,6 +338,33 @@ namespace RentACar.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("cedd0634-7ea3-443c-a40a-e020798bd754"),
+                            Name = "Луксозни"
+                        },
+                        new
+                        {
+                            Id = new Guid("637980e0-dafa-4492-bee2-4896c6e22e98"),
+                            Name = "Спортни"
+                        },
+                        new
+                        {
+                            Id = new Guid("f85af879-ac09-439e-8b33-504cd41b2b29"),
+                            Name = "Ежедневни"
+                        },
+                        new
+                        {
+                            Id = new Guid("e2b004b7-d8e2-4c14-8487-445288d88baa"),
+                            Name = "SUV"
+                        },
+                        new
+                        {
+                            Id = new Guid("64598716-6e73-4830-9c32-18062327a025"),
+                            Name = "Специални"
+                        });
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.CustomerFeedback", b =>
@@ -376,13 +418,101 @@ namespace RentACar.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)")
                         .HasComment("Feature name");
 
                     b.HasKey("Id");
 
                     b.ToTable("Features");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("5b8d468f-b321-4910-b168-db4135fc2ded"),
+                            Name = "Климатик"
+                        },
+                        new
+                        {
+                            Id = new Guid("d7b73c25-33e3-4c7f-a164-009f86a22d39"),
+                            Name = "Безключово палене"
+                        },
+                        new
+                        {
+                            Id = new Guid("e2db56a2-dddf-47e1-82e0-e9578aa8389c"),
+                            Name = "Подгрев на седалки"
+                        },
+                        new
+                        {
+                            Id = new Guid("f70e94c5-4e85-45a5-9805-edc4ea608616"),
+                            Name = "Автоматична скоростна кутия"
+                        },
+                        new
+                        {
+                            Id = new Guid("efbe1d4d-be12-4f65-9bba-c6e3fad0b728"),
+                            Name = "Камера за задно виждане"
+                        },
+                        new
+                        {
+                            Id = new Guid("c7e5ef3a-2c38-4b42-bf4d-7f8254932f53"),
+                            Name = "Двузонов климатроник"
+                        },
+                        new
+                        {
+                            Id = new Guid("6e8f1eaa-31a7-4b0a-816a-792e9cacc83b"),
+                            Name = "Навигационна система"
+                        },
+                        new
+                        {
+                            Id = new Guid("48beb215-f99b-4f34-b181-f29224494f9b"),
+                            Name = "Wi-fi хотспот"
+                        },
+                        new
+                        {
+                            Id = new Guid("eec8a24e-43a8-4c09-8d59-54257190b263"),
+                            Name = "Система за автоматично регулиране на дългите светлини"
+                        },
+                        new
+                        {
+                            Id = new Guid("89050a2f-622a-43b8-b444-eef2d1b343b8"),
+                            Name = "Адаптивен круиз контрол"
+                        },
+                        new
+                        {
+                            Id = new Guid("755cf66a-6fe1-4ca2-a3e2-bad6bf51cd01"),
+                            Name = "Лети джанти"
+                        },
+                        new
+                        {
+                            Id = new Guid("d8434029-5cf6-47b8-8bee-92784cc2aff1"),
+                            Name = "Дневни LED светлини"
+                        },
+                        new
+                        {
+                            Id = new Guid("cd409ed9-eaf9-4827-b5e5-7d2d2c0657b9"),
+                            Name = "4x4 задвижване"
+                        },
+                        new
+                        {
+                            Id = new Guid("f5e941e1-7e32-4d01-84ac-bfb46dc7686a"),
+                            Name = "Старт-стоп система"
+                        },
+                        new
+                        {
+                            Id = new Guid("d19e5b20-7a00-44b8-9c58-6e2153391da7"),
+                            Name = "Режим за управление на сняг"
+                        },
+                        new
+                        {
+                            Id = new Guid("48bda0ec-3a9d-4a49-afcd-2bdcdf589ef2"),
+                            Name = "Подгряване на волана"
+                        },
+                        new
+                        {
+                            Id = new Guid("4ee0377d-e821-48aa-8811-a334d87b36ca"),
+                            Name = "USB портове за задните седалки"
+                        });
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.Insurance", b =>
@@ -423,13 +553,10 @@ namespace RentACar.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("InsuranceId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasComment("Issurance benefit name");
 
                     b.Property<decimal>("Price")
@@ -437,9 +564,99 @@ namespace RentACar.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InsuranceId");
-
                     b.ToTable("InsuranceBenefits");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("af6ea01c-ac3a-4f0e-ac5d-960fccf9e108"),
+                            Name = "Безплатна пътна помощ",
+                            Price = 20.5m
+                        },
+                        new
+                        {
+                            Id = new Guid("6b6d085a-5eca-4c13-999c-acfa41c31fbb"),
+                            Name = "Заместващ автомобил при авария",
+                            Price = 50.0m
+                        },
+                        new
+                        {
+                            Id = new Guid("4634145c-0b58-40e5-ab28-453dc7dbfcfb"),
+                            Name = "Покритие на щети при пожар",
+                            Price = 35.75m
+                        },
+                        new
+                        {
+                            Id = new Guid("8247b60f-6d1b-44f2-8d25-4b626c846289"),
+                            Name = "Покритие на щети при природни бедствия",
+                            Price = 45.25m
+                        },
+                        new
+                        {
+                            Id = new Guid("f4cc3f4e-758e-44d2-b51f-fbd248941104"),
+                            Name = "24/7 телефонна помощ",
+                            Price = 15.0m
+                        },
+                        new
+                        {
+                            Id = new Guid("d8a918c2-32df-48fe-887d-6a3bdd4140a4"),
+                            Name = "Покритие на щети при вандализъм",
+                            Price = 40.99m
+                        },
+                        new
+                        {
+                            Id = new Guid("ebbb0552-d7ab-4877-8457-f6ba29c74296"),
+                            Name = "Замяна на ключове при загуба",
+                            Price = 25.49m
+                        },
+                        new
+                        {
+                            Id = new Guid("7634e8de-6b07-4432-9711-7f6cc464b71c"),
+                            Name = "Медицинска застраховка за пътниците",
+                            Price = 30.0m
+                        },
+                        new
+                        {
+                            Id = new Guid("b56a255e-12a2-477b-b3e5-a45cffccd33b"),
+                            Name = "Покритие при пътно-транспортно произшествие",
+                            Price = 60.75m
+                        },
+                        new
+                        {
+                            Id = new Guid("4f913d5f-56de-4b35-a578-0ebfd72f2ac2"),
+                            Name = "Покриване на разходи за транспорт",
+                            Price = 18.99m
+                        },
+                        new
+                        {
+                            Id = new Guid("26df4951-6af1-4a2c-b45e-a87b37b4609e"),
+                            Name = "Покритие при повреда на стъклата",
+                            Price = 22.89m
+                        },
+                        new
+                        {
+                            Id = new Guid("111f5874-9c53-4e81-804b-d3bf15cf4924"),
+                            Name = "Техническа поддръжка на място",
+                            Price = 35.0m
+                        },
+                        new
+                        {
+                            Id = new Guid("a6f454a9-e1eb-4cbc-bbb8-b8d2d9431354"),
+                            Name = "Разходи за репатрак",
+                            Price = 50.25m
+                        },
+                        new
+                        {
+                            Id = new Guid("4b133c49-58c6-46e3-ac64-76c15e394278"),
+                            Name = "Заместваща гума при повреда",
+                            Price = 10.0m
+                        },
+                        new
+                        {
+                            Id = new Guid("92f0e642-8b86-4a60-9952-6f001462d193"),
+                            Name = "Застраховка за лични вещи в автомобила",
+                            Price = 45.89m
+                        });
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.Location", b =>
@@ -461,6 +678,98 @@ namespace RentACar.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Locations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d60fea38-a9e6-4c95-9d41-c034aea4e7bc"),
+                            City = "София",
+                            PostalCode = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("ce544101-8446-4841-9fb9-bb6a28f54a8d"),
+                            City = "Пловдив",
+                            PostalCode = 4000
+                        },
+                        new
+                        {
+                            Id = new Guid("f1e74d6d-6635-420f-a33b-f38451f036a9"),
+                            City = "Варна",
+                            PostalCode = 9000
+                        },
+                        new
+                        {
+                            Id = new Guid("3de2f94d-6abd-4b5c-86c0-8cd5a61c6d3a"),
+                            City = "Бургас",
+                            PostalCode = 8000
+                        },
+                        new
+                        {
+                            Id = new Guid("dc134064-d14c-4a5a-88c1-426ea1ddc247"),
+                            City = "Русе",
+                            PostalCode = 7000
+                        },
+                        new
+                        {
+                            Id = new Guid("f2c0a151-affd-45e7-86f1-a4af3c14591c"),
+                            City = "Стара Загора",
+                            PostalCode = 6000
+                        },
+                        new
+                        {
+                            Id = new Guid("4a249ab9-522f-4c67-b2b5-4d332c94d691"),
+                            City = "Плевен",
+                            PostalCode = 5800
+                        },
+                        new
+                        {
+                            Id = new Guid("40030c7e-7e40-42e1-bbee-34139d9fc383"),
+                            City = "Добрич",
+                            PostalCode = 9300
+                        },
+                        new
+                        {
+                            Id = new Guid("7b54e3fa-b286-47a8-956a-ce732f7ce385"),
+                            City = "Шумен",
+                            PostalCode = 9700
+                        },
+                        new
+                        {
+                            Id = new Guid("461e3f2d-08eb-4ca4-b23d-bbfe9cc1c9d3"),
+                            City = "Благоевград",
+                            PostalCode = 2700
+                        },
+                        new
+                        {
+                            Id = new Guid("67a2c81a-e6f3-4ed7-86ed-42f08d0daf0f"),
+                            City = "Велико Търново",
+                            PostalCode = 5000
+                        },
+                        new
+                        {
+                            Id = new Guid("3173028f-ec39-4056-b2f9-a6f2608fdd4d"),
+                            City = "Габрово",
+                            PostalCode = 5300
+                        },
+                        new
+                        {
+                            Id = new Guid("dd6b81b1-7577-45e2-9399-ee37f9dcb5bc"),
+                            City = "Кърджали",
+                            PostalCode = 6600
+                        },
+                        new
+                        {
+                            Id = new Guid("792c3757-2bc3-4b8a-8c49-4a164e1ad37d"),
+                            City = "Монтана",
+                            PostalCode = 3400
+                        },
+                        new
+                        {
+                            Id = new Guid("f2cd67b8-0be7-40d9-bd89-b789698c08e9"),
+                            City = "Сливен",
+                            PostalCode = 8800
+                        });
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.Reservation", b =>
@@ -508,6 +817,21 @@ namespace RentACar.Data.Migrations
                     b.HasIndex("LocationId");
 
                     b.ToTable("Reservations");
+                });
+
+            modelBuilder.Entity("InsuranceInsuranceBenefit", b =>
+                {
+                    b.HasOne("RentACar.Data.Models.InsuranceBenefit", null)
+                        .WithMany()
+                        .HasForeignKey("InsuranceBenefitsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RentACar.Data.Models.Insurance", null)
+                        .WithMany()
+                        .HasForeignKey("InsurancesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -637,13 +961,6 @@ namespace RentACar.Data.Migrations
                     b.Navigation("Reservation");
                 });
 
-            modelBuilder.Entity("RentACar.Data.Models.InsuranceBenefit", b =>
-                {
-                    b.HasOne("RentACar.Data.Models.Insurance", null)
-                        .WithMany("InsuranceBenefits")
-                        .HasForeignKey("InsuranceId");
-                });
-
             modelBuilder.Entity("RentACar.Data.Models.Reservation", b =>
                 {
                     b.HasOne("RentACar.Data.Models.Car", "Car")
@@ -687,11 +1004,6 @@ namespace RentACar.Data.Migrations
             modelBuilder.Entity("RentACar.Data.Models.Feature", b =>
                 {
                     b.Navigation("CarFeatures");
-                });
-
-            modelBuilder.Entity("RentACar.Data.Models.Insurance", b =>
-                {
-                    b.Navigation("InsuranceBenefits");
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.Location", b =>

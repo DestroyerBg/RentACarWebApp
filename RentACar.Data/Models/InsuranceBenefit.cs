@@ -17,5 +17,7 @@ namespace RentACar.Data.Models
         [Required]
         [Column(TypeName = PricePrecision)]
         public decimal Price { get; set; }
+
+        public ICollection<Insurance> Insurances { get; set; } = new HashSet<Insurance>();
     }
 }
