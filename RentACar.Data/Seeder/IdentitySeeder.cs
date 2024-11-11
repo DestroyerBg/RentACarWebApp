@@ -1,9 +1,9 @@
 ﻿using System.Globalization;
-using System.Reflection;
 using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using RentACar.Data.Helpers;
 using RentACar.Data.Models;
 using RentACar.DTO.Identity;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
@@ -13,9 +13,7 @@ namespace RentACar.Data.Seeder
     {
         public static async Task SeedRoles(IServiceProvider serviceProvider)
         {
-            string solutionRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".."));
-            string filePath = Path.Combine(solutionRoot, "RentACar.Data","Seeder", "JSON", "Roles.json");
-            string jsonContent = File.ReadAllText(filePath);
+            string jsonContent = JsonReader.ReadJson("Roles.json");
             RoleManager<IdentityRole<Guid>> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
             List<IdentityRole<Guid>>? roles = JsonSerializer.Deserialize<List<IdentityRole<Guid>>>(jsonContent);
 
@@ -33,10 +31,7 @@ namespace RentACar.Data.Seeder
 
         private static async Task SeedAdminProfileAndApplyAllRoles(IServiceProvider serviceProvider)
         {
-            string solutionRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".."));
-            string filePath = Path.Combine(solutionRoot, "RentACar.Data", "Seeder", "JSON", "Admin.json");
-            string jsonContent = File.ReadAllText(filePath);
-
+            string jsonContent = JsonReader.ReadJson("Admin.json");
             UserManager<ApplicationUser> userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             IUserStore<ApplicationUser> userStore = serviceProvider.GetRequiredService<IUserStore<ApplicationUser>>();
