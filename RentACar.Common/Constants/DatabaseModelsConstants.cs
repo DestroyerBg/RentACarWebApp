@@ -54,7 +54,7 @@
         public static class Feature
         {
             public const int NameMinLength = 3;
-            public const int NameMaxLength = 20;
+            public const int NameMaxLength = 100;
         }
 
         public static class Category
