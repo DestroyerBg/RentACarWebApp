@@ -1,0 +1,62 @@
+[
+  {
+    "City": "София",
+    "PostalCode": 1000
+  },
+  {
+    "City": "Пловдив",
+    "PostalCode": 4000
+  },
+  {
+    "City": "Варна",
+    "PostalCode": 9000
+  },
+  {
+    "City": "Бургас",
+    "PostalCode": 8000
+  },
+  {
+    "City": "Русе",
+    "PostalCode": 7000
+  },
+  {
+    "City": "Стара Загора",
+    "PostalCode": 6000
+  },
+  {
+    "City": "Плевен",
+    "PostalCode": 5800
+  },
+  {
+    "City": "Добрич",
+    "PostalCode": 9300
+  },
+  {
+    "City": "Шумен",
+    "PostalCode": 9700
+  },
+  {
+    "City": "Благоевград",
+    "PostalCode": 2700
+  },
+  {
+    "City": "Велико Търново",
+    "PostalCode": 5000
+  },
+  {
+    "City": "Габрово",
+    "PostalCode": 5300
+  },
+  {
+    "City": "Кърджали",
+    "PostalCode": 6600
+  },
+  {
+    "City": "Монтана",
+    "PostalCode": 3400
+  },
+  {
+    "City": "Сливен",
+    "PostalCode": 8800
+  }
+]
