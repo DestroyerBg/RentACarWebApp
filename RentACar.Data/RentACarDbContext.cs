@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RentACar.Data.Configurations;
 using RentACar.Data.Models;
 
 namespace RentACar.Data

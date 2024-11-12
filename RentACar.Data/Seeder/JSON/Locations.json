@@ -1,61 +1,76 @@
 [
   {
+    "Id": "aad035c2-cece-4cf0-935b-0b8e9c9779ea",
     "City": "София",
     "PostalCode": 1000
   },
   {
+    "Id": "8c1447d3-4955-4096-b74b-9ba0fe1c8e4f",
     "City": "Пловдив",
     "PostalCode": 4000
   },
   {
+    "Id": "a332f2a7-dd41-4c9d-9e07-588ef430a4e6",
     "City": "Варна",
     "PostalCode": 9000
   },
   {
+    "Id": "017b1cb8-70bf-434e-80e7-54173e8f70f6",
     "City": "Бургас",
     "PostalCode": 8000
   },
   {
+    "Id": "e1f7cebf-5d73-452d-9c8f-de3284ff8afc",
     "City": "Русе",
     "PostalCode": 7000
   },
   {
+    "Id": "23b3bfb7-f392-44f1-8cb3-40116a7ad3a2",
     "City": "Стара Загора",
     "PostalCode": 6000
   },
   {
+    "Id": "9defddb2-f6f7-433c-a7d4-f6f80fd44697",
     "City": "Плевен",
     "PostalCode": 5800
   },
   {
+    "Id": "085b0080-8968-4c12-a042-d3880250433c",
     "City": "Добрич",
     "PostalCode": 9300
   },
   {
+    "Id": "24fa9a47-396c-454b-a8a9-053b1ede625b",
     "City": "Шумен",
     "PostalCode": 9700
   },
   {
+    "Id": "85ee0308-3ad9-4dfa-8779-ccacc2c683c4",
     "City": "Благоевград",
     "PostalCode": 2700
   },
   {
+    "Id": "5d9da1e3-cbdb-4919-a8a4-cacac0bcda4f",
     "City": "Велико Търново",
     "PostalCode": 5000
   },
   {
+    "Id": "002a8bad-4d1d-4284-bd52-f97d2cc86b2c",
     "City": "Габрово",
     "PostalCode": 5300
   },
   {
+    "Id": "145ebda5-cbdd-44d1-96b9-feb037937e71",
     "City": "Кърджали",
     "PostalCode": 6600
   },
   {
+    "Id": "2eb422bc-f57b-454d-abd7-d98c0f29861a",
     "City": "Монтана",
     "PostalCode": 3400
   },
   {
+    "Id": "552303ab-7a47-4ff3-9872-fe79887cbd53",
     "City": "Сливен",
     "PostalCode": 8800
   }

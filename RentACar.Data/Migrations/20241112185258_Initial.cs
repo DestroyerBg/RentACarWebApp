@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace RentACar.Data.Migrations
 {
     /// <inheritdoc />
@@ -221,8 +219,9 @@ namespace RentACar.Data.Migrations
                     HorsePower = table.Column<int>(type: "int", nullable: false, comment: "Car's horsepower"),
                     RegistrationNumber = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false, comment: "Car's registration number"),
                     YearOfManufacture = table.Column<int>(type: "int", nullable: false, comment: "Year when car was produced"),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Category of the car"),
                     LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Car's location"),
+                    ImageUrl = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Car image url"),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Is the entity deleted?")
                 },
                 constraints: table =>
@@ -380,86 +379,6 @@ namespace RentACar.Data.Migrations
                         principalTable: "Insurances",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { new Guid("637980e0-dafa-4492-bee2-4896c6e22e98"), "Спортни" },
-                    { new Guid("64598716-6e73-4830-9c32-18062327a025"), "Специални" },
-                    { new Guid("cedd0634-7ea3-443c-a40a-e020798bd754"), "Луксозни" },
-                    { new Guid("e2b004b7-d8e2-4c14-8487-445288d88baa"), "SUV" },
-                    { new Guid("f85af879-ac09-439e-8b33-504cd41b2b29"), "Ежедневни" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Features",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { new Guid("48bda0ec-3a9d-4a49-afcd-2bdcdf589ef2"), "Подгряване на волана" },
-                    { new Guid("48beb215-f99b-4f34-b181-f29224494f9b"), "Wi-fi хотспот" },
-                    { new Guid("4ee0377d-e821-48aa-8811-a334d87b36ca"), "USB портове за задните седалки" },
-                    { new Guid("5b8d468f-b321-4910-b168-db4135fc2ded"), "Климатик" },
-                    { new Guid("6e8f1eaa-31a7-4b0a-816a-792e9cacc83b"), "Навигационна система" },
-                    { new Guid("755cf66a-6fe1-4ca2-a3e2-bad6bf51cd01"), "Лети джанти" },
-                    { new Guid("89050a2f-622a-43b8-b444-eef2d1b343b8"), "Адаптивен круиз контрол" },
-                    { new Guid("c7e5ef3a-2c38-4b42-bf4d-7f8254932f53"), "Двузонов климатроник" },
-                    { new Guid("cd409ed9-eaf9-4827-b5e5-7d2d2c0657b9"), "4x4 задвижване" },
-                    { new Guid("d19e5b20-7a00-44b8-9c58-6e2153391da7"), "Режим за управление на сняг" },
-                    { new Guid("d7b73c25-33e3-4c7f-a164-009f86a22d39"), "Безключово палене" },
-                    { new Guid("d8434029-5cf6-47b8-8bee-92784cc2aff1"), "Дневни LED светлини" },
-                    { new Guid("e2db56a2-dddf-47e1-82e0-e9578aa8389c"), "Подгрев на седалки" },
-                    { new Guid("eec8a24e-43a8-4c09-8d59-54257190b263"), "Система за автоматично регулиране на дългите светлини" },
-                    { new Guid("efbe1d4d-be12-4f65-9bba-c6e3fad0b728"), "Камера за задно виждане" },
-                    { new Guid("f5e941e1-7e32-4d01-84ac-bfb46dc7686a"), "Старт-стоп система" },
-                    { new Guid("f70e94c5-4e85-45a5-9805-edc4ea608616"), "Автоматична скоростна кутия" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "InsuranceBenefits",
-                columns: new[] { "Id", "Name", "Price" },
-                values: new object[,]
-                {
-                    { new Guid("111f5874-9c53-4e81-804b-d3bf15cf4924"), "Техническа поддръжка на място", 35.0m },
-                    { new Guid("26df4951-6af1-4a2c-b45e-a87b37b4609e"), "Покритие при повреда на стъклата", 22.89m },
-                    { new Guid("4634145c-0b58-40e5-ab28-453dc7dbfcfb"), "Покритие на щети при пожар", 35.75m },
-                    { new Guid("4b133c49-58c6-46e3-ac64-76c15e394278"), "Заместваща гума при повреда", 10.0m },
-                    { new Guid("4f913d5f-56de-4b35-a578-0ebfd72f2ac2"), "Покриване на разходи за транспорт", 18.99m },
-                    { new Guid("6b6d085a-5eca-4c13-999c-acfa41c31fbb"), "Заместващ автомобил при авария", 50.0m },
-                    { new Guid("7634e8de-6b07-4432-9711-7f6cc464b71c"), "Медицинска застраховка за пътниците", 30.0m },
-                    { new Guid("8247b60f-6d1b-44f2-8d25-4b626c846289"), "Покритие на щети при природни бедствия", 45.25m },
-                    { new Guid("92f0e642-8b86-4a60-9952-6f001462d193"), "Застраховка за лични вещи в автомобила", 45.89m },
-                    { new Guid("a6f454a9-e1eb-4cbc-bbb8-b8d2d9431354"), "Разходи за репатрак", 50.25m },
-                    { new Guid("af6ea01c-ac3a-4f0e-ac5d-960fccf9e108"), "Безплатна пътна помощ", 20.5m },
-                    { new Guid("b56a255e-12a2-477b-b3e5-a45cffccd33b"), "Покритие при пътно-транспортно произшествие", 60.75m },
-                    { new Guid("d8a918c2-32df-48fe-887d-6a3bdd4140a4"), "Покритие на щети при вандализъм", 40.99m },
-                    { new Guid("ebbb0552-d7ab-4877-8457-f6ba29c74296"), "Замяна на ключове при загуба", 25.49m },
-                    { new Guid("f4cc3f4e-758e-44d2-b51f-fbd248941104"), "24/7 телефонна помощ", 15.0m }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Locations",
-                columns: new[] { "Id", "City", "PostalCode" },
-                values: new object[,]
-                {
-                    { new Guid("3173028f-ec39-4056-b2f9-a6f2608fdd4d"), "Габрово", 5300 },
-                    { new Guid("3de2f94d-6abd-4b5c-86c0-8cd5a61c6d3a"), "Бургас", 8000 },
-                    { new Guid("40030c7e-7e40-42e1-bbee-34139d9fc383"), "Добрич", 9300 },
-                    { new Guid("461e3f2d-08eb-4ca4-b23d-bbfe9cc1c9d3"), "Благоевград", 2700 },
-                    { new Guid("4a249ab9-522f-4c67-b2b5-4d332c94d691"), "Плевен", 5800 },
-                    { new Guid("67a2c81a-e6f3-4ed7-86ed-42f08d0daf0f"), "Велико Търново", 5000 },
-                    { new Guid("792c3757-2bc3-4b8a-8c49-4a164e1ad37d"), "Монтана", 3400 },
-                    { new Guid("7b54e3fa-b286-47a8-956a-ce732f7ce385"), "Шумен", 9700 },
-                    { new Guid("ce544101-8446-4841-9fb9-bb6a28f54a8d"), "Пловдив", 4000 },
-                    { new Guid("d60fea38-a9e6-4c95-9d41-c034aea4e7bc"), "София", 1000 },
-                    { new Guid("dc134064-d14c-4a5a-88c1-426ea1ddc247"), "Русе", 7000 },
-                    { new Guid("dd6b81b1-7577-45e2-9399-ee37f9dcb5bc"), "Кърджали", 6600 },
-                    { new Guid("f1e74d6d-6635-420f-a33b-f38451f036a9"), "Варна", 9000 },
-                    { new Guid("f2c0a151-affd-45e7-86f1-a4af3c14591c"), "Стара Загора", 6000 },
-                    { new Guid("f2cd67b8-0be7-40d9-bd89-b789698c08e9"), "Сливен", 8800 }
                 });
 
             migrationBuilder.CreateIndex(

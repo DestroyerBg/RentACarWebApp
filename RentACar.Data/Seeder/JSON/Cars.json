@@ -1,0 +1,202 @@
+[
+  {
+    "Brand": "BMW",
+    "Model": "3 Series",
+    "HorsePower": 150,
+    "RegistrationNumber": "В7192ММ",
+    "YearOfManufacture": 2020,
+    "ImageUrl": "~/images/cars/Bmw3Series2020.jpg",
+    "LocationId": "a332f2a7-dd41-4c9d-9e07-588ef430a4e6",
+    "CategoryId": "1926ba25-6ad3-4c67-9de1-3b070b1bf15d"
+  },
+  {
+    "Brand": "Mercedes",
+    "Model": "C-Class",
+    "HorsePower": 200,
+    "RegistrationNumber": "Х1244ХМ",
+    "YearOfManufacture": 2019,
+    "ImageUrl": "~/images/cars/MercedesCClass2019.jpg",
+    "LocationId": "9defddb2-f6f7-433c-a7d4-f6f80fd44697",
+    "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
+  },
+  {
+    "Brand": "Audi",
+    "Model": "A4",
+    "HorsePower": 170,
+    "RegistrationNumber": "Т5260МВ",
+    "YearOfManufacture": 2021,
+    "ImageUrl": "~/images/cars/AudiA42019.jpg",
+    "LocationId": "5d9da1e3-cbdb-4919-a8a4-cacac0bcda4f",
+    "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
+  },
+  {
+    "Brand": "Toyota",
+    "Model": "Corolla",
+    "HorsePower": 132,
+    "RegistrationNumber": "М3051КХ",
+    "YearOfManufacture": 2022,
+    "ImageUrl": "~/images/cars/ToyotaCorolla2022.jpg",
+    "LocationId": "2eb422bc-f57b-454d-abd7-d98c0f29861a",
+    "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
+  },
+  {
+    "Brand": "Honda",
+    "Model": "Civic",
+    "HorsePower": 158,
+    "RegistrationNumber": "В3389ТМ",
+    "YearOfManufacture": 2023,
+    "ImageUrl": "~/images/cars/HondaCivic2023.jpg",
+    "LocationId": "a332f2a7-dd41-4c9d-9e07-588ef430a4e6",
+    "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
+  },
+  {
+    "Brand": "Ford",
+    "Model": "Focus",
+    "HorsePower": 140,
+    "RegistrationNumber": "Т8286КК",
+    "YearOfManufacture": 2021,
+    "ImageUrl": "~/images/cars/FordFocus2021.jpg",
+    "LocationId": "5d9da1e3-cbdb-4919-a8a4-cacac0bcda4f",
+    "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
+  },
+  {
+    "Brand": "Volkswagen",
+    "Model": "Passat",
+    "HorsePower": 174,
+    "RegistrationNumber": "В6685МХ",
+    "YearOfManufacture": 2020,
+    "ImageUrl": "~/images/cars/VolkswagenPassat2020.jpg",
+    "LocationId": "a332f2a7-dd41-4c9d-9e07-588ef430a4e6",
+    "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
+  },
+  {
+    "Brand": "Volvo",
+    "Model": "XC40",
+    "HorsePower": 187,
+    "RegistrationNumber": "Т6955МХ",
+    "YearOfManufacture": 2022,
+    "ImageUrl": "~/images/cars/VolvoXC402022.jpg",
+    "LocationId": "5d9da1e3-cbdb-4919-a8a4-cacac0bcda4f",
+    "CategoryId": "947f0ccd-c31d-4c6b-a1b6-36ddcf7a9071"
+  },
+  {
+    "Brand": "Mazda",
+    "Model": "CX-5",
+    "HorsePower": 187,
+    "RegistrationNumber": "М2838МТ",
+    "YearOfManufacture": 2023,
+    "ImageUrl": "~/images/cars/MazdaCX52023.jpg",
+    "LocationId": "2eb422bc-f57b-454d-abd7-d98c0f29861a",
+    "CategoryId": "947f0ccd-c31d-4c6b-a1b6-36ddcf7a9071"
+  },
+  {
+    "Brand": "Hyundai",
+    "Model": "Tucson",
+    "HorsePower": 161,
+    "RegistrationNumber": "В2063КМ",
+    "YearOfManufacture": 2022,
+    "ImageUrl": "~/images/cars/HyundaiTucson2021.jpg",
+    "LocationId": "a332f2a7-dd41-4c9d-9e07-588ef430a4e6",
+    "CategoryId": "947f0ccd-c31d-4c6b-a1b6-36ddcf7a9071"
+  },
+  {
+    "Brand": "Nissan",
+    "Model": "Qashqai",
+    "HorsePower": 147,
+    "RegistrationNumber": "Х7157ММ",
+    "YearOfManufacture": 2021,
+    "ImageUrl": "~/images/cars/NissanQashqai2021.jpg",
+    "LocationId": "002a8bad-4d1d-4284-bd52-f97d2cc86b2c",
+    "CategoryId": "947f0ccd-c31d-4c6b-a1b6-36ddcf7a9071"
+  },
+  {
+    "Brand": "Kia",
+    "Model": "Sportage",
+    "HorsePower": 181,
+    "RegistrationNumber": "Х3390МТ",
+    "YearOfManufacture": 2023,
+    "ImageUrl": "~/images/cars/KiaSportage2023.jpg",
+    "LocationId": "002a8bad-4d1d-4284-bd52-f97d2cc86b2c",
+    "CategoryId": "947f0ccd-c31d-4c6b-a1b6-36ddcf7a9071"
+  },
+  {
+    "Brand": "Peugeot",
+    "Model": "3008",
+    "HorsePower": 150,
+    "RegistrationNumber": "М5347МХ",
+    "YearOfManufacture": 2020,
+    "ImageUrl": "~/images/cars/Peugeot3008.jpg",
+    "LocationId": "145ebda5-cbdd-44d1-96b9-feb037937e71",
+    "CategoryId": "cf4669cc-338f-4f91-b96e-7d7dfb7986b1"
+  },
+  {
+    "Brand": "Renault",
+    "Model": "Kadjar",
+    "HorsePower": 140,
+    "RegistrationNumber": "М1477ХВ",
+    "YearOfManufacture": 2021,
+    "ImageUrl": "~/images/cars/RenaultKadjar2019.jpg",
+    "LocationId": "145ebda5-cbdd-44d1-96b9-feb037937e71",
+    "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
+  },
+  {
+    "Brand": "Chevrolet",
+    "Model": "Malibu",
+    "HorsePower": 160,
+    "RegistrationNumber": "Т9767МК",
+    "YearOfManufacture": 2019,
+    "ImageUrl": "~/images/cars/ChevroletMalibu2019.jpg",
+    "LocationId": "9defddb2-f6f7-433c-a7d4-f6f80fd44697",
+    "CategoryId": "cf4669cc-338f-4f91-b96e-7d7dfb7986b1"
+  },
+  {
+    "Brand": "Subaru",
+    "Model": "Forester",
+    "HorsePower": 182,
+    "RegistrationNumber": "В3318ВМ",
+    "YearOfManufacture": 2022,
+    "ImageUrl": "~/images/cars/SubaruForester2022.jpg",
+    "LocationId": "a332f2a7-dd41-4c9d-9e07-588ef430a4e6",
+    "CategoryId": "947f0ccd-c31d-4c6b-a1b6-36ddcf7a9071"
+  },
+  {
+    "Brand": "Tesla",
+    "Model": "Model 3",
+    "HorsePower": 283,
+    "RegistrationNumber": "К5761ВХ",
+    "YearOfManufacture": 2023,
+    "ImageUrl": "~/images/cars/TeslaModel32023.jpg",
+    "LocationId": "24fa9a47-396c-454b-a8a9-053b1ede625b",
+    "CategoryId": "cf4669cc-338f-4f91-b96e-7d7dfb7986b1"
+  },
+  {
+    "Brand": "Lexus",
+    "Model": "RX",
+    "HorsePower": 295,
+    "RegistrationNumber": "К5519ВК",
+    "YearOfManufacture": 2021,
+    "ImageUrl": "~/images/cars/LexusRX2023.jpg",
+    "LocationId": "24fa9a47-396c-454b-a8a9-053b1ede625b",
+    "CategoryId": "cf4669cc-338f-4f91-b96e-7d7dfb7986b1"
+  },
+  {
+    "Brand": "Jaguar",
+    "Model": "XE",
+    "HorsePower": 250,
+    "RegistrationNumber": "В2840ХТ",
+    "YearOfManufacture": 2020,
+    "ImageUrl": "~/images/cars/JaguarXE2022.jpg",
+    "LocationId": "085b0080-8968-4c12-a042-d3880250433c",
+    "CategoryId": "cf4669cc-338f-4f91-b96e-7d7dfb7986b1"
+  },
+  {
+    "Brand": "Porsche",
+    "Model": "Macan",
+    "HorsePower": 261,
+    "RegistrationNumber": "М6867ВХ",
+    "YearOfManufacture": 2022,
+    "ImageUrl": "~/images/cars/PorscheMacan2022.jpg",
+    "LocationId": "aad035c2-cece-4cf0-935b-0b8e9c9779ea",
+    "CategoryId": "cf4669cc-338f-4f91-b96e-7d7dfb7986b1"
+  }
+]

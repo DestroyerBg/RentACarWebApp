@@ -23,6 +23,8 @@ builder.Services.RegisterUserDefinedServices();
 
 WebApplication app = builder.Build();
 
+app.ApplyMigrations();
+app.SeedDatabase();
 await app.SeedAdminAndRoles();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -53,7 +55,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
-
-app.ApplyMigrations();
 
 await app.RunAsync();
