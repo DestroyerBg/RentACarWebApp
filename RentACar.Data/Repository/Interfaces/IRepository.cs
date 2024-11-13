@@ -1,7 +1,8 @@
-﻿using System.Linq.Expressions;
+﻿using RentACar.Data.Models.Interfaces;
+using System.Linq.Expressions;
 namespace RentACar.Data.Repository.Interfaces
 {
-    public interface IRepository<TType, TId>
+    public interface IRepository<TType, TId> where TType : class, ISoftDeletable
     {
         Task<TType> GetByIdAsync(TId id);
 

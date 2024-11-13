@@ -21,6 +21,10 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.RegisterUserDefinedServices();
 
+builder.Services.RegisterAutoMapper();
+
+builder.Services.RegisterRepositories();
+
 WebApplication app = builder.Build();
 
 app.ApplyMigrations();
