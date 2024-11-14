@@ -12,7 +12,6 @@ namespace RentACar.Web.Extensions
         public static IServiceCollection RegisterUserDefinedServices(this IServiceCollection services)
         {
             services.AddScoped<IUserService<ApplicationUser, Guid>, ApplicationUserService>();
-            services.AddAutoMapper(typeof(IdentityProfiles));
             return services;
         }
 

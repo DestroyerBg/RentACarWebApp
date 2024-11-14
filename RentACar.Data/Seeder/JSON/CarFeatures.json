@@ -1,0 +1,298 @@
+[
+  {
+    "CarId": "fff77d96-32d8-4de0-a02a-1792e64179c7",
+    "FeatureId": "1634ca60-c67f-4514-8101-5a4d5565a16b"
+  },
+  {
+    "CarId": "fff77d96-32d8-4de0-a02a-1792e64179c7",
+    "FeatureId": "b2fb756e-fcd0-444a-af52-96f20ec9b584"
+  },
+  {
+    "CarId": "fff77d96-32d8-4de0-a02a-1792e64179c7",
+    "FeatureId": "84eee263-73dd-4ce9-911c-d919956833e5"
+  },
+  {
+    "CarId": "b0f51be3-735e-457e-9229-8cb9791f840d",
+    "FeatureId": "443542d8-51c5-40a7-afa0-b1a3979f5a45"
+  },
+  {
+    "CarId": "b0f51be3-735e-457e-9229-8cb9791f840d",
+    "FeatureId": "84eee263-73dd-4ce9-911c-d919956833e5"
+  },
+  {
+    "CarId": "b0f51be3-735e-457e-9229-8cb9791f840d",
+    "FeatureId": "98a1f22e-6ad6-4e9d-a9d3-ed4d988f7ee3"
+  },
+  {
+    "CarId": "b0f51be3-735e-457e-9229-8cb9791f840d",
+    "FeatureId": "b661a5c6-06a7-4cc4-a16d-c462045f8ebd"
+  },
+  {
+    "CarId": "eb4a2a11-2cfd-49b0-a768-c7e94be7ddcc",
+    "FeatureId": "63111cbf-31f5-46d5-8b5c-297e41843089"
+  },
+  {
+    "CarId": "eb4a2a11-2cfd-49b0-a768-c7e94be7ddcc",
+    "FeatureId": "982c775c-7c16-4682-8f2b-4d8a71c02f6f"
+  },
+  {
+    "CarId": "eb4a2a11-2cfd-49b0-a768-c7e94be7ddcc",
+    "FeatureId": "63f1dc8b-6ae1-478e-9976-16f0de6e3651"
+  },
+  {
+    "CarId": "eb4a2a11-2cfd-49b0-a768-c7e94be7ddcc",
+    "FeatureId": "b661a5c6-06a7-4cc4-a16d-c462045f8ebd"
+  },
+  {
+    "CarId": "4aaf900f-6657-4285-b4e7-f04838b1ae4d",
+    "FeatureId": "5e49f4c0-e4c6-4390-8695-f7747c135102"
+  },
+  {
+    "CarId": "4aaf900f-6657-4285-b4e7-f04838b1ae4d",
+    "FeatureId": "73c8d473-8915-4d9a-b3cc-61769cec15fa"
+  },
+  {
+    "CarId": "4aaf900f-6657-4285-b4e7-f04838b1ae4d",
+    "FeatureId": "9757a13b-2e62-4c52-8441-f8881a84ef14"
+  },
+  {
+    "CarId": "4aaf900f-6657-4285-b4e7-f04838b1ae4d",
+    "FeatureId": "e29a5109-7745-4edf-b4f5-5794e14f0797"
+  },
+  {
+    "CarId": "41350f43-0664-4b5d-817b-76c77dc04821",
+    "FeatureId": "98a1f22e-6ad6-4e9d-a9d3-ed4d988f7ee3"
+  },
+  {
+    "CarId": "41350f43-0664-4b5d-817b-76c77dc04821",
+    "FeatureId": "84eee263-73dd-4ce9-911c-d919956833e5"
+  },
+  {
+    "CarId": "41350f43-0664-4b5d-817b-76c77dc04821",
+    "FeatureId": "1634ca60-c67f-4514-8101-5a4d5565a16b"
+  },
+  {
+    "CarId": "41350f43-0664-4b5d-817b-76c77dc04821",
+    "FeatureId": "63f1dc8b-6ae1-478e-9976-16f0de6e3651"
+  },
+  {
+    "CarId": "40b73633-2258-46f6-bd71-9034c0a7adb4",
+    "FeatureId": "84eee263-73dd-4ce9-911c-d919956833e5"
+  },
+  {
+    "CarId": "40b73633-2258-46f6-bd71-9034c0a7adb4",
+    "FeatureId": "63111cbf-31f5-46d5-8b5c-297e41843089"
+  },
+  {
+    "CarId": "40b73633-2258-46f6-bd71-9034c0a7adb4",
+    "FeatureId": "443542d8-51c5-40a7-afa0-b1a3979f5a45"
+  },
+  {
+    "CarId": "899479ed-ba28-448d-8230-d6357a8203f7",
+    "FeatureId": "98a1f22e-6ad6-4e9d-a9d3-ed4d988f7ee3"
+  },
+  {
+    "CarId": "899479ed-ba28-448d-8230-d6357a8203f7",
+    "FeatureId": "63111cbf-31f5-46d5-8b5c-297e41843089"
+  },
+  {
+    "CarId": "899479ed-ba28-448d-8230-d6357a8203f7",
+    "FeatureId": "63f1dc8b-6ae1-478e-9976-16f0de6e3651"
+  },
+  {
+    "CarId": "899479ed-ba28-448d-8230-d6357a8203f7",
+    "FeatureId": "e29a5109-7745-4edf-b4f5-5794e14f0797"
+  },
+  {
+    "CarId": "4b7a16f5-37fd-4f60-bea8-33d6e61155f1",
+    "FeatureId": "b2fb756e-fcd0-444a-af52-96f20ec9b584"
+  },
+  {
+    "CarId": "4b7a16f5-37fd-4f60-bea8-33d6e61155f1",
+    "FeatureId": "e29a5109-7745-4edf-b4f5-5794e14f0797"
+  },
+  {
+    "CarId": "4b7a16f5-37fd-4f60-bea8-33d6e61155f1",
+    "FeatureId": "9757a13b-2e62-4c52-8441-f8881a84ef14"
+  },
+  {
+    "CarId": "4b7a16f5-37fd-4f60-bea8-33d6e61155f1",
+    "FeatureId": "982c775c-7c16-4682-8f2b-4d8a71c02f6f"
+  },
+  {
+    "CarId": "303ed8b3-e698-4d8e-8517-3563ec570d03",
+    "FeatureId": "1634ca60-c67f-4514-8101-5a4d5565a16b"
+  },
+  {
+    "CarId": "303ed8b3-e698-4d8e-8517-3563ec570d03",
+    "FeatureId": "e0d1b5c4-63af-498b-a15d-93db16698296"
+  },
+  {
+    "CarId": "303ed8b3-e698-4d8e-8517-3563ec570d03",
+    "FeatureId": "63111cbf-31f5-46d5-8b5c-297e41843089"
+  },
+  {
+    "CarId": "7ae82b64-710e-4308-a16a-25d2581da20a",
+    "FeatureId": "982c775c-7c16-4682-8f2b-4d8a71c02f6f"
+  },
+  {
+    "CarId": "7ae82b64-710e-4308-a16a-25d2581da20a",
+    "FeatureId": "84eee263-73dd-4ce9-911c-d919956833e5"
+  },
+  {
+    "CarId": "7ae82b64-710e-4308-a16a-25d2581da20a",
+    "FeatureId": "1634ca60-c67f-4514-8101-5a4d5565a16b"
+  },
+  {
+    "CarId": "7ae82b64-710e-4308-a16a-25d2581da20a",
+    "FeatureId": "73c8d473-8915-4d9a-b3cc-61769cec15fa"
+  },
+  {
+    "CarId": "e98a56e2-9e24-4d99-8a92-ab88db5067f5",
+    "FeatureId": "443542d8-51c5-40a7-afa0-b1a3979f5a45"
+  },
+  {
+    "CarId": "e98a56e2-9e24-4d99-8a92-ab88db5067f5",
+    "FeatureId": "982c775c-7c16-4682-8f2b-4d8a71c02f6f"
+  },
+  {
+    "CarId": "e98a56e2-9e24-4d99-8a92-ab88db5067f5",
+    "FeatureId": "73c8d473-8915-4d9a-b3cc-61769cec15fa"
+  },
+  {
+    "CarId": "e98a56e2-9e24-4d99-8a92-ab88db5067f5",
+    "FeatureId": "e29a5109-7745-4edf-b4f5-5794e14f0797"
+  },
+  {
+    "CarId": "d05c6e70-0f1b-441b-9fcb-f03e61481ba6",
+    "FeatureId": "84eee263-73dd-4ce9-911c-d919956833e5"
+  },
+  {
+    "CarId": "d05c6e70-0f1b-441b-9fcb-f03e61481ba6",
+    "FeatureId": "1634ca60-c67f-4514-8101-5a4d5565a16b"
+  },
+  {
+    "CarId": "d05c6e70-0f1b-441b-9fcb-f03e61481ba6",
+    "FeatureId": "982c775c-7c16-4682-8f2b-4d8a71c02f6f"
+  },
+  {
+    "CarId": "a1d27155-159b-4c33-a943-d4b6187aadf7",
+    "FeatureId": "b661a5c6-06a7-4cc4-a16d-c462045f8ebd"
+  },
+  {
+    "CarId": "a1d27155-159b-4c33-a943-d4b6187aadf7",
+    "FeatureId": "9757a13b-2e62-4c52-8441-f8881a84ef14"
+  },
+  {
+    "CarId": "a1d27155-159b-4c33-a943-d4b6187aadf7",
+    "FeatureId": "63111cbf-31f5-46d5-8b5c-297e41843089"
+  },
+  {
+    "CarId": "a1d27155-159b-4c33-a943-d4b6187aadf7",
+    "FeatureId": "8bfb9835-6318-4b2a-bd90-95514d9c08c0"
+  },
+  {
+    "CarId": "11760bf4-6c9c-4c4f-963d-2056ffda01fe",
+    "FeatureId": "73c8d473-8915-4d9a-b3cc-61769cec15fa"
+  },
+  {
+    "CarId": "11760bf4-6c9c-4c4f-963d-2056ffda01fe",
+    "FeatureId": "443542d8-51c5-40a7-afa0-b1a3979f5a45"
+  },
+  {
+    "CarId": "11760bf4-6c9c-4c4f-963d-2056ffda01fe",
+    "FeatureId": "5e49f4c0-e4c6-4390-8695-f7747c135102"
+  },
+  {
+    "CarId": "11760bf4-6c9c-4c4f-963d-2056ffda01fe",
+    "FeatureId": "e0d1b5c4-63af-498b-a15d-93db16698296"
+  },
+  {
+    "CarId": "86fd4d9c-ed2f-4f9c-8611-515145654df9",
+    "FeatureId": "63111cbf-31f5-46d5-8b5c-297e41843089"
+  },
+  {
+    "CarId": "86fd4d9c-ed2f-4f9c-8611-515145654df9",
+    "FeatureId": "c5190667-e9da-4f7c-86fa-db160818292f"
+  },
+  {
+    "CarId": "86fd4d9c-ed2f-4f9c-8611-515145654df9",
+    "FeatureId": "9757a13b-2e62-4c52-8441-f8881a84ef14"
+  },
+  {
+    "CarId": "a67be4a6-13e4-4e28-abd1-9bc6e65c789e",
+    "FeatureId": "98a1f22e-6ad6-4e9d-a9d3-ed4d988f7ee3"
+  },
+  {
+    "CarId": "a67be4a6-13e4-4e28-abd1-9bc6e65c789e",
+    "FeatureId": "8bfb9835-6318-4b2a-bd90-95514d9c08c0"
+  },
+  {
+    "CarId": "a67be4a6-13e4-4e28-abd1-9bc6e65c789e",
+    "FeatureId": "982c775c-7c16-4682-8f2b-4d8a71c02f6f"
+  },
+  {
+    "CarId": "a67be4a6-13e4-4e28-abd1-9bc6e65c789e",
+    "FeatureId": "e0d1b5c4-63af-498b-a15d-93db16698296"
+  },
+  {
+    "CarId": "dc60a577-85f8-4f56-9643-cab4fe566c02",
+    "FeatureId": "7e1467e9-61dd-4ac3-a633-b9f7f63be133"
+  },
+  {
+    "CarId": "dc60a577-85f8-4f56-9643-cab4fe566c02",
+    "FeatureId": "b661a5c6-06a7-4cc4-a16d-c462045f8ebd"
+  },
+  {
+    "CarId": "dc60a577-85f8-4f56-9643-cab4fe566c02",
+    "FeatureId": "84eee263-73dd-4ce9-911c-d919956833e5"
+  },
+  {
+    "CarId": "dc60a577-85f8-4f56-9643-cab4fe566c02",
+    "FeatureId": "98a1f22e-6ad6-4e9d-a9d3-ed4d988f7ee3"
+  },
+  {
+    "CarId": "21942e1e-712c-40f8-8a67-271e04d6969d",
+    "FeatureId": "73c8d473-8915-4d9a-b3cc-61769cec15fa"
+  },
+  {
+    "CarId": "21942e1e-712c-40f8-8a67-271e04d6969d",
+    "FeatureId": "443542d8-51c5-40a7-afa0-b1a3979f5a45"
+  },
+  {
+    "CarId": "21942e1e-712c-40f8-8a67-271e04d6969d",
+    "FeatureId": "1634ca60-c67f-4514-8101-5a4d5565a16b"
+  },
+  {
+    "CarId": "9ffdbeaf-0cec-48a7-91eb-8bdb713dab08",
+    "FeatureId": "84eee263-73dd-4ce9-911c-d919956833e5"
+  },
+  {
+    "CarId": "9ffdbeaf-0cec-48a7-91eb-8bdb713dab08",
+    "FeatureId": "443542d8-51c5-40a7-afa0-b1a3979f5a45"
+  },
+  {
+    "CarId": "9ffdbeaf-0cec-48a7-91eb-8bdb713dab08",
+    "FeatureId": "63111cbf-31f5-46d5-8b5c-297e41843089"
+  },
+  {
+    "CarId": "9ffdbeaf-0cec-48a7-91eb-8bdb713dab08",
+    "FeatureId": "b661a5c6-06a7-4cc4-a16d-c462045f8ebd"
+  },
+  {
+    "CarId": "a2d7e78e-492d-4417-b3cf-1489724bd19c",
+    "FeatureId": "63111cbf-31f5-46d5-8b5c-297e41843089"
+  },
+  {
+    "CarId": "a2d7e78e-492d-4417-b3cf-1489724bd19c",
+    "FeatureId": "1634ca60-c67f-4514-8101-5a4d5565a16b"
+  },
+  {
+    "CarId": "a2d7e78e-492d-4417-b3cf-1489724bd19c",
+    "FeatureId": "982c775c-7c16-4682-8f2b-4d8a71c02f6f"
+  },
+  {
+    "CarId": "a2d7e78e-492d-4417-b3cf-1489724bd19c",
+    "FeatureId": "9757a13b-2e62-4c52-8441-f8881a84ef14"
+  }
+]

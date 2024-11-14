@@ -29,7 +29,6 @@ namespace RentACar.Web.Extensions
                 .ServiceProvider
                 .GetRequiredService<RentACarDbContext>();
 
-            //dbContext.Database.EnsureCreated();
             dbContext.Database.Migrate();
 
             return app;
@@ -48,6 +47,7 @@ namespace RentACar.Web.Extensions
             SeedEntity<Feature>(dbContext, "Features.json");
             SeedEntity<Category>(dbContext, "Categories.json");
             SeedEntity<Car>(dbContext, "Cars.json");
+            SeedEntity<CarFeature>(dbContext, "CarFeatures.json");
 
             return app;
         }
@@ -62,9 +62,9 @@ namespace RentACar.Web.Extensions
             if (!dbContext.Set<T>().Any() && data != null)
             {
                 dbContext.Set<T>().AddRange(data);
-
-                dbContext.SaveChanges();
             }
+
+            dbContext.SaveChanges();
         }
 
 

@@ -1,5 +1,5 @@
 using RentACar.Web.Extensions;
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration
     .SetBasePath(Directory.GetCurrentDirectory())

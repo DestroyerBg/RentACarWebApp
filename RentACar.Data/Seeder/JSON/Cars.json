@@ -1,5 +1,6 @@
 [
   {
+    "Id": "fff77d96-32d8-4de0-a02a-1792e64179c7",
     "Brand": "BMW",
     "Model": "3 Series",
     "HorsePower": 150,
@@ -10,6 +11,7 @@
     "CategoryId": "1926ba25-6ad3-4c67-9de1-3b070b1bf15d"
   },
   {
+    "Id": "b0f51be3-735e-457e-9229-8cb9791f840d",
     "Brand": "Mercedes",
     "Model": "C-Class",
     "HorsePower": 200,
@@ -20,6 +22,7 @@
     "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
   },
   {
+    "Id": "eb4a2a11-2cfd-49b0-a768-c7e94be7ddcc",
     "Brand": "Audi",
     "Model": "A4",
     "HorsePower": 170,
@@ -30,6 +33,7 @@
     "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
   },
   {
+    "Id": "4aaf900f-6657-4285-b4e7-f04838b1ae4d",
     "Brand": "Toyota",
     "Model": "Corolla",
     "HorsePower": 132,
@@ -40,6 +44,7 @@
     "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
   },
   {
+    "Id": "41350f43-0664-4b5d-817b-76c77dc04821",
     "Brand": "Honda",
     "Model": "Civic",
     "HorsePower": 158,
@@ -50,6 +55,7 @@
     "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
   },
   {
+    "Id": "40b73633-2258-46f6-bd71-9034c0a7adb4",
     "Brand": "Ford",
     "Model": "Focus",
     "HorsePower": 140,
@@ -60,6 +66,7 @@
     "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
   },
   {
+    "Id": "899479ed-ba28-448d-8230-d6357a8203f7",
     "Brand": "Volkswagen",
     "Model": "Passat",
     "HorsePower": 174,
@@ -70,6 +77,7 @@
     "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
   },
   {
+    "Id": "4b7a16f5-37fd-4f60-bea8-33d6e61155f1",
     "Brand": "Volvo",
     "Model": "XC40",
     "HorsePower": 187,
@@ -80,6 +88,7 @@
     "CategoryId": "947f0ccd-c31d-4c6b-a1b6-36ddcf7a9071"
   },
   {
+    "Id": "303ed8b3-e698-4d8e-8517-3563ec570d03",
     "Brand": "Mazda",
     "Model": "CX-5",
     "HorsePower": 187,
@@ -90,6 +99,7 @@
     "CategoryId": "947f0ccd-c31d-4c6b-a1b6-36ddcf7a9071"
   },
   {
+    "Id": "7ae82b64-710e-4308-a16a-25d2581da20a",
     "Brand": "Hyundai",
     "Model": "Tucson",
     "HorsePower": 161,
@@ -100,6 +110,7 @@
     "CategoryId": "947f0ccd-c31d-4c6b-a1b6-36ddcf7a9071"
   },
   {
+    "Id": "e98a56e2-9e24-4d99-8a92-ab88db5067f5",
     "Brand": "Nissan",
     "Model": "Qashqai",
     "HorsePower": 147,
@@ -110,6 +121,7 @@
     "CategoryId": "947f0ccd-c31d-4c6b-a1b6-36ddcf7a9071"
   },
   {
+    "Id": "d05c6e70-0f1b-441b-9fcb-f03e61481ba6",
     "Brand": "Kia",
     "Model": "Sportage",
     "HorsePower": 181,
@@ -120,6 +132,7 @@
     "CategoryId": "947f0ccd-c31d-4c6b-a1b6-36ddcf7a9071"
   },
   {
+    "Id": "a1d27155-159b-4c33-a943-d4b6187aadf7",
     "Brand": "Peugeot",
     "Model": "3008",
     "HorsePower": 150,
@@ -130,6 +143,7 @@
     "CategoryId": "cf4669cc-338f-4f91-b96e-7d7dfb7986b1"
   },
   {
+    "Id": "11760bf4-6c9c-4c4f-963d-2056ffda01fe",
     "Brand": "Renault",
     "Model": "Kadjar",
     "HorsePower": 140,
@@ -140,6 +154,7 @@
     "CategoryId": "3e556697-7adc-4a3b-bbec-1e2f35c2e052"
   },
   {
+    "Id": "86fd4d9c-ed2f-4f9c-8611-515145654df9",
     "Brand": "Chevrolet",
     "Model": "Malibu",
     "HorsePower": 160,
@@ -150,6 +165,7 @@
     "CategoryId": "cf4669cc-338f-4f91-b96e-7d7dfb7986b1"
   },
   {
+    "Id": "a67be4a6-13e4-4e28-abd1-9bc6e65c789e",
     "Brand": "Subaru",
     "Model": "Forester",
     "HorsePower": 182,
@@ -160,6 +176,7 @@
     "CategoryId": "947f0ccd-c31d-4c6b-a1b6-36ddcf7a9071"
   },
   {
+    "Id": "dc60a577-85f8-4f56-9643-cab4fe566c02",
     "Brand": "Tesla",
     "Model": "Model 3",
     "HorsePower": 283,
@@ -170,6 +187,7 @@
     "CategoryId": "cf4669cc-338f-4f91-b96e-7d7dfb7986b1"
   },
   {
+    "Id": "21942e1e-712c-40f8-8a67-271e04d6969d",
     "Brand": "Lexus",
     "Model": "RX",
     "HorsePower": 295,
@@ -180,6 +198,7 @@
     "CategoryId": "cf4669cc-338f-4f91-b96e-7d7dfb7986b1"
   },
   {
+    "Id": "9ffdbeaf-0cec-48a7-91eb-8bdb713dab08",
     "Brand": "Jaguar",
     "Model": "XE",
     "HorsePower": 250,
@@ -190,6 +209,7 @@
     "CategoryId": "cf4669cc-338f-4f91-b96e-7d7dfb7986b1"
   },
   {
+    "Id": "a2d7e78e-492d-4417-b3cf-1489724bd19c",
     "Brand": "Porsche",
     "Model": "Macan",
     "HorsePower": 261,
