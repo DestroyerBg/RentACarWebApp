@@ -18,6 +18,8 @@
 
         public string ImageUrl { get; set; } = null!;
 
+        public decimal PricePerDay { get; set; }
+
         public ICollection<CarFeatureViewModel> Features { get; set; } = new HashSet<CarFeatureViewModel>();
     }
 }

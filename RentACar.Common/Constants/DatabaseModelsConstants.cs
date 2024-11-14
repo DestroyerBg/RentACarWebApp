@@ -51,6 +51,8 @@
             public const int YearOfManufactureMinValue = 1960;
 
             public const int CarImageUrlMaxlength = 100;
+
+            public const string PricePrecision = "decimal(18, 2)";
         }
 
         public static class Feature

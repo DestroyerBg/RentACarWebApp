@@ -52,6 +52,15 @@ namespace RentACar.Data.Models
         [MaxLength(CarImageUrlMaxlength)]
         public string ImageUrl { get; set; } = null!;
 
+        [Required]
+        [Column(TypeName = PricePrecision)]
+        [Comment("Car rent price per day")]
+        public decimal PricePerDay { get; set; }
+
+        [Required]
+        [Comment("Is car already hired")]
+        public bool IsHired { get; set; } = false;
+
         public ICollection<CustomerFeedback> Comments { get; set; } = new HashSet<CustomerFeedback>();
 
         public ICollection<CarFeature> CarFeatures = new HashSet<CarFeature>();

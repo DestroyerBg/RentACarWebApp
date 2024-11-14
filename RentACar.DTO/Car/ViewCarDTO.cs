@@ -18,6 +18,8 @@
 
         public string ImageUrl { get; set; } = null!;
 
+        public decimal PricePerDay { get; set; }
+
         public ICollection<FeatureDTO> Features { get; set; } = new HashSet<FeatureDTO>();
 
     }
