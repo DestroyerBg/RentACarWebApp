@@ -1,6 +1,6 @@
-﻿namespace RentACar.DTO.Car
+﻿namespace RentACar.Web.ViewModels.Car
 {
-    public class ViewCarDTO
+    public class ViewCarsViewModel
     {
         public Guid Id { get; set; }
 
@@ -18,7 +18,6 @@
 
         public string ImageUrl { get; set; } = null!;
 
-        public ICollection<FeatureDTO> Features { get; set; } = new HashSet<FeatureDTO>();
-
+        public ICollection<CarFeatureViewModel> Features { get; set; } = new HashSet<CarFeatureViewModel>();
     }
 }

@@ -12,13 +12,14 @@ namespace RentACar.Web.Extensions
         public static IServiceCollection RegisterUserDefinedServices(this IServiceCollection services)
         {
             services.AddScoped<IUserService<ApplicationUser, Guid>, ApplicationUserService>();
+            services.AddScoped<ICarService, CarService>();
             return services;
         }
 
         public static IServiceCollection RegisterAutoMapper(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(IdentityProfiles));
-
+            services.AddAutoMapper(typeof(CarProfiles));
             return services;
         }
 

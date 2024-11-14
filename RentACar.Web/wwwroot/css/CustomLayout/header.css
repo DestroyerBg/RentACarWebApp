@@ -1,6 +1,6 @@
 ﻿.navbar {
-    background-color: transparent !important;
     position: fixed;
+    background-color: transparent !important;
     top: 0;
     width: 100%;
     z-index: 10;
@@ -19,10 +19,15 @@
     font-weight: bold;
 }
 
-    .nav-link:hover, .navbar-brand:hover {
-        transform: scale(1.05) !important;
-        transition: all 0.3s ease !important;
-        border: none !important;
-        text-shadow: 0 0 1.8em rgba(255, 255,255, 0.8), 0 0 2em rgba(255, 255, 255, 0.6), 0 0 2.3em rgba(255, 255, 255, 0.4);
+.scrolled {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
+}
 
-    }
+.nav-link:hover, .navbar-brand:hover {
+    transform: scale(1.05) !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+    text-shadow: 0 0 1.8em rgba(255, 255,255, 0.8), 0 0 2em rgba(255, 255, 255, 0.6), 0 0 2.3em rgba(255, 255, 255, 0.4);
+}

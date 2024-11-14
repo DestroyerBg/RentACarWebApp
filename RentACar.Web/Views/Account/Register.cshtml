@@ -57,12 +57,5 @@
     <partial name="_ValidationScriptsPartial" />
 }
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        flatpickr("#birthDate", {
-            dateFormat: "d.m.Y", 
-            disableMobile: true
-        });
-    });
-</script>
+<script src="~/js/date.js" asp-append-version="true"></script>
 

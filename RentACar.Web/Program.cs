@@ -19,11 +19,11 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.RegisterRepositories();
+
 builder.Services.RegisterUserDefinedServices();
 
 builder.Services.RegisterAutoMapper();
-
-builder.Services.RegisterRepositories();
 
 WebApplication app = builder.Build();
 
