@@ -1,30 +1,33 @@
 ﻿@using RentACar.Web.ViewModels.Car
 @model IEnumerable<RentACar.Web.ViewModels.Car.ViewCarsViewModel>
-<div class="card-group card-container">
-    @{
-        foreach (ViewCarsViewModel carModel in Model)
-        {
-            <div class="custom-card">
-                <img src="@Url.Content(carModel.ImageUrl)" alt="Car Image" class="card-image">
-                <div class="card-content">
-                    <h3 class="car-title">@carModel.Brand</h3>
-                    <p class="car-subtitle">@carModel.Model</p>
-                    @*<p class="reservation-info">Последно резервирана: преди 2 дни</p>*@
-                    <ul class="features-list">
-                        @{
-                            foreach (CarFeatureViewModel feature in carModel.Features)
-                            {
-                                <li><i class="fa fa-check"></i> @feature.Name</li>
+
+<div class="cars-container">
+    <div class="card-group card-container ms-auto">
+        @{
+            foreach (ViewCarsViewModel carModel in Model)
+            {
+                <div class="custom-card">
+                    <img src="@Url.Content(carModel.ImageUrl)" alt="Car Image" class="card-image">
+                    <div class="card-content">
+                        <h3 class="car-title">@carModel.Brand</h3>
+                        <p class="car-subtitle">@carModel.Model</p>
+                        @*<p class="reservation-info">Последно резервирана: преди 2 дни</p>*@
+                        <ul class="features-list">
+                            @{
+                                foreach (CarFeatureViewModel feature in carModel.Features)
+                                {
+                                    <li><i class="fa fa-check"></i> @feature.Name</li>
+                                }
                             }
-                        }
-                    </ul>
-                    <p class="fs-5">Цена за наемане за 1 ден</p>
-                    <p class="price"> @carModel.PricePerDay лева</p>
-                    <button class="reserve-button">Резервирай</button>
+                        </ul>
+                        <p class="fs-5">Цена за наемане за 1 ден</p>
+                        <p class="price"> @carModel.PricePerDay лева</p>
+                        <button class="reserve-button">Резервирай</button>
+                    </div>
                 </div>
-            </div>
+            }
         }
-    }
+    </div>
 </div>
 
 

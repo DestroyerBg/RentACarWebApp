@@ -1,0 +1,9 @@
+﻿.page-container {
+    display: flex;
+    flex-wrap: nowrap;
+    min-height: 100vh;
+}
+
+.container-fluid.hero {
+    margin-left: -150px; 
+}

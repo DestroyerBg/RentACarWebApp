@@ -40,6 +40,14 @@
             </div>
         </nav>
     </header>
+<div class="page-container d-flex">
+
+    @if (ViewBag.ShowSideMenu != null && (bool)ViewBag.ShowSideMenu)
+    {
+        <aside class="sidebar-menu">
+            <partial name="SideMenuPartial"/>
+        </aside>
+    }
     <div class="container-fluid hero">
         <main role="main" class="pb-3 hero d-flex justify-content-center align-items-center">
             <div class="content">
@@ -48,14 +56,16 @@
         </main>
     </div>
 
+</div>
+
     <footer class="footer mt-auto">
         <div class="container">
             <p>&copy; 2024 RentACar.Web | Designed by Your Company</p>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/navbar.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/navbar.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

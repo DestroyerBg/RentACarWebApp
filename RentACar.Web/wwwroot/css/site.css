@@ -3,10 +3,13 @@
 @import url('/css/CustomLayout/hero.css');
 @import url('/css/CustomLayout/main.css');
 @import url('/css/CustomLayout/btn.css');
+@import url('/css/CustomLayout/page-container.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.css');
 @import url('/css/CustomLayout/input.css');
-@import url('/css/CustomLayout/calendar.css');
 @import url('/css/CustomLayout/car-card.css');
+@import url('/css/CustomLayout/cars-container.css');
+@import url('/css/CustomLayout/sidebar.css');
 @import url('/css/CustomLayout/responsive.css');
+
 
 
