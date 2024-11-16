@@ -72,17 +72,20 @@
 }
 
 .reserve-button {
+    all: unset;
+    display: inline-block;
     background-color: #ff9800;
-    color: #fff;
+    color: #fff !important;
     font-size: 1rem;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none !important;
     transition: background-color 0.3s ease;
 }
 
 .reserve-button:hover {
-        background-color: #e67e22;
+    background-color: #e67e22;
 }
 

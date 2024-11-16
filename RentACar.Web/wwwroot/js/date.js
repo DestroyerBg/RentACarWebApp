@@ -4,3 +4,17 @@ document.addEventListener("DOMContentLoaded", function () {
         disableMobile: true
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    flatpickr("#startDate", {
+        dateFormat: "d.m.Y",
+        disableMobile: true
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    flatpickr("#endDate", {
+        dateFormat: "d.m.Y",
+        disableMobile: true
+    });
+});

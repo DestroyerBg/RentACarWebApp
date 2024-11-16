@@ -29,10 +29,16 @@ namespace RentACar.Web.Extensions
                 })
                 .AddRoles<IdentityRole<Guid>>()
                 .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
-                .AddDefaultUI()
+                .AddDefaultUI() // TODO Implement email system to remove default identity pages
                 .AddEntityFrameworkStores<RentACarDbContext>()
                 .AddErrorDescriber<CustomIdentityErrorDescriber>()
                 .AddDefaultTokenProviders();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
+            });
 
             return builder;
         }

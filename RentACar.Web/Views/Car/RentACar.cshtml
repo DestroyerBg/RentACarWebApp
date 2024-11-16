@@ -2,22 +2,22 @@
     <div class="form-wrapper">
         <section>
             <form id="registerForm" method="post">
-                <h2>Create a new account.</h2>
+                <h2>Резервирай Bmw 3 series</h2>
                 <hr />
                 @*<div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>*@
-
+                <input type="hidden" id="carPricePerDay" value="30"/>
                 <div class="form-field">
                     <label class="custom-label-static">Изберете дата за наемане на МПС</label>
-                    <input id="birthDate" class="custom-input-static" placeholder="Изберете дата" />
+                    <input id="startDate" class="custom-input-static" placeholder="Изберете дата" />
                     <span class="text-danger validation-message"></span>
                 </div>
 
                 <div class="form-field">
                     <label class="custom-label-static">Изберете дата за край на вашата резервация!</label>
-                    <input  id="birthDate" class="custom-input-static" placeholder="Изберете дата" />
+                    <input id="endDate" class="custom-input-static" placeholder="Изберете дата" />
                     <span class="text-danger validation-message"></span>
                 </div>
-                
+
                 <div class="form-field">
                     <label class="custom-label-static">Допълнителни опции</label>
                     <div class="checkbox-field">
@@ -34,10 +34,7 @@
                     </div>
                 </div>
 
-                <div class="form-field">
-                    <label class="custom-label-static">Крайна цена</label>
-                    <input type="text" id="totalPrice" class="custom-input-static" placeholder="Крайна цена" readonly />
-                </div>
+                <p class="price" id="car-price"></p>
 
                 <button id="registerSubmit" type="submit" class="custom-button">Резервирай</button>
             </form>
@@ -50,3 +47,4 @@
 }
 
 <script src="~/js/date.js" asp-append-version="true"></script>
+<script src="~/js/rent.js" asp-append-version="true"></script>
