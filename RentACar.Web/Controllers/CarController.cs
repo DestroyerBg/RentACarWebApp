@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Core.Interfaces;
 using RentACar.DTO.Car;
@@ -19,6 +20,7 @@ namespace RentACar.Web.Controllers
             mapperService = _mapperService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> AllCars()
         {
             IEnumerable<ViewCarDTO> carDtos = await carService.GetCarsAsync();
@@ -29,5 +31,14 @@ namespace RentACar.Web.Controllers
             ViewBag.ShowSideMenu = true;
             return View(carModels);
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> RentACar()
+        {
+            return View();
+        }
+
+        
     }
 }

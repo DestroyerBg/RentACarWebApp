@@ -33,14 +33,12 @@ namespace RentACar.Data.Models
         [Comment("When the reservation ends")]
         public DateTime EndDate { get; set; }
 
-        public Guid? InsuranceId { get; set; }
-
-        public Insurance? Insurance { get; set; } 
-
         [Required]
         [Column(TypeName = PricePrecision)]
         [Comment("Total price for the reservation")]
         public decimal TotalPrice { get; set; }
+
+        public ICollection<InsuranceBenefit> InsuranceBenefits { get; set; } = new HashSet<InsuranceBenefit>();
 
         [Comment("Is the entity deleted?")]
         public bool IsDeleted { get; set; } = false;
