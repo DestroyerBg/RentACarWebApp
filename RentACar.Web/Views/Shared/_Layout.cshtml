@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    int appReleaseYear = 2024;
+    string footer = DateTime.Now.Year == appReleaseYear ? appReleaseYear.ToString() : $"{appReleaseYear} - {DateTime.Now.Year}";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,26 +20,23 @@
     <header>
         <nav class="navbar navbar-expand-xxl navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand fs-2" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-car me-1"></i><i class="fa-solid fa-key me-2"></i>RentACar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Cars" asp-action="Index">Cars</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="About" asp-action="Index">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Contact" asp-action="Index">Contact</a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-car me-1"></i><i class="fa-solid fa-key me-2"></i>RentACar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Начална страница</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Cars" asp-action="Index">Каталог от автомобили</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="About" asp-action="Index">За нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Contact" asp-action="Index">Контакти и оплаквания</a>
+                    </li>
+                </ul>
 
                 <partial name="_LoginPartial" />
             </div>
@@ -60,7 +62,7 @@
 
     <footer class="footer mt-auto">
         <div class="container">
-            <p>&copy; 2024 RentACar.Web | Designed by Your Company</p>
+            <p>&copy; RentACar @footer</p>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
