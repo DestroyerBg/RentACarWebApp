@@ -2,7 +2,7 @@
     const startDateInput = document.getElementById("startDate");
     const endDateInput = document.getElementById("endDate");
     const checkboxes = document.querySelectorAll(".form-check-input");
-    const totalPriceInput = document.getElementById("car-price");
+    const totalPriceInput = document.getElementById("totalPrice");
     const basePriceInput = document.getElementById("carPricePerDay");
     const basePricePerDay = Number(basePriceInput.value);
 
@@ -27,7 +27,7 @@
 
         checkboxes.forEach((checkbox) => {
             if (checkbox.checked) {
-                totalPrice += parseInt(checkbox.value) * days;
+                totalPrice += Number(checkbox.value).toFixed(2) * days;
             }
         });
 

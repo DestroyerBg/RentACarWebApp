@@ -74,14 +74,15 @@
 .reserve-button {
     all: unset;
     display: inline-block;
+    margin-top: 20px;
+    padding: 12px 20px;
+    font-size: 1.2rem;
     background-color: #ff9800;
-    color: #fff !important;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border: none;
+    color: #fff;
     border-radius: 5px;
+    border: none;
     cursor: pointer;
-    text-decoration: none !important;
+    text-align: center;
     transition: background-color 0.3s ease;
 }
 

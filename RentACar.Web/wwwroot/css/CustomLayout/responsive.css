@@ -42,3 +42,17 @@
         width: 100%;
     }
 }
+
+@media (max-width: 768px) {
+    .form-wrapper {
+        padding: 20px;
+    }
+
+    .checkbox-group {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .reserve-button {
+        width: 100%;
+    }
+}

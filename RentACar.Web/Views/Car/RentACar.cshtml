@@ -7,21 +7,21 @@
                 <h2>Резервирай @($"{Model.Brand} {Model.Model}")</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
-                <input type="hidden" id="carPricePerDay" value="@Model.PricePerDay"/>
+                <input type="hidden" id="carPricePerDay" value="@Model.PricePerDay" />
                 <div class="form-field">
                     <label asp-for="@Model.StartDate" class="custom-label-static">Изберете дата за наемане на МПС</label>
-                    <input asp-for="@Model.StartDate"  id="startDate" class="custom-input-static" placeholder="Изберете дата" />
+                    <input asp-for="@Model.StartDate" id="startDate" class="custom-input-static" placeholder="Изберете дата" />
                     <span asp-validation-for="@Model.StartDate" class="text-danger validation-message"></span>
                 </div>
 
                 <div class="form-field">
-                    <label asp-for="@Model.EndDate"class="custom-label-static">Изберете дата за край на вашата резервация!</label>
-                    <input asp-for="@Model.EndDate"id="endDate" class="custom-input-static" placeholder="Изберете дата" />
+                    <label asp-for="@Model.EndDate" class="custom-label-static">Изберете дата за край на вашата резервация!</label>
+                    <input asp-for="@Model.EndDate" id="endDate" class="custom-input-static" placeholder="Изберете дата" />
                     <span asp-validation-for="@Model.EndDate" class="text-danger validation-message"></span>
                 </div>
 
-                <div class="form-field">
-                    <label class="custom-label-static">Допълнителна застраховка за да бъде твоето пътуване по сигурно!</label>
+                <div class="checkbox-group">
+                    <h3 class="form-section-title">Допълнителна застраховка за да направиш своето пътуване по-сигурно!</h3>
                     @{
                         foreach (InsuranceBenefitViewModel benefit in Model.Benefits)
                         {
@@ -32,7 +32,9 @@
                         }
                     }
                 </div>
-                <p class="price" id="car-price"></p>
+                <div class="form-field">
+                    <p id="totalPrice" class="price">Обща цена: 0.00 лева</p>
+                </div>
 
                 <button id="registerSubmit" type="submit" class="custom-button">Резервирай</button>
             </form>
