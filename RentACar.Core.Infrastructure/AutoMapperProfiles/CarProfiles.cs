@@ -17,6 +17,10 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
             CreateMap<ViewCarDTO, ViewCarsViewModel>();
             CreateMap<Feature, FeatureDTO>();
             CreateMap<FeatureDTO, CarFeatureViewModel>();
+            CreateMap<Car, RentACarDTO>()
+                .ForMember(dest => dest.City, src =>
+                    src.MapFrom(s => s.Location.City));
+            CreateMap<RentACarDTO, RentACarViewModel>();
         }
     }
 }

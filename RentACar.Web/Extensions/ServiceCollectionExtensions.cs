@@ -20,12 +20,13 @@ namespace RentACar.Web.Extensions
         {
             services.AddAutoMapper(typeof(IdentityProfiles));
             services.AddAutoMapper(typeof(CarProfiles));
+            services.AddAutoMapper(typeof(InsuranceBenefitProfiles));
             return services;
         }
 
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IRepository<Car, Guid>, BaseRepository<Car, Guid>>();
+            services.AddScoped<IRepository<Car, Guid>, BaseRepository<Car, Guid>>(); services.AddScoped<IRepository<InsuranceBenefit, Guid>, BaseRepository<InsuranceBenefit, Guid>>();
 
             return services;
         }

@@ -22,7 +22,7 @@
                         </ul>
                         <p class="fs-5">Цена за наемане за 1 ден</p>
                         <p class="price"> @carModel.PricePerDay лева</p>
-                        <a class="reserve-button" asp-controller="Car" asp-action="RentACar">Резервирай</a>
+                        <a class="reserve-button" asp-controller="Car" asp-action="RentACar" asp-route-id="@carModel.Id">Резервирай</a>
                     </div>
                 </div>
             }

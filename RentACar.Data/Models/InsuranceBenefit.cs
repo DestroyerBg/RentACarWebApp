@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using RentACar.Data.Models.Interfaces;
 using static RentACar.Common.Constants.DatabaseModelsConstants.InsuranceBenefit;
 namespace RentACar.Data.Models
 {
-    public class InsuranceBenefit
+    public class InsuranceBenefit : ISoftDeletable
     {
         [Key]
         public Guid Id { get; set; }
@@ -24,5 +25,6 @@ namespace RentACar.Data.Models
         public string IconClass { get; set; } = null!;
 
         public ICollection<ReservationInsuranceBenefit> Reservations { get; set; } = new HashSet<ReservationInsuranceBenefit>();
+        public bool IsDeleted { get; set; } = false;
     }
 }

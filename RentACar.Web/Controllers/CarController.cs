@@ -34,9 +34,23 @@ namespace RentACar.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Customer")]
-        public async Task<IActionResult> RentACar()
+        public async Task<IActionResult> RentACar(string id)
         {
-            return View();
+            if (!base.IsValidGuid(id))
+            {
+                return RedirectToAction(nameof(AllCars));
+            }
+
+            RentACarDTO? carDto = await carService.ReserveACar(Guid.Parse(id));
+
+            if (carDto == null)
+            {
+                return RedirectToAction(nameof(AllCars));
+            }
+
+            RentACarViewModel model = mapperService.Map<RentACarDTO, RentACarViewModel>(carDto);
+
+            return View(model);
         }
 
         

@@ -1,39 +1,37 @@
-﻿<div class="row">
+﻿@using RentACar.Web.ViewModels.InsuranceBenefit
+@model RentACar.Web.ViewModels.Car.RentACarViewModel
+<div class="row">
     <div class="form-wrapper">
         <section>
-            <form id="registerForm" method="post">
-                <h2>Резервирай Bmw 3 series</h2>
+            <form id="registerForm" method="post" asp-action="RentACar">
+                <h2>Резервирай @($"{Model.Brand} {Model.Model}")</h2>
                 <hr />
-                @*<div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>*@
-                <input type="hidden" id="carPricePerDay" value="30"/>
+                <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
+                <input type="hidden" id="carPricePerDay" value="@Model.PricePerDay"/>
                 <div class="form-field">
-                    <label class="custom-label-static">Изберете дата за наемане на МПС</label>
-                    <input id="startDate" class="custom-input-static" placeholder="Изберете дата" />
-                    <span class="text-danger validation-message"></span>
+                    <label asp-for="@Model.StartDate" class="custom-label-static">Изберете дата за наемане на МПС</label>
+                    <input asp-for="@Model.StartDate"  id="startDate" class="custom-input-static" placeholder="Изберете дата" />
+                    <span asp-validation-for="@Model.StartDate" class="text-danger validation-message"></span>
                 </div>
 
                 <div class="form-field">
-                    <label class="custom-label-static">Изберете дата за край на вашата резервация!</label>
-                    <input id="endDate" class="custom-input-static" placeholder="Изберете дата" />
-                    <span class="text-danger validation-message"></span>
+                    <label asp-for="@Model.EndDate"class="custom-label-static">Изберете дата за край на вашата резервация!</label>
+                    <input asp-for="@Model.EndDate"id="endDate" class="custom-input-static" placeholder="Изберете дата" />
+                    <span asp-validation-for="@Model.EndDate" class="text-danger validation-message"></span>
                 </div>
 
                 <div class="form-field">
-                    <label class="custom-label-static">Допълнителни опции</label>
-                    <div class="checkbox-field">
-                        <input type="checkbox" id="gpsOption" value="5" class="form-check-input">
-                        <label for="gpsOption" class="form-check-label">GPS навигация (5 лв./ден)</label>
-                    </div>
-                    <div class="checkbox-field">
-                        <input type="checkbox" id="childSeatOption" value="7" class="form-check-input">
-                        <label for="childSeatOption" class="form-check-label">Детско столче (7 лв./ден)</label>
-                    </div>
-                    <div class="checkbox-field">
-                        <input type="checkbox" id="insuranceOption" value="10" class="form-check-input">
-                        <label for="insuranceOption" class="form-check-label">Пълна застраховка (10 лв./ден)</label>
-                    </div>
+                    <label class="custom-label-static">Допълнителна застраховка за да бъде твоето пътуване по сигурно!</label>
+                    @{
+                        foreach (InsuranceBenefitViewModel benefit in Model.Benefits)
+                        {
+                            <div class="checkbox-field">
+                                <input asp-for="@benefit.IsChecked" type="checkbox" value="@benefit.Price" class="form-check-input">
+                                <label asp-for="@benefit.Name" class="form-check-label">@($"{benefit.Name} ({benefit.Price}лв./ден)")</label>
+                            </div>
+                        }
+                    }
                 </div>
-
                 <p class="price" id="car-price"></p>
 
                 <button id="registerSubmit" type="submit" class="custom-button">Резервирай</button>
