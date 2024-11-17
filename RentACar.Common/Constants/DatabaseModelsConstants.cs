@@ -84,6 +84,7 @@
             public const int InsuranceBenefitMinLength = 3;
             public const int InsuranceBenefitMaxLength = 100;
             public const string PricePrecision = "decimal(18, 2)";
+            public const int IconClassMaxLength = 100;
         }
 
         public static class CustomerFeedback

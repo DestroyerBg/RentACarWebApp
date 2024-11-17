@@ -38,7 +38,11 @@ namespace RentACar.Data.Models
         [Comment("Total price for the reservation")]
         public decimal TotalPrice { get; set; }
 
-        public ICollection<InsuranceBenefit> InsuranceBenefits { get; set; } = new HashSet<InsuranceBenefit>();
+        [Required]
+        [ForeignKey(nameof(Location))]
+        public Guid LocationId { get; set; }
+        public Location Location { get; set; } = null!;
+        public ICollection<ReservationInsuranceBenefit> InsuranceBenefits { get; set; } = new HashSet<ReservationInsuranceBenefit>();
 
         [Comment("Is the entity deleted?")]
         public bool IsDeleted { get; set; } = false;

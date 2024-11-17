@@ -83,7 +83,8 @@ namespace RentACar.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Issurance benefit name"),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IconClass = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Icon font-awesome class which is used for front-end")
                 },
                 constraints: table =>
                 {
@@ -222,6 +223,8 @@ namespace RentACar.Data.Migrations
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Category of the car"),
                     LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Car's location"),
                     ImageUrl = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Car image url"),
+                    PricePerDay = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "Car rent price per day"),
+                    IsHired = table.Column<bool>(type: "bit", nullable: false, comment: "Is car already hired"),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Is the entity deleted?")
                 },
                 constraints: table =>
@@ -275,10 +278,9 @@ namespace RentACar.Data.Migrations
                     CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "This is car id"),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "When the reservation begins"),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "When the reservation ends"),
-                    InsuranceId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "Total price for the reservation"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Is the entity deleted?"),
-                    LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Is the entity deleted?")
                 },
                 constraints: table =>
                 {
@@ -337,48 +339,25 @@ namespace RentACar.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Insurances",
+                name: "ReservationInsuranceBenefit",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReservationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Id of the reservation for which is the issurance"),
-                    InsuranceProvider = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, comment: "Insurance provider name"),
-                    InsuranceAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "This is a sum of the price from all insurance benefits"),
-                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "When the issurance expirates")
+                    ReservationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    InsuranceBenefitId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Insurances", x => x.Id);
+                    table.PrimaryKey("PK_ReservationInsuranceBenefit", x => new { x.InsuranceBenefitId, x.ReservationId });
                     table.ForeignKey(
-                        name: "FK_Insurances_Reservations_ReservationId",
+                        name: "FK_ReservationInsuranceBenefit_InsuranceBenefits_InsuranceBenefitId",
+                        column: x => x.InsuranceBenefitId,
+                        principalTable: "InsuranceBenefits",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ReservationInsuranceBenefit_Reservations_ReservationId",
                         column: x => x.ReservationId,
                         principalTable: "Reservations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "InsuranceInsuranceBenefit",
-                columns: table => new
-                {
-                    InsuranceBenefitsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    InsurancesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InsuranceInsuranceBenefit", x => new { x.InsuranceBenefitsId, x.InsurancesId });
-                    table.ForeignKey(
-                        name: "FK_InsuranceInsuranceBenefit_InsuranceBenefits_InsuranceBenefitsId",
-                        column: x => x.InsuranceBenefitsId,
-                        principalTable: "InsuranceBenefits",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_InsuranceInsuranceBenefit_Insurances_InsurancesId",
-                        column: x => x.InsurancesId,
-                        principalTable: "Insurances",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -451,15 +430,9 @@ namespace RentACar.Data.Migrations
                 column: "ReservationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InsuranceInsuranceBenefit_InsurancesId",
-                table: "InsuranceInsuranceBenefit",
-                column: "InsurancesId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Insurances_ReservationId",
-                table: "Insurances",
-                column: "ReservationId",
-                unique: true);
+                name: "IX_ReservationInsuranceBenefit_ReservationId",
+                table: "ReservationInsuranceBenefit",
+                column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_CarId",
@@ -502,7 +475,7 @@ namespace RentACar.Data.Migrations
                 name: "CustomerFeedbacks");
 
             migrationBuilder.DropTable(
-                name: "InsuranceInsuranceBenefit");
+                name: "ReservationInsuranceBenefit");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -512,9 +485,6 @@ namespace RentACar.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "InsuranceBenefits");
-
-            migrationBuilder.DropTable(
-                name: "Insurances");
 
             migrationBuilder.DropTable(
                 name: "Reservations");

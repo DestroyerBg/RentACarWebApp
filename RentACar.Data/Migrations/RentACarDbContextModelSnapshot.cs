@@ -404,6 +404,12 @@ namespace RentACar.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("IconClass")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("Icon font-awesome class which is used for front-end");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -413,12 +419,7 @@ namespace RentACar.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<Guid?>("ReservationId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ReservationId");
 
                     b.ToTable("InsuranceBenefits");
                 });
@@ -466,7 +467,7 @@ namespace RentACar.Data.Migrations
                         .HasColumnType("bit")
                         .HasComment("Is the entity deleted?");
 
-                    b.Property<Guid?>("LocationId")
+                    b.Property<Guid>("LocationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("StartDate")
@@ -486,6 +487,21 @@ namespace RentACar.Data.Migrations
                     b.HasIndex("LocationId");
 
                     b.ToTable("Reservations");
+                });
+
+            modelBuilder.Entity("RentACar.Data.Models.ReservationInsuranceBenefit", b =>
+                {
+                    b.Property<Guid>("InsuranceBenefitId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ReservationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("InsuranceBenefitId", "ReservationId");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("ReservationInsuranceBenefit");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -604,13 +620,6 @@ namespace RentACar.Data.Migrations
                     b.Navigation("Reservation");
                 });
 
-            modelBuilder.Entity("RentACar.Data.Models.InsuranceBenefit", b =>
-                {
-                    b.HasOne("RentACar.Data.Models.Reservation", null)
-                        .WithMany("InsuranceBenefits")
-                        .HasForeignKey("ReservationId");
-                });
-
             modelBuilder.Entity("RentACar.Data.Models.Reservation", b =>
                 {
                     b.HasOne("RentACar.Data.Models.Car", "Car")
@@ -625,13 +634,36 @@ namespace RentACar.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RentACar.Data.Models.Location", null)
+                    b.HasOne("RentACar.Data.Models.Location", "Location")
                         .WithMany("Reservations")
-                        .HasForeignKey("LocationId");
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Car");
 
                     b.Navigation("Customer");
+
+                    b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("RentACar.Data.Models.ReservationInsuranceBenefit", b =>
+                {
+                    b.HasOne("RentACar.Data.Models.InsuranceBenefit", "InsuranceBenefit")
+                        .WithMany("Reservations")
+                        .HasForeignKey("InsuranceBenefitId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("RentACar.Data.Models.Reservation", "Reservation")
+                        .WithMany("InsuranceBenefits")
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("InsuranceBenefit");
+
+                    b.Navigation("Reservation");
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.ApplicationUser", b =>
@@ -654,6 +686,11 @@ namespace RentACar.Data.Migrations
             modelBuilder.Entity("RentACar.Data.Models.Feature", b =>
                 {
                     b.Navigation("CarFeatures");
+                });
+
+            modelBuilder.Entity("RentACar.Data.Models.InsuranceBenefit", b =>
+                {
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.Location", b =>

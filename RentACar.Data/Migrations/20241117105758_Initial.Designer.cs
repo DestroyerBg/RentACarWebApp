@@ -12,7 +12,7 @@ using RentACar.Data;
 namespace RentACar.Data.Migrations
 {
     [DbContext(typeof(RentACarDbContext))]
-    [Migration("20241112185258_Initial")]
+    [Migration("20241117105758_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -24,21 +24,6 @@ namespace RentACar.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("InsuranceInsuranceBenefit", b =>
-                {
-                    b.Property<Guid>("InsuranceBenefitsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("InsurancesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("InsuranceBenefitsId", "InsurancesId");
-
-                    b.HasIndex("InsurancesId");
-
-                    b.ToTable("InsuranceInsuranceBenefit");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
@@ -283,6 +268,10 @@ namespace RentACar.Data.Migrations
                         .HasColumnType("bit")
                         .HasComment("Is the entity deleted?");
 
+                    b.Property<bool>("IsHired")
+                        .HasColumnType("bit")
+                        .HasComment("Is car already hired");
+
                     b.Property<Guid>("LocationId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Car's location");
@@ -292,6 +281,10 @@ namespace RentACar.Data.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)")
                         .HasComment("E.G. model number like E36, E60 or w211");
+
+                    b.Property<decimal>("PricePerDay")
+                        .HasColumnType("decimal(18, 2)")
+                        .HasComment("Car rent price per day");
 
                     b.Property<string>("RegistrationNumber")
                         .IsRequired()
@@ -408,43 +401,17 @@ namespace RentACar.Data.Migrations
                     b.ToTable("Features");
                 });
 
-            modelBuilder.Entity("RentACar.Data.Models.Insurance", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("When the issurance expirates");
-
-                    b.Property<decimal>("InsuranceAmount")
-                        .HasColumnType("decimal(18, 2)")
-                        .HasComment("This is a sum of the price from all insurance benefits");
-
-                    b.Property<string>("InsuranceProvider")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasComment("Insurance provider name");
-
-                    b.Property<Guid>("ReservationId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Id of the reservation for which is the issurance");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReservationId")
-                        .IsUnique();
-
-                    b.ToTable("Insurances");
-                });
-
             modelBuilder.Entity("RentACar.Data.Models.InsuranceBenefit", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("IconClass")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("Icon font-awesome class which is used for front-end");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -499,14 +466,11 @@ namespace RentACar.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasComment("When the reservation ends");
 
-                    b.Property<Guid?>("InsuranceId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasComment("Is the entity deleted?");
 
-                    b.Property<Guid?>("LocationId")
+                    b.Property<Guid>("LocationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("StartDate")
@@ -528,19 +492,19 @@ namespace RentACar.Data.Migrations
                     b.ToTable("Reservations");
                 });
 
-            modelBuilder.Entity("InsuranceInsuranceBenefit", b =>
+            modelBuilder.Entity("RentACar.Data.Models.ReservationInsuranceBenefit", b =>
                 {
-                    b.HasOne("RentACar.Data.Models.InsuranceBenefit", null)
-                        .WithMany()
-                        .HasForeignKey("InsuranceBenefitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("InsuranceBenefitId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasOne("RentACar.Data.Models.Insurance", null)
-                        .WithMany()
-                        .HasForeignKey("InsurancesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("ReservationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("InsuranceBenefitId", "ReservationId");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("ReservationInsuranceBenefit");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -659,17 +623,6 @@ namespace RentACar.Data.Migrations
                     b.Navigation("Reservation");
                 });
 
-            modelBuilder.Entity("RentACar.Data.Models.Insurance", b =>
-                {
-                    b.HasOne("RentACar.Data.Models.Reservation", "Reservation")
-                        .WithOne("Insurance")
-                        .HasForeignKey("RentACar.Data.Models.Insurance", "ReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Reservation");
-                });
-
             modelBuilder.Entity("RentACar.Data.Models.Reservation", b =>
                 {
                     b.HasOne("RentACar.Data.Models.Car", "Car")
@@ -684,13 +637,36 @@ namespace RentACar.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RentACar.Data.Models.Location", null)
+                    b.HasOne("RentACar.Data.Models.Location", "Location")
                         .WithMany("Reservations")
-                        .HasForeignKey("LocationId");
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Car");
 
                     b.Navigation("Customer");
+
+                    b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("RentACar.Data.Models.ReservationInsuranceBenefit", b =>
+                {
+                    b.HasOne("RentACar.Data.Models.InsuranceBenefit", "InsuranceBenefit")
+                        .WithMany("Reservations")
+                        .HasForeignKey("InsuranceBenefitId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("RentACar.Data.Models.Reservation", "Reservation")
+                        .WithMany("InsuranceBenefits")
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("InsuranceBenefit");
+
+                    b.Navigation("Reservation");
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.ApplicationUser", b =>
@@ -715,6 +691,11 @@ namespace RentACar.Data.Migrations
                     b.Navigation("CarFeatures");
                 });
 
+            modelBuilder.Entity("RentACar.Data.Models.InsuranceBenefit", b =>
+                {
+                    b.Navigation("Reservations");
+                });
+
             modelBuilder.Entity("RentACar.Data.Models.Location", b =>
                 {
                     b.Navigation("Cars");
@@ -724,7 +705,7 @@ namespace RentACar.Data.Migrations
 
             modelBuilder.Entity("RentACar.Data.Models.Reservation", b =>
                 {
-                    b.Navigation("Insurance");
+                    b.Navigation("InsuranceBenefits");
                 });
 #pragma warning restore 612, 618
         }

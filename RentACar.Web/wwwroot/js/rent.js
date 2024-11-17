@@ -8,15 +8,10 @@
 
     const calculateTotalPrice = () => {
 
-        if (!startDateInput.value || !endDateInput.value) {
-            alert("Моля, въведете валидни дати");
-            return;
-        }
-
         const startDate = ParseDate(startDateInput);
         const endDate =  ParseDate(endDateInput);
 
-        if (startDate >= endDate) {
+        if (startDate >= endDate || !startDate || !!endDate) {
             alert("Невалидни стойности на датите!");
             return;
         }

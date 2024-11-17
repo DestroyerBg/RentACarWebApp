@@ -18,5 +18,11 @@ namespace RentACar.Data.Models
         [Column(TypeName = PricePrecision)]
         public decimal Price { get; set; }
 
+        [Required]
+        [MaxLength(IconClassMaxLength)]
+        [Comment("Icon font-awesome class which is used for front-end")] 
+        public string IconClass { get; set; } = null!;
+
+        public ICollection<ReservationInsuranceBenefit> Reservations { get; set; } = new HashSet<ReservationInsuranceBenefit>();
     }
 }

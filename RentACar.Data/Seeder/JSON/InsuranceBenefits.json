@@ -1,62 +1,77 @@
 [
   {
     "Name": "Безплатна пътна помощ",
-    "Price": 20.5
+    "Price": 20.5,
+    "IconClass": "fas fa-tools"
   },
   {
     "Name": "Заместващ автомобил при авария",
-    "Price": 50.0
+    "Price": 50.0,
+    "IconClass": "fas fa-car-crash"
   },
   {
     "Name": "Покритие на щети при пожар",
-    "Price": 35.75
+    "Price": 35.75,
+    "IconClass": "fas fa-fire"
   },
   {
     "Name": "Покритие на щети при природни бедствия",
-    "Price": 45.25
+    "Price": 45.25,
+    "IconClass": "fas fa-cloud-showers-heavy"
   },
   {
     "Name": "24/7 телефонна помощ",
-    "Price": 15.0
+    "Price": 15.0,
+    "IconClass": "fas fa-phone-alt"
   },
   {
     "Name": "Покритие на щети при вандализъм",
-    "Price": 40.99
+    "Price": 40.99,
+    "IconClass": "fas fa-user-secret"
   },
   {
     "Name": "Замяна на ключове при загуба",
-    "Price": 25.49
+    "Price": 25.49,
+    "IconClass": "fas fa-key"
   },
   {
     "Name": "Медицинска застраховка за пътниците",
-    "Price": 30.0
+    "Price": 30.0,
+    "IconClass": "fas fa-first-aid"
   },
   {
     "Name": "Покритие при пътно-транспортно произшествие",
-    "Price": 60.75
+    "Price": 60.75,
+    "IconClass": "fas fa-car"
   },
   {
     "Name": "Покриване на разходи за транспорт",
-    "Price": 18.99
+    "Price": 18.99,
+    "IconClass": "fas fa-bus-alt"
   },
   {
     "Name": "Покритие при повреда на стъклата",
-    "Price": 22.89
+    "Price": 22.89,
+    "IconClass": "fas fa-windshield"
   },
   {
     "Name": "Техническа поддръжка на място",
-    "Price": 35.0
+    "Price": 35.0,
+    "IconClass": "fas fa-wrench"
   },
   {
     "Name": "Разходи за репатрак",
-    "Price": 50.25
+    "Price": 50.25,
+    "IconClass": "fas fa-truck"
   },
   {
     "Name": "Заместваща гума при повреда",
-    "Price": 10.0
+    "Price": 10.0,
+    "IconClass": "fas fa-tire"
   },
   {
     "Name": "Застраховка за лични вещи в автомобила",
-    "Price": 45.89
+    "Price": 45.89,
+    "IconClass": "fas fa-briefcase"
   }
 ]
