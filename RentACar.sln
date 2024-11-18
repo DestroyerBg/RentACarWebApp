@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.DTO", "RentACar.DT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.Core.Infrastructure", "RentACar.Core.Infrastructure\RentACar.Core.Infrastructure.csproj", "{A0B51085-A2E9-4A2C-8D22-E8661DACBE45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACar.Web.Infrastructure", "RentACar.Web.Infrastructure\RentACar.Web.Infrastructure.csproj", "{3975D83B-46EB-4026-B014-EA2D3A143F36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.Web.Infrastructure", "RentACar.Web.Infrastructure\RentACar.Web.Infrastructure.csproj", "{3975D83B-46EB-4026-B014-EA2D3A143F36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACar.Web.API", "RentACar.Web.API\RentACar.Web.API.csproj", "{3EB27B21-D9E1-4D99-86DD-7DCC99534D02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{3975D83B-46EB-4026-B014-EA2D3A143F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3975D83B-46EB-4026-B014-EA2D3A143F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3975D83B-46EB-4026-B014-EA2D3A143F36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EB27B21-D9E1-4D99-86DD-7DCC99534D02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EB27B21-D9E1-4D99-86DD-7DCC99534D02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EB27B21-D9E1-4D99-86DD-7DCC99534D02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EB27B21-D9E1-4D99-86DD-7DCC99534D02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

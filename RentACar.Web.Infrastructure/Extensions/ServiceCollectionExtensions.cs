@@ -5,6 +5,8 @@ using RentACar.Core.Services;
 using RentACar.Data.Models;
 using RentACar.Data.Repository;
 using RentACar.Data.Repository.Interfaces;
+using RentACar.Web.Infrastructure.Providers;
+using RentACar.Web.Infrastructure.Providers.Interfaces;
 
 namespace RentACar.Web.Infrastructure.Extensions
 {

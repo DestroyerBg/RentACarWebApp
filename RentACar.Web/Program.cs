@@ -1,4 +1,5 @@
-using RentACar.Web.Extensions;
+using RentACar.Web.Infrastructure.Extensions;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration

@@ -6,18 +6,23 @@ using Microsoft.Extensions.DependencyInjection;
 using RentACar.Data;
 using RentACar.Data.Models;
 using RentACar.Web.ErrorDescribers;
-using static RentACar.Common.Messages.ErrorMessages.DatabaseErrorMessages;
+using RentACar.Web.Infrastructure.Providers;
+using RentACar.Web.Infrastructure.Providers.Interfaces;
 namespace RentACar.Web.Infrastructure.Extensions
 {
     public static class BuilderExtensions
     {
         public static WebApplicationBuilder RegisterDbContext(this WebApplicationBuilder builder)
         {
-            string? connectionString = builder.Configuration.GetConnectionString("Development")
-                ?? throw new NullReferenceException(connectionStringNotAvailable);
+            builder.Services.AddScoped<IConnectionStringProvider, ConnectionStringProvider>();
+            builder.Services.AddDbContext<RentACarDbContext>((serviceProvider, options) =>
+            {
+                IConnectionStringProvider connectionStringProvider = serviceProvider.GetRequiredService<IConnectionStringProvider>();
+                string? connectionString = connectionStringProvider.GetConnectionString();
 
-            builder.Services.AddDbContext<RentACarDbContext>(
-                options => options.UseSqlServer(connectionString));
+                options.UseSqlServer(connectionString);
+            });
+            
 
             return builder;
         }
