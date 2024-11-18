@@ -17,6 +17,8 @@ namespace RentACar.Web.ViewModels.Car
 
         public string EndDate { get; set; } = null!;
 
+        public string Address { get; set; } = null!;
+
         public ICollection<InsuranceBenefitViewModel> Benefits { get; set; } = new HashSet<InsuranceBenefitViewModel>();
     }
 }

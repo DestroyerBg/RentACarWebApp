@@ -19,6 +19,16 @@
                     <input asp-for="@Model.EndDate" id="endDate" class="custom-input-static" placeholder="Изберете дата" />
                     <span asp-validation-for="@Model.EndDate" class="text-danger validation-message"></span>
                 </div>
+                
+                <div class="form-field">
+                    <label asp-for="@Model.Address" class="custom-label-static">Въведете адрес за доставка</label>
+                    <div class="d-flex align-items-center">
+                        <input asp-for="@Model.Address" id="addressInput" class="custom-input-static flex-grow-1" placeholder="Въведете адрес" />
+                        <button type="button" id="useLocationButton" class="custom-button ms-2">Използвай местоположение</button>
+                    </div>
+                    <span asp-validation-for="@Model.Address" class="text-danger validation-message"></span>
+                </div>
+
 
                 <div class="checkbox-group">
                     <h3 class="form-section-title">Допълнителна застраховка за да направиш своето пътуване по-сигурно!</h3>

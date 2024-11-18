@@ -78,7 +78,7 @@
     padding: 12px 20px;
     font-size: 1.2rem;
     background-color: #ff9800;
-    color: #fff;
+    color: #fff !important;
     border-radius: 5px;
     border: none;
     cursor: pointer;
