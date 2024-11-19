@@ -3,21 +3,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RentACar.Core.Interfaces;
 using RentACar.Data;
 using RentACar.Data.Models;
 using RentACar.Web.ErrorDescribers;
 using RentACar.Web.Infrastructure.Providers;
-using RentACar.Web.Infrastructure.Providers.Interfaces;
+
 namespace RentACar.Web.Infrastructure.Extensions
 {
     public static class BuilderExtensions
     {
         public static WebApplicationBuilder RegisterDbContext(this WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IConnectionStringProvider, ConnectionStringProvider>();
+            builder.Services.AddScoped<IStringProvider, StringProvider>();
             builder.Services.AddDbContext<RentACarDbContext>((serviceProvider, options) =>
             {
-                IConnectionStringProvider connectionStringProvider = serviceProvider.GetRequiredService<IConnectionStringProvider>();
+                IStringProvider connectionStringProvider = serviceProvider.GetRequiredService<IStringProvider>();
                 string? connectionString = connectionStringProvider.GetConnectionString();
 
                 options.UseSqlServer(connectionString);
@@ -68,5 +69,6 @@ namespace RentACar.Web.Infrastructure.Extensions
             options.Lockout.AllowedForNewUsers =
                 configurationSettings.GetValue<bool>("Lockout:AllowedForNewUsers");
         }
+
     }
 }

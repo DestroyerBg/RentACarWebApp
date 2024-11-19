@@ -5,8 +5,6 @@ using RentACar.Core.Services;
 using RentACar.Data.Models;
 using RentACar.Data.Repository;
 using RentACar.Data.Repository.Interfaces;
-using RentACar.Web.Infrastructure.Providers;
-using RentACar.Web.Infrastructure.Providers.Interfaces;
 
 namespace RentACar.Web.Infrastructure.Extensions
 {
@@ -16,6 +14,7 @@ namespace RentACar.Web.Infrastructure.Extensions
         {
             services.AddScoped<IUserService<ApplicationUser, Guid>, ApplicationUserService>();
             services.AddScoped<ICarService, CarService>();
+            services.AddScoped<ILocationService, LocationService>();
             return services;
         }
 

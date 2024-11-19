@@ -1,7 +1,14 @@
+using RentACar.Core.Interfaces;
+using RentACar.Core.Services;
 using RentACar.Web.Infrastructure.Extensions;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", true)
+    .AddJsonFile("secrets.json", true)
+    .AddUserSecrets<Program>();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -15,10 +22,11 @@ builder.AddIdentity();
 builder.Services.RegisterRepositories();
 
 builder.Services.RegisterUserDefinedServices();
+builder.Services.AddHttpClient<LocationService>();
 
 builder.Services.RegisterAutoMapper();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -33,4 +41,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();
