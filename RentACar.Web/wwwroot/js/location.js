@@ -1,4 +1,6 @@
-﻿const locationButton = document.addEventListener('click', () => GetLocation());
+﻿const locationButton = document.getElementById('useLocationButton');
+
+locationButton.addEventListener('click', () => GetLocation());
 
 function GetLocation() {
     if (!navigator.geolocation) {

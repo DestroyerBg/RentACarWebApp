@@ -31,11 +31,12 @@
                             @{
                                 foreach (LocationViewModel location in Model.Locations)
                                 {
-                                    <li><a class="dropdown-item" href="#">@location.City</a></li>
+                                    <li><a class="dropdown-item" data-value="@location.City" href="#">@location.City</a></li>
                                 }
                             }
                         </ul>
                     </div>
+                    <input type="text" id="selectedOption" class="form-control mt-3" readonly placeholder="Избран град ще се покаже тук">
                 </div>
 
                 <div class="form-field">
@@ -77,3 +78,4 @@
 <script src="~/js/date.js" asp-append-version="true"></script>
 <script src="~/js/rent.js" asp-append-version="true"></script>
 <script src="~/js/location.js" asp-append-version="true"></script>
+<script src="~/js/dropdown.js" asp-append-version="true"></script>
