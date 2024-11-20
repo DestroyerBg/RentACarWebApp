@@ -1,5 +1,6 @@
 ﻿using RentACar.DTO.InsuranceBenefit;
 using RentACar.Web.ViewModels.InsuranceBenefit;
+using RentACar.Web.ViewModels.Location;
 
 namespace RentACar.Web.ViewModels.Car
 {
@@ -20,5 +21,7 @@ namespace RentACar.Web.ViewModels.Car
         public string Address { get; set; } = null!;
 
         public ICollection<InsuranceBenefitViewModel> Benefits { get; set; } = new HashSet<InsuranceBenefitViewModel>();
+
+        public ICollection<LocationViewModel> Locations { get; set; } = new HashSet<LocationViewModel>();
     }
 }

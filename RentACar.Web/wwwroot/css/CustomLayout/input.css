@@ -49,15 +49,14 @@
     transition: all 0.3s ease;
 }
 
-.custom-input::placeholder {
+    .custom-input::placeholder {
         color: #999;
     }
 
-.custom-input:focus {
+    .custom-input:focus {
         border-color: #ff9800;
         box-shadow: 0 0 8px rgba(255, 152, 0, 0.3);
-
-}
+    }
 
 .custom-label {
     position: absolute;
@@ -71,7 +70,7 @@
 
 
 .custom-input:focus + .custom-label,
-.custom-input:not(:placeholder-shown) + .custom-label{
+.custom-input:not(:placeholder-shown) + .custom-label {
     top: -10px;
     left: 10px;
     font-size: 0.85rem;
@@ -121,14 +120,14 @@
     color: #f1f1f1;
 }
 
-.additional-links a {
-    color: #ff9800;
-    text-decoration: none;
-}
+    .additional-links a {
+        color: #ff9800;
+        text-decoration: none;
+    }
 
-.additional-links a:hover {
-    text-decoration: underline;
-}
+        .additional-links a:hover {
+            text-decoration: underline;
+        }
 
 
 .form-field {
@@ -139,7 +138,7 @@
 }
 
 .custom-label-static {
-    font-size: 0.85rem;
+    font-size: 0.9em;
     color: #aaa;
     font-weight: bold;
     margin-bottom: 5px;
@@ -160,20 +159,35 @@
 }
 
 
-.custom-input-static:focus {
-    border-color: #ff9800;
-    box-shadow: 0 0 8px rgba(255, 152, 0, 0.3);
-}
+    .custom-input-static:focus {
+        border-color: #ff9800;
+        box-shadow: 0 0 8px rgba(255, 152, 0, 0.3);
+    }
 
-.custom-input-static:focus + .custom-label-static {
-    color: #ff9800;
-}
+        .custom-input-static:focus + .custom-label-static {
+            color: #ff9800;
+        }
 
 .checkbox-group {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 10px;
+    max-height: 200px;
+    overflow-y: auto;
 }
+
+.checkbox-group::-webkit-scrollbar {
+    width: 10px;
+}
+
+    .checkbox-group::-webkit-scrollbar-thumb {
+        background-color: #aaa;
+        border-radius: 5px;
+    }
+
+        .checkbox-group::-webkit-scrollbar-thumb:hover {
+            background-color: #888;
+        }
 
 .form-section-title {
     font-size: 1.2rem;
@@ -184,6 +198,33 @@
     padding-bottom: 5px;
 }
 
+.dropdown-menu {
+    max-height: 350px;
+    overflow-y: auto;
+    background-color: #333;
+    color: white;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
+.dropdown-menu .dropdown-item {
+    color: white;
+}
 
+.dropdown-menu .dropdown-item:hover {
+    background-color: #444;
+    color: #ff9800;
+}
 
+    .dropdown-menu::-webkit-scrollbar {
+        width: 10px;
+    }
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+        background-color: #aaa;
+        border-radius: 5px;
+    }
+
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+        background-color: #888;
+}

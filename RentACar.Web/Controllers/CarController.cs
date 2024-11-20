@@ -26,7 +26,7 @@ namespace RentACar.Web.Controllers
             IEnumerable<ViewCarDTO> carDtos = await carService.GetCarsAsync();
 
             IEnumerable<ViewCarsViewModel> carModels =
-                carDtos.Select(car => mapperService.Map<ViewCarDTO, ViewCarsViewModel>(car));
+                carDtos.Select(car => mapperService.Map<ViewCarsViewModel>(car));
 
             ViewBag.ShowSideMenu = true;
             return View(carModels);
@@ -48,7 +48,7 @@ namespace RentACar.Web.Controllers
                 return RedirectToAction(nameof(AllCars));
             }
 
-            RentACarViewModel model = mapperService.Map<RentACarDTO, RentACarViewModel>(carDto);
+            RentACarViewModel model = mapperService.Map<RentACarViewModel>(carDto);
 
             return View(model);
         }

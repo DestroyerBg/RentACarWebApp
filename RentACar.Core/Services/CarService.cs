@@ -6,6 +6,7 @@ using RentACar.Data.Repository;
 using RentACar.Data.Repository.Interfaces;
 using RentACar.DTO.Car;
 using RentACar.DTO.InsuranceBenefit;
+using RentACar.DTO.Location;
 
 namespace RentACar.Core.Services
 {
@@ -13,14 +14,17 @@ namespace RentACar.Core.Services
     {
         private readonly IRepository<Car, Guid> carRepository;
         private readonly IRepository<InsuranceBenefit, Guid> insuranceBenefitRepository;
+        private readonly IRepository<Location, Guid> locationRepository;
         private readonly IMapper mapperService;
         public CarService(IRepository<Car, Guid> _carRepository,
             IMapper _mapperService,
-            IRepository<InsuranceBenefit, Guid> _insuranceBenefitRepository)
+            IRepository<InsuranceBenefit, Guid> _insuranceBenefitRepository,
+            IRepository<Location, Guid> _locationRepository)
         {
             carRepository = _carRepository;
             mapperService = _mapperService;
             insuranceBenefitRepository = _insuranceBenefitRepository;
+            locationRepository = _locationRepository;
         }
         public async Task<IEnumerable<ViewCarDTO>> GetCarsAsync()
         {
@@ -54,9 +58,16 @@ namespace RentACar.Core.Services
                     .Select(i => mapperService.Map<InsuranceBenefit, InsuranceBenefitDTO>(i))
                 .ToListAsync();
 
-            RentACarDTO carDto = mapperService.Map<Car, RentACarDTO>(car);
-            carDto.Benefits = insuranceBenefits;
+            ICollection<LocationDTO> locations = await
+                locationRepository
+                    .GetAllAttached()
+                    .Select(l => mapperService.Map<LocationDTO>(l))
+                    .ToListAsync();
 
+            RentACarDTO carDto = mapperService.Map<Car, RentACarDTO>(car);
+
+            carDto.Benefits = insuranceBenefits;
+            carDto.Locations = locations;
             return carDto;
         }
     }

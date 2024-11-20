@@ -1,4 +1,5 @@
 ﻿@using RentACar.Web.ViewModels.InsuranceBenefit
+@using RentACar.Web.ViewModels.Location
 @model RentACar.Web.ViewModels.Car.RentACarViewModel
 <div class="row">
     <div class="form-wrapper">
@@ -9,17 +10,34 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
                 <input type="hidden" id="carPricePerDay" value="@Model.PricePerDay" />
                 <div class="form-field">
-                    <label asp-for="@Model.StartDate" class="custom-label-static">Изберете дата за наемане на МПС</label>
+                    <label asp-for="@Model.StartDate" class="custom-label-static">Избери дата за наемане на МПС</label>
                     <input asp-for="@Model.StartDate" id="startDate" class="custom-input-static" placeholder="Изберете дата" />
                     <span asp-validation-for="@Model.StartDate" class="text-danger validation-message"></span>
                 </div>
 
                 <div class="form-field">
-                    <label asp-for="@Model.EndDate" class="custom-label-static">Изберете дата за край на вашата резервация!</label>
+                    <label asp-for="@Model.EndDate" class="custom-label-static">Избери дата за край на вашата резервация!</label>
                     <input asp-for="@Model.EndDate" id="endDate" class="custom-input-static" placeholder="Изберете дата" />
                     <span asp-validation-for="@Model.EndDate" class="text-danger validation-message"></span>
                 </div>
-                
+
+                <div class="form-field">
+                    <label for="carOptionsDropdown" class="custom-label-static">Избери опция</label>
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="carOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Избери град от менюто
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="carOptionsDropdown">
+                            @{
+                                foreach (LocationViewModel location in Model.Locations)
+                                {
+                                    <li><a class="dropdown-item" href="#">@location.City</a></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+
                 <div class="form-field">
                     <label asp-for="@Model.Address" class="custom-label-static">Въведете адрес за доставка</label>
                     <div class="d-flex flex-column align-items-center gap-2">
