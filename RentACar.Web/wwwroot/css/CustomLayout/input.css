@@ -216,9 +216,9 @@
     color: #ff9800;
 }
 
-    .dropdown-menu::-webkit-scrollbar {
+.dropdown-menu::-webkit-scrollbar {
         width: 10px;
-    }
+}
 
 .dropdown-menu::-webkit-scrollbar-thumb {
         background-color: #aaa;

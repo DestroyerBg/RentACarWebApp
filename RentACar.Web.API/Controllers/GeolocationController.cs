@@ -19,6 +19,8 @@ namespace RentACar.Web.API.Controllers
         }
 
         [HttpGet("geocode")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Geocode(string address)
         {
             string apiKey = stringProvider.GetGeolocationApiKey();
@@ -31,6 +33,8 @@ namespace RentACar.Web.API.Controllers
         }
 
         [HttpGet("reverse-geocode")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ReverseGeocode(double latitude, double longitude)
         {
             string apiKey = stringProvider.GetGeolocationApiKey();
