@@ -22,9 +22,9 @@
                 
                 <div class="form-field">
                     <label asp-for="@Model.Address" class="custom-label-static">Въведете адрес за доставка</label>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex flex-column align-items-center gap-2">
                         <input asp-for="@Model.Address" id="addressInput" class="custom-input-static flex-grow-1" placeholder="Въведете адрес" />
-                        <button type="button" id="useLocationButton" class="custom-button ms-2">Използвай местоположение</button>
+                        <button type="button" id="useLocationButton" class="custom-button ms-2 mt-2">Използвай местоположение</button>
                     </div>
                     <span asp-validation-for="@Model.Address" class="text-danger validation-message"></span>
                 </div>
@@ -58,3 +58,4 @@
 
 <script src="~/js/date.js" asp-append-version="true"></script>
 <script src="~/js/rent.js" asp-append-version="true"></script>
+<script src="~/js/location.js" asp-append-version="true"></script>

@@ -3,7 +3,7 @@ using RentACar.Core.Interfaces;
 using static RentACar.Common.Messages.ErrorMessages.GeolocationErrorMessages;
 namespace RentACar.Web.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/api/[controller]")]
     [ApiController]
     public class GeolocationController : ControllerBase
     {

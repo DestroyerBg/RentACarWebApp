@@ -1,4 +1,3 @@
-using RentACar.Core.Interfaces;
 using RentACar.Core.Services;
 using RentACar.Web.Infrastructure.Extensions;
 
@@ -11,6 +10,15 @@ builder.Configuration
     .AddUserSecrets<Program>();
 // Add services to the container.
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -41,4 +49,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseCors();
 await app.RunAsync();
