@@ -34,6 +34,12 @@ namespace RentACar.Data.Models
         public DateTime EndDate { get; set; }
 
         [Required]
+        [MaxLength(PhoneNumberLength)]
+        [DataType(DataType.PhoneNumber)]
+        [Comment("Reservation customer phone number. Could be different than the user's registered phone number")]
+        public string PhoneNumber { get; set; } = null!;
+
+        [Required]
         [Column(TypeName = PricePrecision)]
         [Comment("Total price for the reservation")]
         public decimal TotalPrice { get; set; }

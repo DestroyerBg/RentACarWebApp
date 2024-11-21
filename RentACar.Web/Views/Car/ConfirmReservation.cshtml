@@ -1,0 +1,60 @@
+﻿@model RentACar.Web.ViewModels.Car.ConfirmReservationViewModel;
+    <div class="form-wrapper">
+        <div class="container mt-5">
+            <h2 class="text-center">Резюме на вашата резервация</h2>
+            <hr />
+
+            <div class="reservation-summary">
+                <div class="mb-3">
+                    <h4>Избран автомобил:</h4>
+                    <p class="mb-0"><strong>Марка:</strong> @Model.CarBrand</p>
+                    <p><strong>Модел:</strong> @Model.CarModel</p>
+                </div>
+
+                <div class="mb-3">
+                    <h4>Дати на резервация:</h4>
+                    <p class="mb-0"><strong>Начална дата:</strong> @Model.StartDate.ToString("dd.MM.yyyy")</p>
+                    <p><strong>Крайна дата:</strong> @Model.EndDate.ToString("dd.MM.yyyy")</p>
+                </div>
+
+                <div class="mb-3">
+                    <h4>Адрес за доставка:</h4>
+                    <p>@Model.Address</p>
+                </div>
+                
+                <div class="mb-3">
+                    <h4>Телефонен номер:</h4>
+                    <p>@Model.PhoneNumber</p>
+                </div>
+
+                <div class="mb-3">
+                    <h4>Избрани застраховки:</h4>
+                    @if (Model.InsuranceBenefits.Any())
+                    {
+                        <ul>
+                            @foreach (var benefit in Model.InsuranceBenefits.Where(i => i.IsChecked))
+                            {
+                                <li>@benefit.Name</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>Няма избрани застраховки.</p>
+                    }
+                </div>
+
+                <div class="mb-4">
+                    <h4>Крайна цена:</h4>
+                    <p class="text-success"><strong>@Model.TotalPrice.ToString("0.00") лв.</strong></p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="@Url.Action("RentACar", "Car")" class="btn btn-secondary">Назад</a>
+                    <form method="post" asp-action="ConfirmReservation" asp-controller="Reservation">
+                        <button type="submit" class="btn-identity">Резервирай</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

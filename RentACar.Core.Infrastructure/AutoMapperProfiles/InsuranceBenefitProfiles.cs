@@ -11,6 +11,7 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
         {
             CreateMap<InsuranceBenefit, InsuranceBenefitDTO>();
             CreateMap<InsuranceBenefitDTO, InsuranceBenefitViewModel>();
+            CreateMap<InsuranceBenefitViewModel, InsuranceBenefitDTO>();
         }
     }
 }

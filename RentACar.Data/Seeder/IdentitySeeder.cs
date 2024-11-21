@@ -3,6 +3,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using RentACar.Common.Constants;
 using RentACar.Data.Helpers;
 using RentACar.Data.Models;
 using RentACar.DTO.Identity;
@@ -47,7 +48,7 @@ namespace RentACar.Data.Seeder
             {
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
-                BirthDate = DateTime.ParseExact(dto.BirthDate,DateFormat,CultureInfo.InvariantCulture, DateTimeStyles.None),
+                BirthDate = DateTime.ParseExact(dto.BirthDate,DatabaseModelsConstants.Common.DateFormat,CultureInfo.InvariantCulture, DateTimeStyles.None),
 
             };
 

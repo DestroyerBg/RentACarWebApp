@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Core.Interfaces;
 using RentACar.DTO.Car;
+using RentACar.DTO.Reservation;
 using RentACar.Web.ViewModels.Car;
 
 namespace RentACar.Web.Controllers
@@ -53,6 +54,27 @@ namespace RentACar.Web.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> RentACar(RentACarViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            CreateReservationDTO reservationDto = mapperService.Map<CreateReservationDTO>(model);
+            ConfirmReservationDTO dto = await carService.CreateReservationConfirmation(reservationDto);
+
+            if (dto == null)
+            {
+                return View(model);
+            }
+
+            ConfirmReservationViewModel reservationModel = mapperService.Map<ConfirmReservationViewModel>(dto);
+
+            return View("ConfirmReservation", reservationModel);
+        }
 
         
     }

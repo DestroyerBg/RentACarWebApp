@@ -1,6 +1,7 @@
 using RentACar.Core.Interfaces;
 using RentACar.Core.Services;
 using RentACar.Web.Infrastructure.Extensions;
+using RentACar.Web.Infrastructure.ModelBinderProviders;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddRazorPages();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+    {
+        options.ModelBinderProviders.Insert(0, new InsuranceBenefitCustomModelBinderProvider());
+    });
 
 builder.Services.RegisterRepositories();
 

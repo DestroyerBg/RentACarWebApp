@@ -13,6 +13,6 @@ namespace RentACar.DTO.InsuranceBenefit
 
         public string IconClass { get; set; } = null!;
 
-        public bool IsChecked = false;
+        public bool IsChecked { get; set; } = false;
     }
 }

@@ -5,20 +5,21 @@
     <div class="form-wrapper">
         <section>
             <form id="registerForm" method="post" asp-action="RentACar">
-                <input type="hidden" value="@Model.Id"/>
+                <input type="hidden" asp-for="@Model.Id" />
+
                 <h2>Резервирай @($"{Model.Brand} {Model.Model}")</h2>
-                <hr/>
+                <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
-                <input type="hidden" id="carPricePerDay" value="@Model.PricePerDay"/>
+                <input type="hidden" id="carPricePerDay" value="@Model.PricePerDay" />
                 <div class="form-field">
                     <label asp-for="@Model.StartDate" class="custom-label-static">Избери дата за наемане на МПС</label>
-                    <input asp-for="@Model.StartDate" id="startDate" class="custom-input-static" placeholder="Изберете дата"/>
+                    <input asp-for="@Model.StartDate" id="startDate" class="custom-input-static" placeholder="Изберете дата" />
                     <span asp-validation-for="@Model.StartDate" class="text-danger validation-message"></span>
                 </div>
 
                 <div class="form-field">
                     <label asp-for="@Model.EndDate" class="custom-label-static">Избери дата за край на вашата резервация!</label>
-                    <input asp-for="@Model.EndDate" id="endDate" class="custom-input-static" placeholder="Изберете дата"/>
+                    <input asp-for="@Model.EndDate" id="endDate" class="custom-input-static" placeholder="Изберете дата" />
                     <span asp-validation-for="@Model.EndDate" class="text-danger validation-message"></span>
                 </div>
 
@@ -38,28 +39,47 @@
                         </ul>
                     </div>
                     <input asp-for="@Model.City" type="text" id="selectedOption" class="form-control mt-3" readonly placeholder="Избран град ще се покаже тук">
-                    <input type="hidden" id="locationId" value=""/>
+                    <input asp-for="@Model.LocationId" type="hidden" id="locationId" />
                 </div>
 
                 <div class="form-field">
                     <label asp-for="@Model.Address" class="custom-label-static">Въведете адрес за доставка</label>
                     <div class="d-flex flex-column align-items-center gap-2">
-                        <input asp-for="@Model.Address" id="addressInput" class="custom-input-static flex-grow-1" placeholder="Въведете адрес"/>
+                        <input asp-for="@Model.Address" id="addressInput" class="custom-input-static flex-grow-1" placeholder="Въведете адрес" />
                         <button type="button" id="useLocationButton" class="custom-button ms-2 mt-2">Използвай местоположение</button>
                     </div>
                     <span asp-validation-for="@Model.Address" class="text-danger validation-message"></span>
+                </div>
+                
+                <div class="form-field">
+                    <label asp-for="@Model.PhoneNumber" class="custom-label-static">Телефонен номер</label>
+                    <input asp-for="@Model.PhoneNumber" class="custom-input-static" placeholder="0892123456"/>
+                    <span asp-validation-for="@Model.PhoneNumber" class="text-danger validation-message"></span>
                 </div>
 
 
                 <div class="checkbox-group">
                     <h3 class="form-section-title">Допълнителна застраховка за да направиш своето пътуване по-сигурно!</h3>
                     @{
+                        int index = 0;
                         foreach (InsuranceBenefitViewModel benefit in Model.Benefits)
                         {
+                            <input type="hidden" name="Benefits[@index].IsChecked" id="hidden-@index" value="false" />
                             <div class="checkbox-field">
-                                <input asp-for="@benefit.IsChecked" type="checkbox" value="@benefit.Price" class="form-check-input">
-                                <label asp-for="@benefit.Name" class="form-check-label">@($"{benefit.Name} ({benefit.Price}лв./ден)")</label>
+                                <input type="checkbox"
+                                       class="form-check-input insurance-checkbox"
+                                       id="checkbox-@index"
+                                       value="@benefit.Price" />
+
+                                <input type="hidden" name="Benefits[@index].Id" value="@benefit.Id" />
+                                <input type="hidden" name="Benefits[@index].Name" value="@benefit.Name" />
+                                <input type="hidden" name="Benefits[@index].Price" value="@benefit.Price" />
+                                <input type="hidden" name="Benefits[@index].IconClass" value="@benefit.IconClass" />
+                                <label for="benefit-@index" class="form-check-label">
+                                    @($"{benefit.Name} ({benefit.Price}лв./ден)")
+                                </label>
                             </div>
+                            index++;
                         }
                     }
                 </div>
@@ -81,3 +101,4 @@
 <script src="~/js/rent.js" asp-append-version="true"></script>
 <script src="~/js/location.js" asp-append-version="true"></script>
 <script src="~/js/dropdown.js" asp-append-version="true"></script>
+<script src="~/js/checkbox.js" asp-append-version="true"></script>

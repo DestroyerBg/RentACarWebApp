@@ -42,11 +42,11 @@
 });
 
 function ParseDate(dateInput) {
-    if (!dateInput.value) return null; // Връща null, ако стойността е празна
+    if (!dateInput.value) return null; 
     const [day, month, year] = dateInput.value.split(".").map(Number);
 
     if (!day || !month || !year || isNaN(day) || isNaN(month) || isNaN(year)) {
-        return null; // Връща null, ако датата не е валидна
+        return null; 
     }
 
     return new Date(year, month - 1, day);

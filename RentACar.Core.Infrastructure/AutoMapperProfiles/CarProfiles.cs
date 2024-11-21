@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RentACar.Data.Models;
 using RentACar.DTO.Car;
+using RentACar.DTO.Reservation;
 using RentACar.Web.ViewModels.Car;
 
 namespace RentACar.Core.Infrastructure.AutoMapperProfiles
@@ -21,6 +22,13 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
                 .ForMember(dest => dest.City, src =>
                     src.MapFrom(s => s.Location.City));
             CreateMap<RentACarDTO, RentACarViewModel>();
+            CreateMap<RentACarViewModel, CreateReservationDTO>()
+                .ForMember(dest => dest.CarId, src =>
+                    src.MapFrom(s => s.Id))
+                .ForMember(dest => dest.InsuranceBenefits, 
+                    src => src.MapFrom(s => s.Benefits));
+            CreateMap<CreateReservationDTO, ConfirmReservationDTO>();
+            CreateMap<ConfirmReservationDTO, ConfirmReservationViewModel>();
         }
     }
 }

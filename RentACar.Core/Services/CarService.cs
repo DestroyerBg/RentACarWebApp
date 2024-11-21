@@ -1,13 +1,14 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
-using RentACar.Data.Repository;
 using RentACar.Data.Repository.Interfaces;
 using RentACar.DTO.Car;
 using RentACar.DTO.InsuranceBenefit;
 using RentACar.DTO.Location;
-
+using RentACar.DTO.Reservation;
+using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 namespace RentACar.Core.Services
 {
     public class CarService : ICarService
@@ -69,6 +70,58 @@ namespace RentACar.Core.Services
             carDto.Benefits = insuranceBenefits;
             carDto.Locations = locations;
             return carDto;
+        }
+
+        public async Task<ConfirmReservationDTO> CreateReservationConfirmation(CreateReservationDTO reservationDTO)
+        {
+            Car? car = await carRepository.GetByIdAsync(reservationDTO.CarId);
+
+            if (car == null)
+            {
+                return null;
+            }
+
+            ConfirmReservationDTO confirmReservation = mapperService.Map<ConfirmReservationDTO>(reservationDTO);
+
+            confirmReservation.TotalPrice = await CalculateTotalPrice(reservationDTO);
+            confirmReservation.CarBrand = car.Brand;
+            confirmReservation.CarModel = car.Model;
+            return confirmReservation;
+        }
+
+        private async Task<decimal> CalculateTotalPrice(CreateReservationDTO reservationDTO)
+        {
+            Car? car = await carRepository.GetByIdAsync(reservationDTO.CarId);
+            decimal totalPrice = 0;
+            DateTime startDate = DateTime.ParseExact(reservationDTO.StartDate, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None);
+
+            DateTime endDate = DateTime.ParseExact(reservationDTO.EndDate, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None);
+
+            TimeSpan dateDiff = endDate - startDate;
+
+            if (dateDiff.Days == 1)
+            {
+                 totalPrice = car.PricePerDay;
+            }
+            else
+            {
+                totalPrice = car.PricePerDay * dateDiff.Days;
+            }
+            
+
+            foreach (InsuranceBenefitDTO benefitDto in reservationDTO.InsuranceBenefits.Where(l => l.IsChecked))
+            {
+                InsuranceBenefit currBenefit = await insuranceBenefitRepository.GetByIdAsync(benefitDto.Id);
+
+                if (currBenefit == null)
+                {
+                    continue;
+                }
+
+                totalPrice += currBenefit.Price * dateDiff.Days;
+            }
+
+            return totalPrice;
         }
     }
 }

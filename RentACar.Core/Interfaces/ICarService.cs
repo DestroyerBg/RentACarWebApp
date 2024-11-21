@@ -1,4 +1,5 @@
 ﻿using RentACar.DTO.Car;
+using RentACar.DTO.Reservation;
 
 namespace RentACar.Core.Interfaces
 {
@@ -6,5 +7,6 @@ namespace RentACar.Core.Interfaces
     { 
         Task<IEnumerable<ViewCarDTO>> GetCarsAsync();
         Task<RentACarDTO> ReserveACar(Guid carId);
+        Task<ConfirmReservationDTO> CreateReservationConfirmation(CreateReservationDTO reservationDTO);
     }
 }

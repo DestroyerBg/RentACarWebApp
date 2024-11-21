@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using RentACar.Common.Constants;
 using RentACar.Common.ValidationAttributes;
-using RentACar.Web.Infrastructure.ValidationAttributes;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
+using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 namespace RentACar.Web.ViewModels.Identity
 {
     public class RegisterViewModel
@@ -14,16 +15,16 @@ namespace RentACar.Web.ViewModels.Identity
 
     [Required]
     [Display(Name = "Потребителско име")]
-    [CustomStringLength(UsernameNameMinLength, UsernameNameMaxLength, AnyInputLengthErrorMessage)]
+    [CustomStringLength(UsernameNameMinLength, UsernameNameMaxLength, DatabaseModelsConstants.Common.AnyInputLengthErrorMessage)]
     public string Username { get; set; } = null!;
 
     [Required]
-    [CustomStringLength(FirstNameMinLength, FirstNameMaxLength, AnyInputLengthErrorMessage)]
+    [CustomStringLength(FirstNameMinLength, FirstNameMaxLength, DatabaseModelsConstants.Common.AnyInputLengthErrorMessage)]
     [Display(Name = "Име")]
     public string FirstName { get; set; } = null!;
 
     [Required]
-    [CustomStringLength(LastNameMinLength, LastNameMaxLength, AnyInputLengthErrorMessage)]
+    [CustomStringLength(LastNameMinLength, LastNameMaxLength, DatabaseModelsConstants.Common.AnyInputLengthErrorMessage)]
     [Display(Name = "Фамилно име")]
     public string LastName { get; set; } = null!;
 
@@ -34,7 +35,7 @@ namespace RentACar.Web.ViewModels.Identity
     public string PhoneNumber { get; set; } = null!;
 
     [Required]
-    [DateValidation(DateFormat, DateIncorrectFormatErrorMessage)]
+    [DateValidation(DatabaseModelsConstants.Common.DateFormat, DateIncorrectFormatErrorMessage)]
     public string BirthDate { get; set; } = null!;
 
     [Required]

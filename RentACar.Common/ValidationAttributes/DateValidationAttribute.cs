@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
-namespace RentACar.Web.Infrastructure.ValidationAttributes
+namespace RentACar.Common.ValidationAttributes
 {
     public class DateValidationAttribute : ValidationAttribute
     {
