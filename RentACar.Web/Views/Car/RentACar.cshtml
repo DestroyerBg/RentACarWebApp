@@ -66,15 +66,16 @@
                         {
                             <input type="hidden" name="Benefits[@index].IsChecked" id="hidden-@index" value="false" />
                             <div class="checkbox-field">
+                                <i class="@benefit.IconClass me-2"></i>
                                 <input type="checkbox"
                                        class="form-check-input insurance-checkbox"
                                        id="checkbox-@index"
-                                       value="@benefit.Price" />
+                                       value="@benefit.Price"/>
 
-                                <input type="hidden" name="Benefits[@index].Id" value="@benefit.Id" />
-                                <input type="hidden" name="Benefits[@index].Name" value="@benefit.Name" />
-                                <input type="hidden" name="Benefits[@index].Price" value="@benefit.Price" />
-                                <input type="hidden" name="Benefits[@index].IconClass" value="@benefit.IconClass" />
+                                <input type="hidden" name="Benefits[@index].Id" value="@benefit.Id"/>
+                                <input type="hidden" name="Benefits[@index].Name" value="@benefit.Name"/>
+                                <input type="hidden" name="Benefits[@index].Price" value="@benefit.Price"/>
+                                <input type="hidden" name="Benefits[@index].IconClass" value="@benefit.IconClass"/>
                                 <label for="benefit-@index" class="form-check-label">
                                     @($"{benefit.Name} ({benefit.Price}лв./ден)")
                                 </label>
