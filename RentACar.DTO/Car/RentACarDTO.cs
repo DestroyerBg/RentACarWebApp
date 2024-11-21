@@ -5,6 +5,7 @@ namespace RentACar.DTO.Car
 {
     public class RentACarDTO
     {
+        public Guid Id { get; set; }
         public string Brand { get; set; } = null!;
 
         public string Model { get; set; } = null!;

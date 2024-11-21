@@ -5,19 +5,20 @@
     <div class="form-wrapper">
         <section>
             <form id="registerForm" method="post" asp-action="RentACar">
+                <input type="hidden" value="@Model.Id"/>
                 <h2>Резервирай @($"{Model.Brand} {Model.Model}")</h2>
-                <hr />
+                <hr/>
                 <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
-                <input type="hidden" id="carPricePerDay" value="@Model.PricePerDay" />
+                <input type="hidden" id="carPricePerDay" value="@Model.PricePerDay"/>
                 <div class="form-field">
                     <label asp-for="@Model.StartDate" class="custom-label-static">Избери дата за наемане на МПС</label>
-                    <input asp-for="@Model.StartDate" id="startDate" class="custom-input-static" placeholder="Изберете дата" />
+                    <input asp-for="@Model.StartDate" id="startDate" class="custom-input-static" placeholder="Изберете дата"/>
                     <span asp-validation-for="@Model.StartDate" class="text-danger validation-message"></span>
                 </div>
 
                 <div class="form-field">
                     <label asp-for="@Model.EndDate" class="custom-label-static">Избери дата за край на вашата резервация!</label>
-                    <input asp-for="@Model.EndDate" id="endDate" class="custom-input-static" placeholder="Изберете дата" />
+                    <input asp-for="@Model.EndDate" id="endDate" class="custom-input-static" placeholder="Изберете дата"/>
                     <span asp-validation-for="@Model.EndDate" class="text-danger validation-message"></span>
                 </div>
 
@@ -31,18 +32,19 @@
                             @{
                                 foreach (LocationViewModel location in Model.Locations)
                                 {
-                                    <li><a class="dropdown-item" data-value="@location.City" href="#">@location.City</a></li>
+                                    <li><a class="dropdown-item" data-value="@location.City" data-id="@location.Id" href="#">@location.City</a></li>
                                 }
                             }
                         </ul>
                     </div>
-                    <input type="text" id="selectedOption" class="form-control mt-3" readonly placeholder="Избран град ще се покаже тук">
+                    <input asp-for="@Model.City" type="text" id="selectedOption" class="form-control mt-3" readonly placeholder="Избран град ще се покаже тук">
+                    <input type="hidden" id="locationId" value=""/>
                 </div>
 
                 <div class="form-field">
                     <label asp-for="@Model.Address" class="custom-label-static">Въведете адрес за доставка</label>
                     <div class="d-flex flex-column align-items-center gap-2">
-                        <input asp-for="@Model.Address" id="addressInput" class="custom-input-static flex-grow-1" placeholder="Въведете адрес" />
+                        <input asp-for="@Model.Address" id="addressInput" class="custom-input-static flex-grow-1" placeholder="Въведете адрес"/>
                         <button type="button" id="useLocationButton" class="custom-button ms-2 mt-2">Използвай местоположение</button>
                     </div>
                     <span asp-validation-for="@Model.Address" class="text-danger validation-message"></span>
