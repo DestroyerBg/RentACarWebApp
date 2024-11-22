@@ -3,9 +3,7 @@ using RentACar.Data.Models;
 using RentACar.DTO.Identity;
 namespace RentACar.Core.Interfaces
 {
-    public interface IUserService<TUser, TKey>
-        where TUser : ApplicationUser
-        where TKey : IEquatable<TKey>
+    public interface IUserService
     {
         Task<IdentityResult> RegisterUserAsync(RegisterDTO model);
         Task<SignInResult> LoginUserAsync(LoginDTO model);

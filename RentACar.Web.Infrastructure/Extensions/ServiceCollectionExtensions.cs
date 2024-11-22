@@ -12,7 +12,7 @@ namespace RentACar.Web.Infrastructure.Extensions
     {
         public static IServiceCollection RegisterUserDefinedServices(this IServiceCollection services)
         {
-            services.AddScoped<IUserService<ApplicationUser, Guid>, ApplicationUserService>();
+            services.AddScoped<IUserService, ApplicationUserService>();
             services.AddScoped<ICarService, CarService>();
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IReservationService, ReservationService>();

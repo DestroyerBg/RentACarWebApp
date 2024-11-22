@@ -13,10 +13,10 @@ namespace RentACar.Web.Controllers
 {
     public class AccountController : BaseController
     {
-        private readonly IUserService<ApplicationUser, Guid> userService;
+        private readonly IUserService userService;
         private readonly ILogger<AccountController> logger;
         private readonly IMapper mapService;
-        public AccountController(IUserService<ApplicationUser, Guid> _userService, 
+        public AccountController(IUserService _userService, 
             ILogger<AccountController> _logger,
             IMapper _mapService)
         {

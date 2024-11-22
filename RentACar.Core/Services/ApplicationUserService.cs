@@ -1,21 +1,87 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
+using RentACar.DTO.Identity;
 
 namespace RentACar.Core.Services
 {
-    public class ApplicationUserService : BaseUserService<ApplicationUser, Guid>
+    public class ApplicationUserService : IUserService
     {
+        private SignInManager<ApplicationUser> signInManager;
+        private UserManager<ApplicationUser> userManager;
+        private IUserStore<ApplicationUser> userStore;
+        private IEmailSender emailSender;
+        private IMapper mapperService;
         public ApplicationUserService(
-            SignInManager<ApplicationUser> signInManager,
-            UserManager<ApplicationUser> userManager,
-            IUserStore<ApplicationUser> userStore,
-            IEmailSender emailSender,
-            IMapper mapperService) : base(signInManager, userManager, userStore,emailSender, mapperService)
+            SignInManager<ApplicationUser> _signInManager,
+            UserManager<ApplicationUser> _userManager,
+            IUserStore<ApplicationUser> _userStore,
+            IEmailSender _emailSender,
+            IMapper _mapperService)
         {
-            
+            signInManager = _signInManager;
+            userManager = _userManager;
+            userStore = _userStore;
+            emailSender = _emailSender;
+            mapperService = _mapperService;
         }
+
+        private ApplicationUser CreateNewUserInstance()
+        {
+            ApplicationUser user = Activator.CreateInstance<ApplicationUser>();
+
+            return user;
+        }
+
+        public async Task<bool> LogoutUserAsync()
+        {
+            await signInManager.SignOutAsync();
+
+            return true;
+        }
+
+        public virtual RegisterDTO CreateBlankRegisterViewModel()
+        {
+            return new RegisterDTO();
+        }
+
+        public virtual async Task<IdentityResult> RegisterUserAsync(RegisterDTO dto)
+        {
+            ApplicationUser user = CreateNewUserInstance();
+            user = mapperService.Map<RegisterDTO, ApplicationUser>(dto);
+
+            await userManager.SetUserNameAsync(user, dto.Username);
+            await userManager.SetEmailAsync(user, dto.Email);
+            await userManager.AddToRoleAsync(user, "customer");
+
+            IdentityResult result = await userManager.CreateAsync(user, dto.Password);
+
+            return result;
+        }
+
+        public virtual LoginDTO CreateBlankLoginViewModel()
+        {
+            return new LoginDTO();
+        }
+
+        public virtual async Task<SignInResult> LoginUserAsync(LoginDTO dto)
+        {
+            ApplicationUser user = await userManager.FindByEmailAsync(dto.Email);
+            if (user == null)
+            {
+                return new SignInResult();
+            }
+
+            SignInResult result =
+                await signInManager
+                    .PasswordSignInAsync(user.UserName,
+                        dto.Password, dto.RememberMe, lockoutOnFailure: true);
+
+            return result;
+        }
+
 
     }
 }
