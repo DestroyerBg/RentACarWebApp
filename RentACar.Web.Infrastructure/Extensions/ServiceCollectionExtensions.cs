@@ -21,19 +21,20 @@ namespace RentACar.Web.Infrastructure.Extensions
 
         public static IServiceCollection RegisterAutoMapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(IdentityProfiles));
-            services.AddAutoMapper(typeof(CarProfiles));
-            services.AddAutoMapper(typeof(InsuranceBenefitProfiles));
-            services.AddAutoMapper(typeof(LocationProfiles));
-            services.AddAutoMapper(typeof(ReservationProfiles));
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddMaps(typeof(CarProfiles).Assembly);
+            });
             return services;
         }
 
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IRepository<Car, Guid>, BaseRepository<Car, Guid>>(); services.AddScoped<IRepository<InsuranceBenefit, Guid>, BaseRepository<InsuranceBenefit, Guid>>();
-            services.AddScoped<IRepository<Location, Guid>, BaseRepository<Location, Guid>>();
-            services.AddScoped<IRepository<Reservation, Guid>, BaseRepository<Reservation, Guid>>();
+            //services.AddScoped<IRepository<Car, Guid>, BaseRepository<Car, Guid>>(); services.AddScoped<IRepository<InsuranceBenefit, Guid>, BaseRepository<InsuranceBenefit, Guid>>();
+            //services.AddScoped<IRepository<Location, Guid>, BaseRepository<Location, Guid>>();
+            //services.AddScoped<IRepository<Reservation, Guid>, BaseRepository<Reservation, Guid>>();
+
+            services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
 
             return services;
         }
