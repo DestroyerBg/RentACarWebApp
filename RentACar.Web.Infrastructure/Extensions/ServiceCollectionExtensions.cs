@@ -15,6 +15,7 @@ namespace RentACar.Web.Infrastructure.Extensions
             services.AddScoped<IUserService<ApplicationUser, Guid>, ApplicationUserService>();
             services.AddScoped<ICarService, CarService>();
             services.AddScoped<ILocationService, LocationService>();
+            services.AddScoped<IReservationService, ReservationService>();
             return services;
         }
 
@@ -24,6 +25,7 @@ namespace RentACar.Web.Infrastructure.Extensions
             services.AddAutoMapper(typeof(CarProfiles));
             services.AddAutoMapper(typeof(InsuranceBenefitProfiles));
             services.AddAutoMapper(typeof(LocationProfiles));
+            services.AddAutoMapper(typeof(ReservationProfiles));
             return services;
         }
 
@@ -31,6 +33,7 @@ namespace RentACar.Web.Infrastructure.Extensions
         {
             services.AddScoped<IRepository<Car, Guid>, BaseRepository<Car, Guid>>(); services.AddScoped<IRepository<InsuranceBenefit, Guid>, BaseRepository<InsuranceBenefit, Guid>>();
             services.AddScoped<IRepository<Location, Guid>, BaseRepository<Location, Guid>>();
+            services.AddScoped<IRepository<Reservation, Guid>, BaseRepository<Reservation, Guid>>();
 
             return services;
         }

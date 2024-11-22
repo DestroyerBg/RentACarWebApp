@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
 using RentACar.Data.Repository.Interfaces;
@@ -11,7 +12,7 @@ using RentACar.DTO.Reservation;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 namespace RentACar.Core.Services
 {
-    public class CarService : ICarService
+    public class CarService : BaseService, ICarService
     {
         private readonly IRepository<Car, Guid> carRepository;
         private readonly IRepository<InsuranceBenefit, Guid> insuranceBenefitRepository;
@@ -74,9 +75,22 @@ namespace RentACar.Core.Services
 
         public async Task<ConfirmReservationDTO> CreateReservationConfirmation(CreateReservationDTO reservationDTO)
         {
-            Car? car = await carRepository.GetByIdAsync(reservationDTO.CarId);
+            if (!base.IsValidGuid(reservationDTO.CarId))
+            {
+                return null;
+            }
 
-            if (car == null)
+            Car? car = await carRepository.GetByIdAsync(Guid.Parse(reservationDTO.CarId));
+
+
+            if (car == null || !base.IsValidGuid(reservationDTO.LocationId))
+            {
+                return null;
+            }
+
+            Location? location = await locationRepository.GetByIdAsync(Guid.Parse(reservationDTO.LocationId));
+
+            if (location == null)
             {
                 return null;
             }
@@ -91,7 +105,7 @@ namespace RentACar.Core.Services
 
         private async Task<decimal> CalculateTotalPrice(CreateReservationDTO reservationDTO)
         {
-            Car? car = await carRepository.GetByIdAsync(reservationDTO.CarId);
+            Car? car = await carRepository.GetByIdAsync(Guid.Parse(reservationDTO.CarId));
             decimal totalPrice = 0;
             DateTime startDate = DateTime.ParseExact(reservationDTO.StartDate, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None);
 

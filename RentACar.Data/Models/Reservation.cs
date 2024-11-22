@@ -48,6 +48,11 @@ namespace RentACar.Data.Models
         [ForeignKey(nameof(Location))]
         public Guid LocationId { get; set; }
         public Location Location { get; set; } = null!;
+
+        [Required]
+        [Unicode]
+        [MaxLength(AddressMaxLength)]
+        public string Address { get; set; } = null!;
         public ICollection<ReservationInsuranceBenefit> InsuranceBenefits { get; set; } = new HashSet<ReservationInsuranceBenefit>();
 
         [Comment("Is the entity deleted?")]

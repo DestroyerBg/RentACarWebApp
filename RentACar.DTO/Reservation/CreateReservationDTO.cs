@@ -4,7 +4,7 @@ namespace RentACar.DTO.Reservation
 {
     public class CreateReservationDTO
     {
-        public Guid CarId { get; set; }
+        public string CarId { get; set; } = null!;
 
         public string StartDate { get; set; } = null!;
 
@@ -14,6 +14,7 @@ namespace RentACar.DTO.Reservation
 
         public string LocationId { get; set; } = null!;
 
+        public string CustomerId { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
         public decimal TotalPrice { get; set; }
 

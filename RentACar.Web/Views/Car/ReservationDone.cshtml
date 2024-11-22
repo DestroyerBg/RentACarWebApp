@@ -1,0 +1,19 @@
+﻿@model RentACar.Web.ViewModels.Reservation.ReservationDoneViewModel;
+
+<div class="container text-center py-5">
+    <div class="alert alert-success" role="alert">
+        <h1 class="display-4 fw-bold">Благодарим за вашата резервация!</h1>
+        <p class="lead mt-3">
+            Вие успешно резервирахте <strong>@Model.CarBrand @Model.CarModel</strong>.
+        </p>
+        <p class="mb-4">
+            Резервацията е активна за периода от 
+            <strong>@Model.StartDate.ToString("dd.MM.yyyy")</strong> до 
+            <strong>@Model.EndDate.ToString("dd.MM.yyyy")</strong>.
+        </p>
+        <p>Очаквайте доставка на адрес: <strong>@Model.Address</strong>.</p>
+    </div>
+    <a href="@Url.Action("AllCars", "Car")" class="btn btn-primary btn-lg mt-3">
+        <i class="fas fa-car"></i> Върни се към колите
+    </a>
+</div>

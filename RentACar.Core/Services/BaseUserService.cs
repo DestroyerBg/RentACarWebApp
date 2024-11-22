@@ -55,7 +55,8 @@ namespace RentACar.Core.Services
 
             await userStore.SetUserNameAsync(user, dto.Username, CancellationToken.None);
             await userManager.SetEmailAsync(user, dto.Email);
-           
+            await userManager.AddToRoleAsync(user, "customer");
+
             IdentityResult result = await userManager.CreateAsync(user, dto.Password);
 
             return result;

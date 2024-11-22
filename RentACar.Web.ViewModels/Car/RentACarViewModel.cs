@@ -5,11 +5,12 @@ using RentACar.Web.ViewModels.Location;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Car;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Reservation;
+using RentACar.Common.Constants;
 namespace RentACar.Web.ViewModels.Car
 {
     public class RentACarViewModel
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; } = null!;
 
         public string? Brand { get; set; }
 
@@ -31,7 +32,7 @@ namespace RentACar.Web.ViewModels.Car
         public string EndDate { get; set; } = null!;
 
         [Required]
-        [CustomStringLength(AddressMinLength, AddressMaxLength, AnyInputLengthErrorMessage)]
+        [CustomStringLength(AddressMinLength, DatabaseModelsConstants.Reservation.AddressMaxLength, AnyInputLengthErrorMessage)]
         public string Address { get; set; } = null!;
 
         [Required]

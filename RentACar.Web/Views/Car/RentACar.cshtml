@@ -31,9 +31,13 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="carOptionsDropdown">
                             @{
+                                int id = 0;
                                 foreach (LocationViewModel location in Model.Locations)
                                 {
+                                    <input type="hidden" name="Locations[@id].Id" value="@location.Id" />
+                                    <input type="hidden" name="Locations[@id].City" value="@location.City" />
                                     <li><a class="dropdown-item" data-value="@location.City" data-id="@location.Id" href="#">@location.City</a></li>
+                                    id++;
                                 }
                             }
                         </ul>

@@ -1,4 +1,3 @@
-using RentACar.Core.Interfaces;
 using RentACar.Core.Services;
 using RentACar.Web.Infrastructure.Extensions;
 using RentACar.Web.Infrastructure.ModelBinderProviders;
@@ -25,6 +24,14 @@ builder.Services.AddControllersWithViews(options =>
     {
         options.ModelBinderProviders.Insert(0, new InsuranceBenefitCustomModelBinderProvider());
     });
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+    options.IdleTimeout = TimeSpan.FromMinutes(60);
+});
 
 builder.Services.RegisterRepositories();
 
@@ -57,6 +64,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "areas",

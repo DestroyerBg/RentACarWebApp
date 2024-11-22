@@ -82,6 +82,7 @@
                 @"^\+?([0-9]{1,3})?[-. ]?(\(?[0-9]{2,4}\)?)?[-. ]?[0-9]{3,4}[-. ]?[0-9]{3,4}$";
 
             public const int PhoneNumberLength = 10;
+            public const int AddressMaxLength = 100;
         }
 
         public static class Insurance

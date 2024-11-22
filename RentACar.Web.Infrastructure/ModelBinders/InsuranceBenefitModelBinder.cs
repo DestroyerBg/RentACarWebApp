@@ -6,14 +6,14 @@ namespace RentACar.Web.Infrastructure.ModelBinders
     {
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
-            var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+            ValueProviderResult valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
 
             if (valueProviderResult == ValueProviderResult.None)
             {
                 return Task.CompletedTask;
             }
 
-            var value = valueProviderResult.FirstValue;
+            string? value = valueProviderResult.FirstValue;
 
             
             if (bool.TryParse(value, out bool result))
