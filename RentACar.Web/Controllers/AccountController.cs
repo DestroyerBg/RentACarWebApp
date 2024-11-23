@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
@@ -23,7 +24,7 @@ namespace RentACar.Web.Controllers
             userService = _userService;
             logger = _logger;
             mapService = _mapService;
-        }
+        }   
         [HttpGet]
         public IActionResult Login()
         {
@@ -97,6 +98,7 @@ namespace RentACar.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await userService.LogoutUserAsync();
@@ -108,6 +110,25 @@ namespace RentACar.Web.Controllers
         public IActionResult Lockout()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult MyProfile()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> EditProfile()
+        {
+            ApplicationUser? user = await userService.GetUserByIdAsync(User);
+
+            EditProfileDTO dto =  userService.CreateEditProfileDTO(user);
+
+            EditProfileViewModel model = mapService.Map<EditProfileViewModel>(dto);
+
+            return View(model);
         }
 
         

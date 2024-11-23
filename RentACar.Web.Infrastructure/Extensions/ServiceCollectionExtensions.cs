@@ -30,9 +30,6 @@ namespace RentACar.Web.Infrastructure.Extensions
 
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
-            //services.AddScoped<IRepository<Car, Guid>, BaseRepository<Car, Guid>>(); services.AddScoped<IRepository<InsuranceBenefit, Guid>, BaseRepository<InsuranceBenefit, Guid>>();
-            //services.AddScoped<IRepository<Location, Guid>, BaseRepository<Location, Guid>>();
-            //services.AddScoped<IRepository<Reservation, Guid>, BaseRepository<Reservation, Guid>>();
 
             services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
 

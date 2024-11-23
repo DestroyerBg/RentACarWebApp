@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using RentACar.Data.Models;
 using RentACar.DTO.Identity;
+using System.Security.Claims;
 namespace RentACar.Core.Interfaces
 {
     public interface IUserService
@@ -10,5 +11,8 @@ namespace RentACar.Core.Interfaces
         Task<bool> LogoutUserAsync();
         RegisterDTO CreateBlankRegisterViewModel();
         LoginDTO CreateBlankLoginViewModel();
+        Task<ApplicationUser> GetUserByIdAsync(ClaimsPrincipal claim);
+
+        EditProfileDTO CreateEditProfileDTO(ApplicationUser user);
     }
 }

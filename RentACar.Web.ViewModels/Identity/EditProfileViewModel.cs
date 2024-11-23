@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using RentACar.Common.Constants;
+﻿using RentACar.Common.Constants;
 using RentACar.Common.ValidationAttributes;
+using System.ComponentModel.DataAnnotations;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 namespace RentACar.Web.ViewModels.Identity
 {
-    public class RegisterViewModel
+    public class EditProfileViewModel
     {
         [Required]
         [EmailAddress]
@@ -36,16 +36,5 @@ namespace RentACar.Web.ViewModels.Identity
         [Required]
         [DateValidation(DatabaseModelsConstants.Common.DateFormat, DateIncorrectFormatErrorMessage)]
         public string BirthDate { get; set; } = null!;
-
-        [Required]
-        [StringLength(PasswordMaxLength)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Парола")]
-        public string Password { get; set; } = null!;
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Повторете паролата.")]
-        [Compare("Password", ErrorMessage = PasswordsDoNotMatch)]
-        public string ConfirmPassword { get; set; } = null!;
     }
 }

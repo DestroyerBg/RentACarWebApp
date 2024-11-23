@@ -49,7 +49,7 @@ namespace RentACar.Data.Seeder
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 BirthDate = DateTime.ParseExact(dto.BirthDate,DatabaseModelsConstants.Common.DateFormat,CultureInfo.InvariantCulture, DateTimeStyles.None),
-
+                PhoneNumber = dto.PhoneNumber
             };
 
             await userStore.SetUserNameAsync(user, dto.Username, CancellationToken.None);

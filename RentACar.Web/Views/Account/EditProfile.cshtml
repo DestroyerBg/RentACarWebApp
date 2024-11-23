@@ -1,0 +1,49 @@
+﻿@model RentACar.Web.ViewModels.Identity.EditProfileViewModel;
+<div class="row">
+    <div class="form-wrapper">
+        <section>
+            <form id="registerForm" method="post">
+                <h2>Редактиране на профила</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
+                <div class="form-field">
+                    <input asp-for="@Model.Email" class="custom-input" autocomplete="email" aria-required="true" placeholder="" />
+                    <label asp-for="@Model.Email" class="custom-label">Имейл адрес</label>
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </div>
+                <div class="form-field">
+                    <input asp-for="@Model.Username" class="custom-input" autocomplete="username" aria-required="true" placeholder="" />
+                    <label asp-for="@Model.Username" class="custom-label">Потребителско име</label>
+                    <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                </div>
+                <div class="form-field">
+                    <input asp-for="@Model.FirstName" class="custom-input" autocomplete="FirstName" aria-required="true" placeholder="" />
+                    <label asp-for="@Model.FirstName" class="custom-label">Име</label>
+                    <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-field">
+                    <input asp-for="@Model.LastName" class="custom-input" autocomplete="LastName" aria-required="true" placeholder="" />
+                    <label asp-for="@Model.LastName" class="custom-label">Фамилно име</label>
+                    <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-field">
+                    <input asp-for="@Model.PhoneNumber" class="custom-input" autocomplete="PhoneNumber" aria-required="true" placeholder="" />
+                    <label asp-for="@Model.PhoneNumber" class="custom-label">Телефонен номер</label>
+                    <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-field">
+                    <label asp-for="@Model.BirthDate" class="custom-label-static">Дата на раждане</label>
+                    <input asp-for="@Model.BirthDate" id="birthDate" class="custom-input-static" placeholder="Изберете дата" />
+                    <span asp-validation-for="@Model.BirthDate" class="text-danger validation-message"></span>
+                </div>
+                <button id="registerSubmit" type="submit" class="custom-button">Запиши промените</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script src="~/js/date.js" asp-append-version="true"></script>

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using RentACar.Core.Interfaces;
@@ -82,6 +83,19 @@ namespace RentACar.Core.Services
             return result;
         }
 
+        public async Task<ApplicationUser> GetUserByIdAsync(ClaimsPrincipal claim)
+        {
+            ApplicationUser? user = await userManager.GetUserAsync(claim);
+
+            return user;
+        }
+
+        public EditProfileDTO CreateEditProfileDTO(ApplicationUser user)
+        {
+            EditProfileDTO dto = mapperService.Map<EditProfileDTO>(user);
+
+            return dto;
+        }
 
     }
 }
