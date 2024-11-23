@@ -12,7 +12,7 @@ namespace RentACar.Core.Interfaces
         RegisterDTO CreateBlankRegisterViewModel();
         LoginDTO CreateBlankLoginViewModel();
         Task<ApplicationUser> GetUserByIdAsync(ClaimsPrincipal claim);
-
         EditProfileDTO CreateEditProfileDTO(ApplicationUser user);
+        Task<bool> EditProfile(EditProfileDTO dto);
     }
 }

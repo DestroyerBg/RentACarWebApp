@@ -1,11 +1,12 @@
-﻿using System.Security.Claims;
+﻿using System.Globalization;
+using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
 using RentACar.DTO.Identity;
-
+using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 namespace RentACar.Core.Services
 {
     public class ApplicationUserService : IUserService
@@ -95,6 +96,35 @@ namespace RentACar.Core.Services
             EditProfileDTO dto = mapperService.Map<EditProfileDTO>(user);
 
             return dto;
+        }
+
+        public async Task<bool> EditProfile(EditProfileDTO dto)
+        {
+            ApplicationUser? user = await userManager.FindByIdAsync(dto.Id);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            if (user.Email != dto.Email)
+            {
+                await userManager.SetEmailAsync(user, dto.Email);
+            }
+
+            if (user.UserName != dto.Username)
+            {
+                await userManager.SetUserNameAsync(user, dto.Username);
+            }
+
+            user.FirstName = dto.FirstName;
+            user.LastName = dto.LastName;
+            user.BirthDate = DateTime.ParseExact(dto.BirthDate, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None);
+            user.PhoneNumber = dto.PhoneNumber;
+
+            IdentityResult result = await userManager.UpdateAsync(user);
+
+            return result.Succeeded;
         }
 
     }

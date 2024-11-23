@@ -36,6 +36,7 @@
             public const string PasswordTooShortMessage = "Паролата трябва да съдържа минимум {0} знака.";
             public const int PasswordMinlength = 8;
             public const int PasswordMaxLength = 100;
+            public const string SuccessfullUpdatedProfile = "Успешно ъпдейтнахте профила си.";
         }
 
         public static class Car

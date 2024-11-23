@@ -8,7 +8,7 @@ using RentACar.Web.ViewModels.Identity;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using static RentACar.Common.Messages.IdentityMessages;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 
 namespace RentACar.Web.Controllers
 {
@@ -129,6 +129,35 @@ namespace RentACar.Web.Controllers
             EditProfileViewModel model = mapService.Map<EditProfileViewModel>(dto);
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(EditProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            ApplicationUser? user = await userService.GetUserByIdAsync(User);
+
+            if (user.Id.ToString() != model.Id)
+            {
+                return View(model);
+            }
+
+            EditProfileDTO dto = mapService.Map<EditProfileDTO>(model);
+
+            bool result = await userService.EditProfile(dto);
+
+            if (result)
+            {
+                TempData["SuccessfullyUpdated"] = SuccessfullUpdatedProfile;
+                return RedirectToAction("MyProfile");
+            }
+
+            return RedirectToAction("MyProfile");
+
         }
 
         

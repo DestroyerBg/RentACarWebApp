@@ -22,8 +22,11 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
                 .ForMember(dest => dest.BirthDate, src => 
                     src.MapFrom(s => s.BirthDate.ToString(DateFormat)))
                 .ForMember(dest => dest.PhoneNumber, src => 
-                    src.MapFrom(s => s.PhoneNumber));
+                    src.MapFrom(s => s.PhoneNumber))
+                .ForMember(dest => dest.Id, src => 
+                    src.MapFrom(s => s.Id.ToString()));
             CreateMap<EditProfileDTO, EditProfileViewModel>();
+            CreateMap<EditProfileViewModel, EditProfileDTO>();
         }
     }
 }

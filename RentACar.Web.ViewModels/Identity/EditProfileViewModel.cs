@@ -8,6 +8,8 @@ namespace RentACar.Web.ViewModels.Identity
     public class EditProfileViewModel
     {
         [Required]
+        public string Id { get; set; } = null!;
+        [Required]
         [EmailAddress]
         [Display(Name = "Имейл")]
         public string Email { get; set; } = null!;

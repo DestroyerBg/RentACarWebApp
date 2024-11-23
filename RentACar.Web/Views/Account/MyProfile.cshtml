@@ -3,12 +3,12 @@
         <div class="col-md-8">
             <h2 class="text-center mb-4 text-light">Настройки на профила</h2>
             <div class="list-group">
-                
+
                 <a href="@Url.Action("EditProfile", "Account")" class="list-group-item list-group-item-dark list-group-item-action d-flex justify-content-between align-items-center">
                     <span class="custom-span"><i class="fas fa-user-edit me-2"></i> Редактиране на профила</span>
                     <i class="fas fa-angle-right"></i>
                 </a>
-                
+
                 <a href="@Url.Action("MyReservations", "Profile")" class="list-group-item list-group-item-dark list-group-item-action d-flex justify-content-between align-items-center">
                     <span class="custom-span"><i class="fas fa-calendar-check me-2"></i> Моите резервации</span>
                     <i class="fas fa-angle-right"></i>
@@ -21,3 +21,12 @@
         </div>
     </div>
 </div>
+
+<script src="~/js/alert.js" asp-append-version="true"></script>
+<script>
+    window.onload = function () {
+        const successMessage = '@Html.Raw(TempData["SuccessfullyUpdated"])';
+
+        PrintAlert(successMessage);
+    };
+</script>

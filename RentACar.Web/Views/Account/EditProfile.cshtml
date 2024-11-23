@@ -2,9 +2,10 @@
 <div class="row">
     <div class="form-wrapper">
         <section>
-            <form id="registerForm" method="post">
+            <form id="registerForm" method="post" asp-action="EditProfile" asp-controller="Account">
                 <h2>Редактиране на профила</h2>
                 <hr />
+                <input type="hidden" asp-for="@Model.Id"/>
                 <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
                 <div class="form-field">
                     <input asp-for="@Model.Email" class="custom-input" autocomplete="email" aria-required="true" placeholder="" />
