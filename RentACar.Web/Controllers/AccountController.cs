@@ -160,6 +160,20 @@ namespace RentACar.Web.Controllers
 
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword()
+        {
+            ApplicationUser? user = await userService.GetUserByIdAsync(User);
+
+            string passwordToken = userService.GenerateChangePasswordNumberAsync();
+
+            HttpContext.Session.SetString("PasswordToken", passwordToken);
+
+            return View("EnterPhoneNumber");
+        }
+
+
         
     }
 }

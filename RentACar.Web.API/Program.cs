@@ -1,5 +1,6 @@
 using RentACar.Core.Services;
 using RentACar.Web.Infrastructure.Extensions;
+using RentACar.Web.Infrastructure.InputFormaters;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,10 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader();
     });
 });
-builder.Services.AddControllers();
+builder.Services.AddControllers(opt =>
+{
+    opt.InputFormatters.Insert(0, new TextPlainInputFormatter());
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

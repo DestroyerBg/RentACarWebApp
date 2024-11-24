@@ -127,5 +127,14 @@ namespace RentACar.Core.Services
             return result.Succeeded;
         }
 
+        public string GenerateChangePasswordNumberAsync()
+        {
+            Random random = new Random();
+
+            string rndNumber = random.Next(100000, 999999).ToString();
+
+            return rndNumber;
+        }
+
     }
 }
