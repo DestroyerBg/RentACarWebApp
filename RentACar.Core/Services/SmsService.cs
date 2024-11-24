@@ -8,7 +8,13 @@ namespace RentACar.Core.Services
 {
     public class SmsService : ISmsService
     {
-        public async Task SendSms(IConfiguration configuration,string toPhoneNumber, string message)
+        private readonly IConfiguration configuration;
+
+        public SmsService(IConfiguration _configuration)
+        {
+            configuration = _configuration;
+        }
+        public async Task SendSms(string toPhoneNumber, string message)
         {
             string accoundSID = configuration["Twilio:AccountSID"];
             string authToken = configuration["Twilio:AuthToken"];

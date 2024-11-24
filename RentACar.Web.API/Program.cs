@@ -20,10 +20,6 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader();
     });
 });
-builder.Services.AddControllers(opt =>
-{
-    opt.InputFormatters.Insert(0, new TextPlainInputFormatter());
-});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -37,6 +33,14 @@ builder.Services.RegisterUserDefinedServices();
 builder.Services.AddHttpClient<LocationService>();
 
 builder.Services.RegisterAutoMapper();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+    options.IdleTimeout = TimeSpan.FromMinutes(60);
+});
 
 WebApplication app = builder.Build();
 

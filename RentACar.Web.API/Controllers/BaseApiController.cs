@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
-using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
+using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 
 namespace RentACar.Web.API.Controllers
 {
@@ -15,7 +15,7 @@ namespace RentACar.Web.API.Controllers
                 return false;
             }
 
-            if (!Regex.IsMatch(phoneNumber, PhoneNumberRegex))
+            if (!Regex.IsMatch(phoneNumber, InternationalPhoneNumberRegex))
             {
                 return false;
             }

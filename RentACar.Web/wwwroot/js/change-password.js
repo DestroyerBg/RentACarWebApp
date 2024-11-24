@@ -3,7 +3,7 @@ const verificationCodeForm = document.getElementById("verificationCodeForm");
 const newPasswordForm = document.getElementById("newPasswordForm");
 const submitPhoneNumber = document.getElementById("submitPhoneNumberBtn");
 
-submitPhoneNumber.addEventListener("click");
+submitPhoneNumber.addEventListener("click", () => SendSms());
 
 
 function SendSms() {
@@ -13,6 +13,6 @@ function SendSms() {
         alert("Въведете валиден телефонен номер");
         return;
     }
-
-
+    const url = `https://localhost:7027/api/sms/send-sms-message/${phoneNumber}`;
+    fetch()
 }

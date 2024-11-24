@@ -1,17 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RentACar.Core.Interfaces;
+
 namespace RentACar.Web.API.Controllers
 {
     public class SmsController : BaseApiController
     {
-        [HttpPost("send-sms-message/{phoneNumber?}")]
-        public async Task<IActionResult> SendSmsMessage([FromBody] string phoneNumber)
+        private readonly IUserService userService;
+
+        public SmsController(IUserService _userService)
         {
-            if (!base.ValidatePhoneNumber(phoneNumber))
+            userService = _userService;
+        }
+        [HttpPost("send-sms-message/{phoneNumber?}")]
+        public async Task<IActionResult> SendSmsMessage([FromRoute] string? phoneNumber)
+        {
+            if (!base.ValidatePhoneNumber(phoneNumber)) 
             {
-                return BadRequest(new {message = "Невалиден формат на телефонен номер"});
+                return BadRequest(new {message = "Невалиден формат на телефонен номер."});
             }
 
-            return Ok(new {message = $"Телефонният номер {phoneNumber} e валидиран успешно"});
+            string token = userService.GenerateChangePasswordNumberAsync();
+
+            HttpContext.Session.SetString("PasswordResetToken", token);
+
+            return Ok();
         }
     }
 }

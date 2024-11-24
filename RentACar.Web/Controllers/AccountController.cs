@@ -166,10 +166,6 @@ namespace RentACar.Web.Controllers
         {
             ApplicationUser? user = await userService.GetUserByIdAsync(User);
 
-            string passwordToken = userService.GenerateChangePasswordNumberAsync();
-
-            HttpContext.Session.SetString("PasswordToken", passwordToken);
-
             return View("EnterPhoneNumber");
         }
 

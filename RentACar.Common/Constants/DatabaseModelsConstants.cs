@@ -9,6 +9,9 @@
                 "Некоректен формат за {0}! Моля въведете валиден формат за {1}.";
 
             public const string AnyInputLengthErrorMessage = "{0} трябва да е с дължина между {1} и {2} символа.";
+
+            public const string InternationalPhoneNumberRegex =
+                @"^\+(1|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])\d{4,14}$";
         }
         public static class ApplicationUser
         {
