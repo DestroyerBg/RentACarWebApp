@@ -1,6 +1,5 @@
 using RentACar.Core.Services;
 using RentACar.Web.Infrastructure.Extensions;
-using RentACar.Web.Infrastructure.InputFormaters;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
