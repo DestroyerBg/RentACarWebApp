@@ -1,4 +1,6 @@
-﻿namespace RentACar.Common.Constants
+﻿using System.Reflection.Metadata;
+
+namespace RentACar.Common.Constants
 {
     public static class DatabaseModelsConstants
     {
@@ -12,6 +14,7 @@
 
             public const string InternationalPhoneNumberRegex =
                 @"^\+(1|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])\d{4,14}$";
+            public const string PhoneNumberRegex = @"^\+?([0-9]{1,3})?[-. ]?(\(?[0-9]{2,4}\)?)?[-. ]?[0-9]{3,4}[-. ]?[0-9]{3,4}$";
         }
         public static class ApplicationUser
         {
@@ -19,8 +22,6 @@
             public const int FirstNameMaxLength = 20;
             public const int LastNameMinLength = 2;
             public const int LastNameMaxLength = 20;
-            public const string PhoneNumberRegex =
-                @"^\+?([0-9]{1,3})?[-. ]?(\(?[0-9]{2,4}\)?)?[-. ]?[0-9]{3,4}[-. ]?[0-9]{3,4}$";
 
             public const int PhoneNumberLength = 10;
             public const string IncorrectPhoneNumberFormat = "Невалиден формат на телефонен номер.";
@@ -36,10 +37,18 @@
                 "Задължително е паролата да съдържа поне 1 главна буква.";
 
             public const string PasswordRequireAtLeastOneNonAlphaNumericCharacter = "Задължително е паролата да съдържа поне един уникален символ.";
-            public const string PasswordTooShortMessage = "Паролата трябва да съдържа минимум {0} знака.";
+            public const string PasswordTooShortMessage = "Паролата трябва да съдържа минимум {0} и максимум {1} знака";
             public const int PasswordMinlength = 8;
             public const int PasswordMaxLength = 100;
             public const string SuccessfullUpdatedProfile = "Успешно ъпдейтнахте профила си.";
+            public const string CannotFindLoggedInUser = "Грешка при намирането на текущо логнатия потребител.";
+            public const string NewPasswordIsDifferentThanOldPassword = "Паролите не съвпадат!";
+            public const string ErrorWhenChangingPasswords = "Възникна грешка при смяна на паролата!";
+            public const string ChangePasswordSuccess = "Смяната на паролата е успешна.";
+            public const string UserWithThatUsernameExists = "Вече съществува потребител с това потребителско име.";
+            public const string UserWithThatEmailExists = "Вече съществува потребител с този имейл.";
+            public const string RegistrationSuccess = "Регистрацията е успешна";
+            public const string FieldIsRequired = "{0} е задължително поле.";
         }
 
         public static class Car
@@ -82,10 +91,6 @@
         public static class Reservation
         {
             public const string PricePrecision = "decimal(18, 2)";
-            public const string PhoneNumberRegex =
-                @"^\+?([0-9]{1,3})?[-. ]?(\(?[0-9]{2,4}\)?)?[-. ]?[0-9]{3,4}[-. ]?[0-9]{3,4}$";
-
-            public const int PhoneNumberLength = 10;
             public const int AddressMaxLength = 100;
         }
 

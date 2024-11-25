@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using RentACar.Data.Models;
 using RentACar.DTO.Identity;
-using RentACar.Web.ViewModels.Identity;
+using RentACar.Web.ViewModels.Account;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 namespace RentACar.Core.Infrastructure.AutoMapperProfiles
 {
@@ -27,6 +27,8 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
                     src.MapFrom(s => s.Id.ToString()));
             CreateMap<EditProfileDTO, EditProfileViewModel>();
             CreateMap<EditProfileViewModel, EditProfileDTO>();
+            CreateMap<ChangePasswordViewModel, ChangePasswordDTO>();
+            CreateMap<ChangePasswordDTO, ChangePasswordViewModel>();
         }
     }
 }

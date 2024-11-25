@@ -7,6 +7,7 @@ using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
 using RentACar.DTO.Identity;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
+using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 namespace RentACar.Core.Services
 {
     public class ApplicationUserService : IUserService
@@ -51,14 +52,39 @@ namespace RentACar.Core.Services
 
         public virtual async Task<IdentityResult> RegisterUserAsync(RegisterDTO dto)
         {
+            ApplicationUser? existingUserByEmail = await userManager.FindByEmailAsync(dto.Email);
+            if (existingUserByEmail != null)
+            {
+                return IdentityResult.Failed(new IdentityError
+                {
+                    Code = "DuplicateEmail",
+                    Description = UserWithThatEmailExists
+                });
+            }
+
+            ApplicationUser? existingUserByUsername = await userManager.FindByNameAsync(dto.Username);
+            if (existingUserByUsername != null)
+            {
+                return IdentityResult.Failed(new IdentityError
+                {
+                    Code = "DuplicateUsername",
+                    Description = UserWithThatUsernameExists
+                });
+            }
             ApplicationUser user = CreateNewUserInstance();
             user = mapperService.Map<RegisterDTO, ApplicationUser>(dto);
 
+            IdentityResult result;
             await userManager.SetUserNameAsync(user, dto.Username);
+            
             await userManager.SetEmailAsync(user, dto.Email);
-            await userManager.AddToRoleAsync(user, "customer");
 
-            IdentityResult result = await userManager.CreateAsync(user, dto.Password);
+            result = await userManager.CreateAsync(user, dto.Password);
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user, "Customer");
+            }
 
             return result;
         }
@@ -136,5 +162,35 @@ namespace RentACar.Core.Services
             return rndNumber;
         }
 
+        public ChangePasswordDTO GenerateNewChangePasswordDto()
+        {
+            return new ChangePasswordDTO();
+        }
+
+        public async Task<string> ChangePasswordWithOldPassword(ChangePasswordDTO dto, ClaimsPrincipal principal)
+        {
+            ApplicationUser? user = await userManager.GetUserAsync(principal);
+
+            if (user == null)
+            {
+                return CannotFindLoggedInUser;
+            }
+
+            if (dto.NewPassword != dto.ConfirmPassword)
+            {
+                return NewPasswordIsDifferentThanOldPassword;
+            }
+
+            string token = await userManager.GeneratePasswordResetTokenAsync(user);
+
+            IdentityResult result = await userManager.ChangePasswordAsync(user, dto.OldPassword, dto.NewPassword);
+
+            if (result.Errors.Any())
+            {
+                return ErrorWhenChangingPasswords;
+            }
+
+            return ChangePasswordSuccess;
+        }
     }
 }

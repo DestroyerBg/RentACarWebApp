@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RentACar.Core.Interfaces;
 using RentACar.Data;
 using RentACar.Data.Models;
-using RentACar.Web.ErrorDescribers;
+using RentACar.Web.Infrastructure.ErrorDescribers;
 using RentACar.Web.Infrastructure.Providers;
 
 namespace RentACar.Web.Infrastructure.Extensions

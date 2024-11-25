@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
 using RentACar.DTO.Identity;
-using RentACar.Web.ViewModels.Identity;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using static RentACar.Common.Messages.IdentityMessages;
 using Microsoft.AspNetCore.Identity;
+using RentACar.Web.ViewModels.Account;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 
 namespace RentACar.Web.Controllers
@@ -83,6 +83,7 @@ namespace RentACar.Web.Controllers
             if (result.Succeeded)
             {
                 logger.LogInformation(Result.UserCreatedAccount);
+                TempData["Successfull"] = RegistrationSuccess;
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -152,7 +153,7 @@ namespace RentACar.Web.Controllers
 
             if (result)
             {
-                TempData["SuccessfullyUpdated"] = SuccessfullUpdatedProfile;
+                TempData["Successfull"] = SuccessfullUpdatedProfile;
                 return RedirectToAction("MyProfile");
             }
 
@@ -164,9 +165,32 @@ namespace RentACar.Web.Controllers
         [Authorize]
         public async Task<IActionResult> ChangePassword()
         {
-            ApplicationUser? user = await userService.GetUserByIdAsync(User);
+            ChangePasswordDTO dto = userService.GenerateNewChangePasswordDto();
+            return View(new ChangePasswordViewModel());
+        }
 
-            return View("EnterPhoneNumber");
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            ChangePasswordDTO dto = mapService.Map<ChangePasswordDTO>(model);
+
+            string result = await userService.ChangePasswordWithOldPassword(dto, User);
+
+            if (result != ChangePasswordSuccess)
+            {
+                ModelState.AddModelError(string.Empty, result);
+                return View(model);
+            }
+
+            TempData["Successfull"] = result;
+            return RedirectToAction("MyProfile");
+            
         }
 
 

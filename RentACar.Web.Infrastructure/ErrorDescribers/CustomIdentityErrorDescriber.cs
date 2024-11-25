@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
-namespace RentACar.Web.ErrorDescribers
+namespace RentACar.Web.Infrastructure.ErrorDescribers
 {
     public class CustomIdentityErrorDescriber : IdentityErrorDescriber
     {
@@ -48,5 +48,6 @@ namespace RentACar.Web.ErrorDescribers
                 Description = String.Format(PasswordTooShortMessage, PasswordMinlength),
             };
         }
+
     }
 }

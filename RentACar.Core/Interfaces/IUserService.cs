@@ -15,5 +15,9 @@ namespace RentACar.Core.Interfaces
         EditProfileDTO CreateEditProfileDTO(ApplicationUser user);
         Task<bool> EditProfile(EditProfileDTO dto);
         string GenerateChangePasswordNumberAsync();
+
+        Task<string> ChangePasswordWithOldPassword(ChangePasswordDTO dto, ClaimsPrincipal principal);
+
+        ChangePasswordDTO GenerateNewChangePasswordDto();
     }
 }

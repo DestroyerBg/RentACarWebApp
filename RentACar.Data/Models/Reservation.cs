@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Data.Models.Interfaces;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Reservation;
+using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 namespace RentACar.Data.Models
 {
     public class Reservation :ISoftDeletable

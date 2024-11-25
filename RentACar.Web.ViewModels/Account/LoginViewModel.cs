@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace RentACar.Web.ViewModels.Identity
+using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
+namespace RentACar.Web.ViewModels.Account
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = FieldIsRequired)]
         [EmailAddress]
         public string Email { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = FieldIsRequired)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
 

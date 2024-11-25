@@ -69,7 +69,14 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/navbar.js" asp-append-version="true"></script>
-
+<script src="~/js/alert.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-</body>
+    <script>
+        window.onload = function () {
+            const successMessage = '@Html.Raw(TempData["Successfull"])';
+
+            PrintAlert(successMessage);
+        };
+    </script>
+    </body>
 </html>
