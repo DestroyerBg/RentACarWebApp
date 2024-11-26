@@ -4,7 +4,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Core.Interfaces;
-using RentACar.Core.Services;
 using RentACar.DTO.Car;
 using RentACar.DTO.Reservation;
 using RentACar.Web.ViewModels.Car;
@@ -88,6 +87,7 @@ namespace RentACar.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> ConfirmReservation(ConfirmReservationViewModel model)
         {
             string? sessionData = HttpContext.Session.GetString("Reservation");

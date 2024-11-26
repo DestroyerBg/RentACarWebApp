@@ -11,7 +11,6 @@ namespace RentACar.Core.Interfaces
         Task<bool> LogoutUserAsync();
         RegisterDTO CreateBlankRegisterViewModel();
         LoginDTO CreateBlankLoginViewModel();
-        Task<ApplicationUser> GetUserByIdAsync(ClaimsPrincipal claim);
         EditProfileDTO CreateEditProfileDTO(ApplicationUser user);
         Task<bool> EditProfile(EditProfileDTO dto);
         string GenerateChangePasswordNumberAsync();

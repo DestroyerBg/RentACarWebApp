@@ -110,12 +110,6 @@ namespace RentACar.Core.Services
             return result;
         }
 
-        public async Task<ApplicationUser> GetUserByIdAsync(ClaimsPrincipal claim)
-        {
-            ApplicationUser? user = await userManager.GetUserAsync(claim);
-
-            return user;
-        }
 
         public EditProfileDTO CreateEditProfileDTO(ApplicationUser user)
         {

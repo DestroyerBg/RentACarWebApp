@@ -54,6 +54,9 @@ namespace RentACar.Data.Models
         [Unicode]
         [MaxLength(AddressMaxLength)]
         public string Address { get; set; } = null!;
+
+        [Required]
+        public long OrderNumber { get; set; }
         public ICollection<ReservationInsuranceBenefit> InsuranceBenefits { get; set; } = new HashSet<ReservationInsuranceBenefit>();
 
         [Comment("Is the entity deleted?")]

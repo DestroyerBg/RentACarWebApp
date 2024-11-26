@@ -91,7 +91,9 @@ namespace RentACar.Common.Constants
         public static class Reservation
         {
             public const string PricePrecision = "decimal(18, 2)";
+            public const string OrderPrecision = "decimal(20, 0)";
             public const int AddressMaxLength = 100;
+            public const int OrderNumberStringMaxLength = 100;
         }
 
         public static class Insurance

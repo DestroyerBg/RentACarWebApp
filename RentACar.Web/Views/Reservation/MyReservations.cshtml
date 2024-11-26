@@ -1,0 +1,46 @@
+﻿@model IEnumerable<RentACar.Web.ViewModels.Reservation.ReservationViewModel>
+<div class="container my-5">
+    <h2 class="text-center text-light">Вашите резервации</h2>
+    <hr class="divider" />
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-warning text-center">
+            Нямате направени резервации.
+        </div>
+    }
+    else
+    {
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Номер на поръчката</th>
+                    <th scope="col">Марка и модел</th>
+                    <th scope="col">Начало на резервацията</th>
+                    <th scope="col">Край на резервацията</th>
+                    <th scope="col">Телефонен номер</th>
+                    <th scope="col">Адрес за доставка</th>
+                    <th scope="col">Детайли</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var reservation in Model)
+            {
+                <tr>
+                    <td>@reservation.OrderNumber</td>
+                    <td>@($"{reservation.CarBrand} {reservation.CarModel}")</td>
+                    <td>@reservation.StartDate)</td>
+                    <td>@reservation.EndDate</td>
+                    <td>@reservation.PhoneNumber</td>
+                    <td>@reservation.Address</td>
+                    <td>
+                        <a asp-action="Details" asp-controller="Reservation" asp-route-id="@reservation.Id" class="btn btn-primary btn-sm">
+                            Виж детайли
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>

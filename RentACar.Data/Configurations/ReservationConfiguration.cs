@@ -11,6 +11,8 @@ namespace RentACar.Data.Configurations
             builder.HasOne(l => l.Location)
                 .WithMany(r => r.Reservations)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasQueryFilter(r => !r.IsDeleted);
         }
     }
 }

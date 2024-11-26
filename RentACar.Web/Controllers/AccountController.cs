@@ -16,14 +16,17 @@ namespace RentACar.Web.Controllers
     {
         private readonly IUserService userService;
         private readonly ILogger<AccountController> logger;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IMapper mapService;
         public AccountController(IUserService _userService, 
             ILogger<AccountController> _logger,
+            UserManager<ApplicationUser> _userManager,
             IMapper _mapService)
         {
             userService = _userService;
             logger = _logger;
             mapService = _mapService;
+            userManager = _userManager;
         }   
         [HttpGet]
         public IActionResult Login()
@@ -123,7 +126,7 @@ namespace RentACar.Web.Controllers
         [Authorize]
         public async Task<IActionResult> EditProfile()
         {
-            ApplicationUser? user = await userService.GetUserByIdAsync(User);
+            ApplicationUser? user = await userManager.GetUserAsync(User);
 
             EditProfileDTO dto =  userService.CreateEditProfileDTO(user);
 
@@ -140,7 +143,7 @@ namespace RentACar.Web.Controllers
                 return View(model);
             }
 
-            ApplicationUser? user = await userService.GetUserByIdAsync(User);
+            ApplicationUser? user = await userManager.GetUserAsync(User);
 
             if (user.Id.ToString() != model.Id)
             {
