@@ -26,9 +26,9 @@
     transition: all 0.3s ease;
 }
 
-    .btn:hover {
-        background-color: rgba(255, 140, 0, 0.9);
-        transform: scale(1.05);
-        box-shadow: 0 0 15px rgba(255, 140, 0, 0.8);
-        color: white !important;
+.btn:hover {
+    background-color: rgba(255, 140, 0, 0.9);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 140, 0, 0.8);
+    color: white !important;
 }
