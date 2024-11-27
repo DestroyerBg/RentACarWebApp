@@ -274,25 +274,6 @@
     padding-right: 40px; 
 }
 
-.toggle-password {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    color: #888;
-}
-
-.toggle-password:focus {
-    outline: none;
-}
-
-.toggle-password i {
-    pointer-events: none; 
-}
 
 
 
