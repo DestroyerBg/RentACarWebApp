@@ -1,4 +1,5 @@
-﻿const locationButton = document.getElementById('useLocationButton');
+﻿import { API_URL } from './config.js';
+const locationButton = document.getElementById('useLocationButton');
 
 locationButton.addEventListener('click', () => GetLocation());
 
@@ -13,7 +14,8 @@ function GetLocation() {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
 
-            const url = `https://localhost:7027/api/geolocation/reverse-geocode?latitude=${latitude}&longitude=${longitude}`;
+
+            const url = `${API_URL}/api/geolocation/reverse-geocode?latitude=${latitude}&longitude=${longitude}`;
 
             let data;
             fetch(url)
