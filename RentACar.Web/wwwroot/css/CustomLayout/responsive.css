@@ -41,6 +41,27 @@
     .custom-card {
         width: 100%;
     }
+
+    .container-fluid {
+        display: flex !important;
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+    }
+
+    .navbar {
+        background-color: rgba(0, 0, 0, 0.8) !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
+    }
+
+    .navbar-toggler.custom-toggler {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px; 
+        height: 50px; 
+    }
+
 }
 
 @media (max-width: 768px) {
@@ -54,5 +75,17 @@
 
     .reserve-button {
         width: 100%;
+    }
+
+    
+}
+
+@media (max-width: 1400px) {
+    .nav-link {
+        font-size: 1.2em;
+    }
+
+    .btn-identity {
+        font-size: 1em;
     }
 }
