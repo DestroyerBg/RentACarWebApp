@@ -2,6 +2,7 @@
 using RentACar.Core.Infrastructure.AutoMapperProfiles;
 using RentACar.Core.Interfaces;
 using RentACar.Core.Services;
+using RentACar.Data.Models;
 using RentACar.Data.Repository;
 using RentACar.Data.Repository.Interfaces;
 
@@ -15,6 +16,7 @@ namespace RentACar.Web.Infrastructure.Extensions
             services.AddScoped<ICarService, CarService>();
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<IAdminService, AdminService>();
             return services;
         }
 
@@ -29,7 +31,6 @@ namespace RentACar.Web.Infrastructure.Extensions
 
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
-
             services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
 
             return services;

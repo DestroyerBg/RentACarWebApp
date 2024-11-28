@@ -3,8 +3,7 @@ using RentACar.Web.Controllers;
 
 namespace RentACar.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class HomeController : BaseController
+    public class HomeController : BaseAdminController
     {
         public IActionResult Index()
         {

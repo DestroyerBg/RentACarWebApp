@@ -22,8 +22,4 @@
 	  <ProjectReference Include="..\RentACar.Core\RentACar.Core.csproj" />
 	  <ProjectReference Include="..\RentACar.Core.Infrastructure\RentACar.Core.Infrastructure.csproj" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Providers\Interfaces\" />
-	</ItemGroup>
 </Project>

@@ -10,7 +10,7 @@ using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 namespace RentACar.Core.Services
 {
-    public class ApplicationUserService : IUserService
+    public class ApplicationUserService : BaseService, IUserService
     {
         private SignInManager<ApplicationUser> signInManager;
         private UserManager<ApplicationUser> userManager;

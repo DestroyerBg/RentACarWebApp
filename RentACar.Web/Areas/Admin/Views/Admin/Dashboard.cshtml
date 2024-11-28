@@ -1,0 +1,43 @@
+﻿@model RentACar.Web.ViewModels.Admin.DashboardViewModel
+<div class="admin-panel-wrapper d-flex justify-content-center align-items-center mt-5">
+    <div class="admin-panel-box p-4">
+        <h2 class="text-center text-warning mb-4">Статистика на сайта</h2>
+        <hr class="divider bg-light" />
+        <div class="row g-3 mt-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card bg-transparent text-center shadow border-0">
+                    <div class="card-body" style="background-color: rgba(50, 50, 50, 0.8); border-radius: 10px;">
+                        <h5 class="card-title text-info">Брой потребители</h5>
+                        <p class="display-4 fw-bold text-light">@Model.TotalUsers</p>
+                        <i class="fa-solid fa-users fa-3x text-info"></i>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card bg-transparent text-center shadow border-0">
+                    <div class="card-body" style="background-color: rgba(50, 50, 50, 0.8); border-radius: 10px;">
+                        <h5 class="card-title text-success">Брой коли</h5>
+                        <p class="display-4 fw-bold text-light">@Model.TotalCars</p>
+                        <i class="fa-solid fa-car fa-3x text-success"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card bg-transparent text-center shadow border-0">
+                    <div class="card-body" style="background-color: rgba(50, 50, 50, 0.8); border-radius: 10px;">
+                        <h5 class="card-title text-primary">Брой резервации</h5>
+                        <p class="display-4 fw-bold text-light">@Model.TotalReservations</p>
+                        <i class="fa-solid fa-calendar-check fa-3x text-primary"></i>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("Index", "Home", new { area = "Admin" })" 
+               class="btn btn-outline-info mt-3">
+                <i class="fa-solid fa-arrow-left me-2"></i> Върни се назад
+            </a>
+        </div>
+    </div>
+</div>

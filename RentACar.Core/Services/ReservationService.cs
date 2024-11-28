@@ -8,7 +8,7 @@ using RentACar.DTO.Reservation;
 
 namespace RentACar.Core.Services
 {
-    public class ReservationService : IReservationService
+    public class ReservationService : BaseService, IReservationService
     {
         private readonly IMapper mapperService;
         private readonly IRepository<Reservation, Guid> reservationRepository;

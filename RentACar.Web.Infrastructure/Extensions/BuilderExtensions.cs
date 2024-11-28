@@ -7,7 +7,7 @@ using RentACar.Core.Interfaces;
 using RentACar.Data;
 using RentACar.Data.Models;
 using RentACar.Web.Infrastructure.ErrorDescribers;
-using RentACar.Web.Infrastructure.Providers;
+using RentACar.Core.Services;
 
 namespace RentACar.Web.Infrastructure.Extensions
 {
@@ -15,7 +15,7 @@ namespace RentACar.Web.Infrastructure.Extensions
     {
         public static WebApplicationBuilder RegisterDbContext(this WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IStringProvider, StringProvider>();
+            builder.Services.AddScoped<IStringProvider, StringProviderService>();
             builder.Services.AddDbContext<RentACarDbContext>((serviceProvider, options) =>
             {
                 IStringProvider connectionStringProvider = serviceProvider.GetRequiredService<IStringProvider>();

@@ -4,7 +4,7 @@ using RentACar.DTO.Location;
 
 namespace RentACar.Core.Services
 {
-    public class LocationService : ILocationService
+    public class LocationService : BaseService, ILocationService
     {
         private readonly HttpClient httpClient;
         private readonly IStringProvider stringProvider;
