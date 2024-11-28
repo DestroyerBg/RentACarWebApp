@@ -18,3 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
         disableMobile: true
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    flatpickr("#yearOfManifacture", {
+        dateFormat: "d.m.Y",
+        disableMobile: true
+    });
+});

@@ -15,6 +15,11 @@ namespace RentACar.Common.Constants
             public const string InternationalPhoneNumberRegex =
                 @"^\+(1|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])\d{4,14}$";
             public const string PhoneNumberRegex = @"^\+?([0-9]{1,3})?[-. ]?(\(?[0-9]{2,4}\)?)?[-. ]?[0-9]{3,4}[-. ]?[0-9]{3,4}$";
+            public const string FieldIsRequired = "{0} е задължително поле.";
+            public const string YearRangeError = "Годината трябва да съдържа стойност между {0} и {1}";
+            public const string NullYearValidation = "Годината не може да бъде null.";
+            public const string YearShouldBeANumber = "Годината трябва да е число.";
+            public const string NumberShouldBeInARange = "{0} трябва да е число в диапазона {1}-{2}";
         }
         public static class ApplicationUser
         {
@@ -48,7 +53,6 @@ namespace RentACar.Common.Constants
             public const string UserWithThatUsernameExists = "Вече съществува потребител с това потребителско име.";
             public const string UserWithThatEmailExists = "Вече съществува потребител с този имейл.";
             public const string RegistrationSuccess = "Регистрацията е успешна";
-            public const string FieldIsRequired = "{0} е задължително поле.";
         }
 
         public static class Car

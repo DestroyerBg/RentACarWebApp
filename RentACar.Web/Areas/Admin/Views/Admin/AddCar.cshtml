@@ -1,0 +1,106 @@
+﻿
+@*<div class="row">
+    <div class="form-wrapper">
+        <section>
+            <form id="registerForm" method="post" asp-action="RentACar">
+                <h2>Добави кола</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
+
+                <div class="form-field">
+                    <label asp-for="@Model.Brand" class="custom-label-static">Марка на колата</label>
+                    <input asp-for="@Model.Brand" class="custom-input-static" placeholder=" "/>
+                    <span asp-validation-for="@Model.Brand" class="text-danger validation-message"></span>
+                </div>
+                
+                <div class="form-field">
+                    <label asp-for="@Model.Model" class="custom-label-static">Модел на колата</label>
+                    <input asp-for="@Model.Model" class="custom-input-static" placeholder=" "/>
+                    <span asp-validation-for="@Model.Model" class="text-danger validation-message"></span>
+                </div>
+
+                
+                <div class="form-field">
+                    <label asp-for="@Model.YearOfManifacture" class="custom-label-static">Избери дата за наемане на МПС</label>
+                    <input asp-for="@Model.YearOfManifacture" id="yearOfManifacture" class="custom-input-static" placeholder="Изберете дата" />
+                    <span asp-validation-for="@Model.YearOfManifacture" class="text-danger validation-message"></span>
+                </div>
+                
+                <div class="form-field">
+                    <label asp-for="@Model.HorsePower" class="custom-label-static">Конски сили</label>
+                    <input asp-for="@Model.HorsePower" class="custom-input-static" placeholder=" "/>
+                    <span asp-validation-for="@Model.HorsePower" class="text-danger validation-message"></span>
+                </div>
+                
+                <div class="form-field">
+                    <label asp-for="@Model.RegistrationNumber" class="custom-label-static">Регистрационен номер</label>
+                    <input asp-for="@Model.RegistrationNumber" class="custom-input-static" placeholder=" "/>
+                    <span asp-validation-for="@Model.RegistrationNumber" class="text-danger validation-message"></span>
+                </div>
+                
+                <div class="form-field">
+                    <label for="categoryDropdown" class="custom-label-static">Избери категория</label>
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Избери категория от менюто
+                        </button>
+                        
+                        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+                            @foreach (var category in Model.Categories)
+                            {
+                                <li>
+                                    <a class="dropdown-item" data-id="@category.Id" href="#">
+                                        @category.Name
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <input type="text" id="selectedCategory" class="form-control mt-3" readonly placeholder="Избраната категория ще се покаже тук" />
+                    <input type="hidden" asp-for="CategoryId" id="categoryId" />
+                </div>
+
+                <div class="form-field">
+                    <label for="carOptionsDropdown" class="custom-label-static">Избери опция</label>
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="carOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Избери град от менюто
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="carOptionsDropdown">
+                            @{
+                                int id = 0;
+                                foreach (LocationViewModel location in Model.Locations)
+                                {
+                                    <input type="hidden" name="Locations[@id].Id" value="@location.Id" />
+                                    <input type="hidden" name="Locations[@id].City" value="@location.City" />
+                                    <li><a class="dropdown-item" data-value="@location.City" data-id="@location.Id" href="#">@location.City</a></li>
+                                    id++;
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <input asp-for="@Model.City" type="text" id="selectedOption" class="form-control mt-3" readonly placeholder="Избран град ще се покаже тук">
+                    <input asp-for="@Model.LocationId" type="hidden" id="locationId" />
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="@Model.PricerPerDay" class="custom-label-static">Цена за наемане</label>
+                    <input asp-for="@Model.PricerPerDay" class="custom-input-static" placeholder=" "/>
+                    <span asp-validation-for="@Model.PricerPerDay" class="text-danger validation-message"></span>
+                </div>
+
+                <a href="@Url.Action("ManageCars", "Admin", new { area = "Admin"})" class="btn btn-success">Назад</a>
+                <button id="registerSubmit" type="submit" class="custom-button">Резервирай</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script src="~/js/date.js" asp-append-version="true"></script>
+<script src="~/js/rent.js" asp-append-version="true"></script>
+<script src="~/js/dropdown.js" asp-append-version="true"></script>
+<script src="~/js/checkbox.js" asp-append-version="true"></script>*@
