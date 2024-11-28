@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Core.Interfaces;
 using RentACar.DTO.Admin;
+using RentACar.DTO.Car;
 using RentACar.Web.ViewModels.Admin;
+using RentACar.Web.ViewModels.Car;
 
 namespace RentACar.Web.Areas.Admin.Controllers
 {
@@ -24,6 +26,15 @@ namespace RentACar.Web.Areas.Admin.Controllers
             DashboardViewModel model = mapperService.Map<DashboardViewModel>(dto);
 
             return View(model);
+        }
+
+        public async Task<IActionResult> ManageCars()
+        {
+            IEnumerable<CarInformationDTO> dtos = await adminService.GetCarsInformation();
+            IEnumerable<CarInformationViewModel> models =
+                dtos.Select(d => mapperService.Map<CarInformationViewModel>(d));
+
+            return View(models);
         }
     }
 }

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<RentACar.Web.ViewModels.Car.CarInformationViewModel>
+<div class="container mt-5">
+    <h2 class="text-center text-warning mb-4">Менажиране на автомобили</h2>
+    <hr class="divider bg-light mb-4" />
+    <div class="d-flex justify-content-end mb-3">
+        <a href="@Url.Action("AddCar", "Admin", new { area = "Admin" })" class="btn btn-success">
+            <i class="fa-solid fa-plus me-2"></i> Добави нова кола
+        </a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-dark table-hover table-bordered align-middle">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col" class="text-center">Марка</th>
+                    <th scope="col" class="text-center">Модел</th>
+                    <th scope="col" class="text-center">Конски сили</th>
+                    <th scope="col" class="text-center">Година на производство</th>
+                    <th scope="col" class="text-center">Град</th>
+                    <th scope="col" class="text-center">Наета ли е?</th>
+                    <th scope="col" class="text-center">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var car in Model)
+                {
+                    <tr>
+                        <td class="text-center">@car.Brand</td>
+                        <td class="text-center">@car.Model</td>
+                        <td class="text-center">@car.HorsePower</td>
+                        <td class="text-center">@car.YearOfManufacture</td>
+                        <td class="text-center">@car.City</td>
+                        <td class="text-center">
+                            @if (car.IsHired)
+                            {
+                                <span class="badge bg-danger">Да</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Не</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <a href="@Url.Action("AddCar", "Admin")" class="btn btn-outline-info btn-sm me-2">
+                                <i class="fa-solid fa-pen"></i> Промяна
+                            </a>
+                            <form action="@Url.Action("DeleteCar", "Admin", new { id = car.Id })" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <i class="fa-solid fa-trash"></i> Изтрий
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
