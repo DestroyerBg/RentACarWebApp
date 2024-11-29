@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using RentACar.Common.ValidationAttributes;
+using RentACar.Web.ViewModels.Category;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Car;
+using RentACar.Web.ViewModels.Location;
 namespace RentACar.Web.ViewModels.Admin
 {
     public class AddCarViewModel
@@ -25,18 +27,23 @@ namespace RentACar.Web.ViewModels.Admin
 
         [Required(ErrorMessage = FieldIsRequired)]
         [RegularExpression(RegistrationNumberRegex)]
-        public string RegistrationNumber { get; set; }
+        public string RegistrationNumber { get; set; } = null!;
 
         [Required(ErrorMessage = FieldIsRequired)]
-        public int CategoryId { get; set; }
+        public string CategoryId { get; set; }
 
         [Required(ErrorMessage = FieldIsRequired)]
-        public int LocationId { get; set; }
+        public string LocationId { get; set; }
 
         [Required(ErrorMessage = FieldIsRequired)]
         public decimal PricerPerDay { get; set; }
 
-        [Required(ErrorMessage = FieldIsRequired)]
-        public IFormFile CarImage { get; set; }
+        public string? CarImageUrl { get; set; }
+
+        public IFormFile? CarImage { get; set; }
+
+        public ICollection<LocationViewModel> Locations { get; set; } = new HashSet<LocationViewModel>();
+
+        public ICollection<CategoryViewModel> Categories { get; set; } = new HashSet<CategoryViewModel>();
     }
 }

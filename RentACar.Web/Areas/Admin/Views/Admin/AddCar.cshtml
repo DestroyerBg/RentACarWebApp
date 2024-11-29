@@ -1,21 +1,22 @@
-﻿
-@*<div class="row">
+﻿@using RentACar.Web.ViewModels.Location
+@model RentACar.Web.ViewModels.Admin.AddCarViewModel
+<div class="row">
     <div class="form-wrapper">
         <section>
-            <form id="registerForm" method="post" asp-action="RentACar">
+            <form id="registerForm" method="post" asp-action="RentACar" enctype="multipart/form-data">
                 <h2>Добави кола</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
 
                 <div class="form-field">
-                    <label asp-for="@Model.Brand" class="custom-label-static">Марка на колата</label>
-                    <input asp-for="@Model.Brand" class="custom-input-static" placeholder=" "/>
-                    <span asp-validation-for="@Model.Brand" class="text-danger validation-message"></span>
+                    <input asp-for="@Model.Brand" class="custom-input" aria-required="true" placeholder="" />
+                    <label asp-for="@Model.Brand" class="custom-label">Марка на колата</label>
+                    <span asp-validation-for="@Model.Brand" class="text-danger"></span>
                 </div>
                 
                 <div class="form-field">
-                    <label asp-for="@Model.Model" class="custom-label-static">Модел на колата</label>
-                    <input asp-for="@Model.Model" class="custom-input-static" placeholder=" "/>
+                    <input asp-for="@Model.Model" class="custom-input" placeholder=" " />
+                    <label asp-for="@Model.Model" class="custom-label">Модел на колата</label>
                     <span asp-validation-for="@Model.Model" class="text-danger validation-message"></span>
                 </div>
 
@@ -27,70 +28,56 @@
                 </div>
                 
                 <div class="form-field">
-                    <label asp-for="@Model.HorsePower" class="custom-label-static">Конски сили</label>
-                    <input asp-for="@Model.HorsePower" class="custom-input-static" placeholder=" "/>
+                    <input asp-for="@Model.HorsePower" class="custom-input" placeholder=" " />
+                    <label asp-for="@Model.HorsePower" class="custom-label">Конски сили</label>
                     <span asp-validation-for="@Model.HorsePower" class="text-danger validation-message"></span>
                 </div>
                 
                 <div class="form-field">
-                    <label asp-for="@Model.RegistrationNumber" class="custom-label-static">Регистрационен номер</label>
-                    <input asp-for="@Model.RegistrationNumber" class="custom-input-static" placeholder=" "/>
+                    <input asp-for="@Model.RegistrationNumber" class="custom-input" placeholder=" " />
+                    <label asp-for="@Model.RegistrationNumber" class="custom-label">Регистрационен номер</label>
                     <span asp-validation-for="@Model.RegistrationNumber" class="text-danger validation-message"></span>
                 </div>
                 
                 <div class="form-field">
-                    <label for="categoryDropdown" class="custom-label-static">Избери категория</label>
-                    <div class="dropdown">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Избери категория от менюто
-                        </button>
-                        
-                        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-                            @foreach (var category in Model.Categories)
-                            {
-                                <li>
-                                    <a class="dropdown-item" data-id="@category.Id" href="#">
-                                        @category.Name
-                                    </a>
-                                </li>
-                            }
-                        </ul>
+                    <label class="custom-label-static">Избери категория</label>
+                    <div class="checkbox-group">
+                        @foreach (var category in Model.Categories)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input category-checkbox" type="checkbox" id="category_@category.Id" name="CategoryId" value="@category.Id" />
+                                <label class="form-check-label" for="category_@category.Id">@category.Name</label>
+                            </div>
+                        }
                     </div>
-                    <input type="text" id="selectedCategory" class="form-control mt-3" readonly placeholder="Избраната категория ще се покаже тук" />
-                    <input type="hidden" asp-for="CategoryId" id="categoryId" />
                 </div>
-
-                <div class="form-field">
-                    <label for="carOptionsDropdown" class="custom-label-static">Избери опция</label>
-                    <div class="dropdown">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="carOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Избери град от менюто
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="carOptionsDropdown">
-                            @{
-                                int id = 0;
-                                foreach (LocationViewModel location in Model.Locations)
-                                {
-                                    <input type="hidden" name="Locations[@id].Id" value="@location.Id" />
-                                    <input type="hidden" name="Locations[@id].City" value="@location.City" />
-                                    <li><a class="dropdown-item" data-value="@location.City" data-id="@location.Id" href="#">@location.City</a></li>
-                                    id++;
-                                }
-                            }
-                        </ul>
+                <hr/>
+                <div class="form-field mt-4">
+                    <label class="custom-label-static">Избери локация</label>
+                    <div class="checkbox-group">
+                        @foreach (var location in Model.Locations)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input location-checkbox" type="checkbox" id="location_@location.Id" name="LocationId" value="@location.Id" />
+                                <label class="form-check-label" for="location_@location.Id">@location.City</label>
+                            </div>
+                        }
                     </div>
-                    <input asp-for="@Model.City" type="text" id="selectedOption" class="form-control mt-3" readonly placeholder="Избран град ще се покаже тук">
-                    <input asp-for="@Model.LocationId" type="hidden" id="locationId" />
                 </div>
-
+                <hr/>
+                
+                <div class="form-group mb-3">
+                    <label for="fileInput">Качи снимка</label>
+                    <input type="file" id="fileInput" name="uploadedFile" accept="image/png, image/jpeg, image/jpg, image/gif" class="form-control">
+                </div>
                 <div class="form-field">
-                    <label asp-for="@Model.PricerPerDay" class="custom-label-static">Цена за наемане</label>
-                    <input asp-for="@Model.PricerPerDay" class="custom-input-static" placeholder=" "/>
+                    <input asp-for="@Model.PricerPerDay" class="custom-input" placeholder=" " />
+                    <label asp-for="@Model.PricerPerDay" class="custom-label">Цена за наемане</label>
                     <span asp-validation-for="@Model.PricerPerDay" class="text-danger validation-message"></span>
                 </div>
 
-                <a href="@Url.Action("ManageCars", "Admin", new { area = "Admin"})" class="btn btn-success">Назад</a>
-                <button id="registerSubmit" type="submit" class="custom-button">Резервирай</button>
+                <a href="@Url.Action("ManageCars", "Admin", new { area = "Admin"})" class="btn btn-outline-warning back-btn">Назад</a>
+                <button id="registerSubmit" type="submit" class="btn btn-outline-warning custom-button">Добави кола</button>
             </form>
         </section>
     </div>
@@ -102,5 +89,5 @@
 
 <script src="~/js/date.js" asp-append-version="true"></script>
 <script src="~/js/rent.js" asp-append-version="true"></script>
-<script src="~/js/dropdown.js" asp-append-version="true"></script>
-<script src="~/js/checkbox.js" asp-append-version="true"></script>*@
+<script src="~/js/restrict-checkbox.js" asp-append-version="true"></script>
+<script src="~/js/checkbox.js" asp-append-version="true"></script>

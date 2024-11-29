@@ -40,7 +40,7 @@ namespace RentACar.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> RentACar(string id)
         {
             if (!base.IsValidGuid(id))
@@ -61,7 +61,7 @@ namespace RentACar.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> RentACar(RentACarViewModel model)
         {
             if (!ModelState.IsValid)
@@ -87,7 +87,7 @@ namespace RentACar.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> ConfirmReservation(ConfirmReservationViewModel model)
         {
             string? sessionData = HttpContext.Session.GetString("Reservation");

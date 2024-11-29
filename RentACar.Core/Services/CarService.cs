@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
 using RentACar.Data.Repository.Interfaces;
 using RentACar.DTO.Car;
+using RentACar.DTO.Category;
 using RentACar.DTO.InsuranceBenefit;
 using RentACar.DTO.Location;
 using RentACar.DTO.Reservation;
@@ -17,16 +17,19 @@ namespace RentACar.Core.Services
         private readonly IRepository<Car, Guid> carRepository;
         private readonly IRepository<InsuranceBenefit, Guid> insuranceBenefitRepository;
         private readonly IRepository<Location, Guid> locationRepository;
+        private readonly IRepository<Category, Guid> categoryRepository;
         private readonly IMapper mapperService;
         public CarService(IRepository<Car, Guid> _carRepository,
             IMapper _mapperService,
             IRepository<InsuranceBenefit, Guid> _insuranceBenefitRepository,
-            IRepository<Location, Guid> _locationRepository)
+            IRepository<Location, Guid> _locationRepository,
+            IRepository<Category, Guid> _categoryRepository)
         {
             carRepository = _carRepository;
             mapperService = _mapperService;
             insuranceBenefitRepository = _insuranceBenefitRepository;
             locationRepository = _locationRepository;
+            categoryRepository = _categoryRepository;
         }
         public async Task<IEnumerable<ViewCarDTO>> GetCarsAsync()
         {
@@ -101,6 +104,25 @@ namespace RentACar.Core.Services
             confirmReservation.CarBrand = car.Brand;
             confirmReservation.CarModel = car.Model;
             return confirmReservation;
+        }
+
+        public async Task<AddCarDTO> CreateAddCarDto()
+        {
+            AddCarDTO dto = new AddCarDTO();
+
+            ICollection<CategoryDTO> categories = await categoryRepository
+                .GetAllAttached()
+                .Select(c => mapperService.Map<CategoryDTO>(c))
+                .ToListAsync();
+
+            ICollection<LocationDTO> locations = await locationRepository
+                .GetAllAttached()
+                .Select(l => mapperService.Map<LocationDTO>(l))
+                .ToListAsync();
+
+            dto.Categories = categories;
+            dto.Locations = locations;
+            return dto;
         }
 
         private async Task<decimal> CalculateTotalPrice(CreateReservationDTO reservationDTO)

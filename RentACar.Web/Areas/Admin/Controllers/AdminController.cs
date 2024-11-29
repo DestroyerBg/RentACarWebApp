@@ -12,13 +12,17 @@ namespace RentACar.Web.Areas.Admin.Controllers
     {
         private readonly IAdminService adminService;
         private readonly IMapper mapperService;
+        private readonly ICarService carService;
         public AdminController(IAdminService _adminService,
-            IMapper _mapperService)
+            IMapper _mapperService,
+            ICarService _carService)
         {
            adminService = _adminService;
            mapperService = _mapperService;
+           carService = _carService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
             DashboardDTO dto = await adminService.GetAppInfo();
@@ -28,6 +32,7 @@ namespace RentACar.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> ManageCars()
         {
             IEnumerable<CarInformationDTO> dtos = await adminService.GetCarsInformation();
@@ -36,5 +41,16 @@ namespace RentACar.Web.Areas.Admin.Controllers
 
             return View(models);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AddCar()
+        {
+            AddCarDTO dto = await carService.CreateAddCarDto();
+
+            AddCarViewModel model = mapperService.Map<AddCarViewModel>(dto);
+
+            return View(model);
+        }
+
     }
 }

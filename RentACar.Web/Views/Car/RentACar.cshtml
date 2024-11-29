@@ -24,26 +24,22 @@
                 </div>
 
                 <div class="form-field">
-                    <label for="carOptionsDropdown" class="custom-label-static">Избери опция</label>
+                    <label for="carOptionsDropdown" class="custom-label-static">Избери град</label>
                     <div class="dropdown">
                         <button class="btn btn-dark dropdown-toggle" type="button" id="carOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             Избери град от менюто
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="carOptionsDropdown">
-                            @{
-                                int id = 0;
-                                foreach (LocationViewModel location in Model.Locations)
-                                {
-                                    <input type="hidden" name="Locations[@id].Id" value="@location.Id" />
-                                    <input type="hidden" name="Locations[@id].City" value="@location.City" />
-                                    <li><a class="dropdown-item" data-value="@location.City" data-id="@location.Id" href="#">@location.City</a></li>
-                                    id++;
-                                }
+                            @foreach (var location in Model.Locations)
+                            {
+                                <li>
+                                    <a class="dropdown-item" data-id="@location.Id" href="#">@location.City</a>
+                                </li>
                             }
                         </ul>
                     </div>
-                    <input asp-for="@Model.City" type="text" id="selectedOption" class="form-control mt-3" readonly placeholder="Избран град ще се покаже тук">
-                    <input asp-for="@Model.LocationId" type="hidden" id="locationId" />
+                    <input type="text" id="selectedOption" class="form-control mt-3" style="" readonly placeholder="Избран град ще се покаже тук">
+                    <input asp-for="LocationId" type="hidden" id="locationId" />
                 </div>
 
                 <div class="form-field">

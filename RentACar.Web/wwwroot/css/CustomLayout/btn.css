@@ -81,3 +81,32 @@
 .navbar-toggler-icon {
     filter: brightness(1.2); 
 }
+
+.back-btn {
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 5px;
+    border: 2px solid #ffc107; 
+    background-color: transparent;
+    transition: all 0.3s ease;
+    margin-bottom: 1em;
+}
+
+.back-btn:hover {
+    background-color: #ffc107;
+    color: #000000;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+    transform: scale(1.05);
+}
+
+.btn-outline-warning {
+    color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-outline-warning:hover {
+    background-color: #ffc107;
+    color: #000000;
+}

@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using RentACar.Data.Models.Interfaces;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Category;
 namespace RentACar.Data.Models
 {
-    public class Category 
+    public class Category : ISoftDeletable
     {
         [Key]
         public Guid Id { get; set; }
@@ -14,5 +15,6 @@ namespace RentACar.Data.Models
         public string Name { get; set; } = null!;
 
         public ICollection<Car> Cars { get; set; } = new HashSet<Car>();
+        public bool IsDeleted { get; set; }
     }
 }
