@@ -8,7 +8,7 @@
     "NormalizedName": "MODERATOR"
   },
   {
-    "Name": "Customer",
-    "NormalizedName": "CUSTOMER"
+    "Name": "User",
+    "NormalizedName": "USER"
   }
 ]

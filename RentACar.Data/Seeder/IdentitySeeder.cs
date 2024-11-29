@@ -28,6 +28,8 @@ namespace RentACar.Data.Seeder
             }
 
             await SeedAdminProfileAndApplyAllRoles(serviceProvider);
+            await SeedUserProfileAndApplyUserRole(serviceProvider);
+            await SeedModeratorProfileAndApplyModeratorRole(serviceProvider);
         }
 
         private static async Task SeedAdminProfileAndApplyAllRoles(IServiceProvider serviceProvider)
@@ -68,6 +70,79 @@ namespace RentACar.Data.Seeder
                 }
             }
 
+        }
+
+        private static async Task SeedUserProfileAndApplyUserRole(IServiceProvider serviceProvider)
+        {
+            string jsonContent = JsonReader.ReadJson("User.json");
+            UserManager<ApplicationUser> userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            IUserStore<ApplicationUser> userStore = serviceProvider.GetRequiredService<IUserStore<ApplicationUser>>();
+            RegisterDTO? dto = JsonSerializer.Deserialize<RegisterDTO>(jsonContent);
+            ApplicationUser isUserAlreadyCreated = await userManager.FindByEmailAsync(dto.Email);
+
+            if (isUserAlreadyCreated != null)
+            {
+                return;
+            }
+
+            ApplicationUser user = new ApplicationUser()
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                BirthDate = DateTime.ParseExact(dto.BirthDate, DatabaseModelsConstants.Common.DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None),
+                PhoneNumber = dto.PhoneNumber
+            };
+
+            await userStore.SetUserNameAsync(user, dto.Username, CancellationToken.None);
+            await userManager.SetEmailAsync(user, dto.Email);
+            await userManager.CreateAsync(user, dto.Password);
+
+            RoleManager<IdentityRole<Guid>> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
+            if (!await userManager.IsInRoleAsync(user, "User"))
+            {
+                await userManager.AddToRoleAsync(user, "User");
+            }
+        }
+
+        private static async Task SeedModeratorProfileAndApplyModeratorRole(IServiceProvider serviceProvider)
+        {
+            string jsonContent = JsonReader.ReadJson("Moderator.json");
+            UserManager<ApplicationUser> userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            IUserStore<ApplicationUser> userStore = serviceProvider.GetRequiredService<IUserStore<ApplicationUser>>();
+            RegisterDTO? dto = JsonSerializer.Deserialize<RegisterDTO>(jsonContent);
+            ApplicationUser isUserAlreadyCreated = await userManager.FindByEmailAsync(dto.Email);
+
+            if (isUserAlreadyCreated != null)
+            {
+                return;
+            }
+
+            ApplicationUser user = new ApplicationUser()
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                BirthDate = DateTime.ParseExact(dto.BirthDate, DatabaseModelsConstants.Common.DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None),
+                PhoneNumber = dto.PhoneNumber
+            };
+
+            await userStore.SetUserNameAsync(user, dto.Username, CancellationToken.None);
+            await userManager.SetEmailAsync(user, dto.Email);
+            await userManager.CreateAsync(user, dto.Password);
+
+            RoleManager<IdentityRole<Guid>> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
+            if (!await userManager.IsInRoleAsync(user, "User"))
+            {
+                await userManager.AddToRoleAsync(user, "User");
+            }
+
+            if (!await userManager.IsInRoleAsync(user, "Moderator"))
+            {
+                await userManager.AddToRoleAsync(user, "Moderator");
+            }
         }
     }
 }

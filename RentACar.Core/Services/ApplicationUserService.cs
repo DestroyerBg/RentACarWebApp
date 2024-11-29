@@ -83,7 +83,7 @@ namespace RentACar.Core.Services
 
             if (result.Succeeded)
             {
-                await userManager.AddToRoleAsync(user, "Customer");
+                await userManager.AddToRoleAsync(user, "User");
             }
 
             return result;
