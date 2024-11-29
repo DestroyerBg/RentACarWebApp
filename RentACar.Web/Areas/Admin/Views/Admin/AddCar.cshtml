@@ -22,7 +22,7 @@
 
                 
                 <div class="form-field">
-                    <label asp-for="@Model.YearOfManifacture" class="custom-label-static">Избери дата за наемане на МПС</label>
+                    <label asp-for="@Model.YearOfManifacture" class="custom-label-static">Избери година на производство</label>
                     <input asp-for="@Model.YearOfManifacture" id="yearOfManifacture" class="custom-input-static" placeholder="Изберете дата" />
                     <span asp-validation-for="@Model.YearOfManifacture" class="text-danger validation-message"></span>
                 </div>
@@ -38,36 +38,48 @@
                     <label asp-for="@Model.RegistrationNumber" class="custom-label">Регистрационен номер</label>
                     <span asp-validation-for="@Model.RegistrationNumber" class="text-danger validation-message"></span>
                 </div>
-                
+
                 <div class="form-field">
                     <label class="custom-label-static">Избери категория</label>
                     <div class="checkbox-group">
                         @foreach (var category in Model.Categories)
                         {
                             <div class="form-check">
-                                <input class="form-check-input category-checkbox" type="checkbox" id="category_@category.Id" name="CategoryId" value="@category.Id" />
+                                <input class="form-check-input category-checkbox" 
+                                       type="checkbox" 
+                                       id="category_@category.Id" 
+                                       name="CategoryId" 
+                                       value="@category.Id" />
                                 <label class="form-check-label" for="category_@category.Id">@category.Name</label>
                             </div>
                         }
                     </div>
+                    <input type="hidden" name="SelectedCategoryId" id="selectedCategory" value="" />
                 </div>
-                <hr/>
+
+                <hr />
+
                 <div class="form-field mt-4">
                     <label class="custom-label-static">Избери локация</label>
                     <div class="checkbox-group">
                         @foreach (var location in Model.Locations)
                         {
                             <div class="form-check">
-                                <input class="form-check-input location-checkbox" type="checkbox" id="location_@location.Id" name="LocationId" value="@location.Id" />
+                                <input class="form-check-input location-checkbox" 
+                                       type="checkbox" 
+                                       id="location_@location.Id" 
+                                       name="LocationId" 
+                                       value="@location.Id" />
                                 <label class="form-check-label" for="location_@location.Id">@location.City</label>
                             </div>
                         }
                     </div>
+                    <input type="hidden" name="SelectedLocationId" id="selectedLocation" value="" />
                 </div>
                 <hr/>
                 
                 <div class="form-group mb-3">
-                    <label for="fileInput">Качи снимка</label>
+                    <label class="custom-label-static" for="fileInput">Качи снимка</label>
                     <input type="file" id="fileInput" name="uploadedFile" accept="image/png, image/jpeg, image/jpg, image/gif" class="form-control">
                 </div>
                 <div class="form-field">
@@ -90,4 +102,4 @@
 <script src="~/js/date.js" asp-append-version="true"></script>
 <script src="~/js/rent.js" asp-append-version="true"></script>
 <script src="~/js/restrict-checkbox.js" asp-append-version="true"></script>
-<script src="~/js/checkbox.js" asp-append-version="true"></script>
+<script src="~/js/checkbox-values.js" asp-append-version="true"></script>
