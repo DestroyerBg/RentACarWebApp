@@ -8,7 +8,7 @@ using RentACar.DTO.Car;
 using RentACar.DTO.Reservation;
 using RentACar.Web.ViewModels.Car;
 using RentACar.Web.ViewModels.Reservation;
-
+using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 namespace RentACar.Web.Controllers
 {
     public class CarController : BaseController
@@ -40,7 +40,7 @@ namespace RentACar.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = StardardUserRoleName)]
         public async Task<IActionResult> RentACar(string id)
         {
             if (!base.IsValidGuid(id))
@@ -61,7 +61,7 @@ namespace RentACar.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = StardardUserRoleName)]
         public async Task<IActionResult> RentACar(RentACarViewModel model)
         {
             if (!ModelState.IsValid)
@@ -87,7 +87,7 @@ namespace RentACar.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = StardardUserRoleName)]
         public async Task<IActionResult> ConfirmReservation(ConfirmReservationViewModel model)
         {
             string? sessionData = HttpContext.Session.GetString("Reservation");

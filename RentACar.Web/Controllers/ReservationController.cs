@@ -6,10 +6,10 @@ using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
 using RentACar.DTO.Reservation;
 using RentACar.Web.ViewModels.Reservation;
-
+using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 namespace RentACar.Web.Controllers
 {
-    [Authorize(Roles = "Customer")]
+    [Authorize(Roles = StardardUserRoleName)]
     public class ReservationController : BaseController
     {
         private readonly UserManager<ApplicationUser> userManager;

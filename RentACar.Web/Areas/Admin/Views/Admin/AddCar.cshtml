@@ -83,9 +83,9 @@
                     <input type="file" id="fileInput" name="uploadedFile" accept="image/png, image/jpeg, image/jpg, image/gif" class="form-control">
                 </div>
                 <div class="form-field">
-                    <input asp-for="@Model.PricerPerDay" class="custom-input" placeholder=" " />
-                    <label asp-for="@Model.PricerPerDay" class="custom-label">Цена за наемане</label>
-                    <span asp-validation-for="@Model.PricerPerDay" class="text-danger validation-message"></span>
+                    <input asp-for="@Model.PricePerDay" class="custom-input" placeholder=" " />
+                    <label asp-for="@Model.PricePerDay" class="custom-label">Цена за наемане</label>
+                    <span asp-validation-for="@Model.PricePerDay" class="text-danger validation-message"></span>
                 </div>
 
                 <a href="@Url.Action("ManageCars", "Admin", new { area = "Admin"})" class="btn btn-outline-warning back-btn">Назад</a>

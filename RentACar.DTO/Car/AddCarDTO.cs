@@ -21,7 +21,7 @@ namespace RentACar.DTO.Car
 
         public int LocationId { get; set; }
 
-        public decimal PricerPerDay { get; set; }
+        public decimal PricePerDay { get; set; }
 
         public string CarImageUrl { get; set; } = null!;
 

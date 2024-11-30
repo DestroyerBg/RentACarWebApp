@@ -32,6 +32,9 @@ namespace RentACar.Common.Constants
             public const string IncorrectPhoneNumberFormat = "Невалиден формат на телефонен номер.";
             public const int UsernameNameMinLength = 5;
             public const int UsernameNameMaxLength = 20;
+            public const string StardardUserRoleName = "User";
+            public const string ModeratorRoleName = "Moderator";
+            public const string AdminRoleName = "Admin";
 
             public const string PasswordsDoNotMatch = "Двете пароли не съвпадат.";
             public const string PasswordRequiresAtLeastOneDigit = "Задължително е паролата да съдържа поне 1 цифра.";

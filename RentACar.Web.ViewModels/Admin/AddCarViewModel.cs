@@ -36,7 +36,7 @@ namespace RentACar.Web.ViewModels.Admin
         public string LocationId { get; set; }
 
         [Required(ErrorMessage = FieldIsRequired)]
-        public decimal PricerPerDay { get; set; }
+        public decimal PricePerDay { get; set; }
 
         public string? CarImageUrl { get; set; }
 

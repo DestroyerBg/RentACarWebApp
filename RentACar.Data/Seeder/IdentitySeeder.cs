@@ -7,7 +7,6 @@ using RentACar.Common.Constants;
 using RentACar.Data.Helpers;
 using RentACar.Data.Models;
 using RentACar.DTO.Identity;
-using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 namespace RentACar.Data.Seeder
 {
     public static class IdentitySeeder
