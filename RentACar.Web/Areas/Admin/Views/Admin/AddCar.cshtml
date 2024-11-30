@@ -1,9 +1,10 @@
-﻿@using RentACar.Web.ViewModels.Location
+﻿@using RentACar.Web.ViewModels.Category
+@using RentACar.Web.ViewModels.Location
 @model RentACar.Web.ViewModels.Admin.AddCarViewModel
 <div class="row">
     <div class="form-wrapper">
         <section>
-            <form id="registerForm" method="post" asp-action="RentACar" enctype="multipart/form-data">
+            <form id="registerForm" method="post" asp-controller="Admin" asp-action="AddCar" enctype="multipart/form-data">
                 <h2>Добави кола</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
@@ -22,14 +23,14 @@
 
                 
                 <div class="form-field">
-                    <label asp-for="@Model.YearOfManifacture" class="custom-label-static">Избери година на производство</label>
-                    <input asp-for="@Model.YearOfManifacture" id="yearOfManifacture" class="custom-input-static" placeholder="Изберете дата" />
+                    <label asp-for="@Model.YearOfManifacture" class="custom-label-static">Година на производство</label>
+                    <input asp-for="@Model.YearOfManifacture" class="custom-input-static" placeholder=" " />
                     <span asp-validation-for="@Model.YearOfManifacture" class="text-danger validation-message"></span>
                 </div>
                 
                 <div class="form-field">
-                    <input asp-for="@Model.HorsePower" class="custom-input" placeholder=" " />
-                    <label asp-for="@Model.HorsePower" class="custom-label">Конски сили</label>
+                    <label asp-for="@Model.HorsePower" class="custom-label-static">Конски сили</label>
+                    <input asp-for="@Model.HorsePower" class="custom-input-static" placeholder=" " />
                     <span asp-validation-for="@Model.HorsePower" class="text-danger validation-message"></span>
                 </div>
                 
@@ -42,7 +43,7 @@
                 <div class="form-field">
                     <label class="custom-label-static">Избери категория</label>
                     <div class="checkbox-group">
-                        @foreach (var category in Model.Categories)
+                        @foreach (CategoryViewModel category in Model.Categories)
                         {
                             <div class="form-check">
                                 <input class="form-check-input category-checkbox" 
@@ -54,7 +55,7 @@
                             </div>
                         }
                     </div>
-                    <input type="hidden" name="SelectedCategoryId" id="selectedCategory" value="" />
+                    <input type="hidden" asp-for="@Model.CategoryId" id="selectedCategory" value="" />
                 </div>
 
                 <hr />
@@ -62,7 +63,7 @@
                 <div class="form-field mt-4">
                     <label class="custom-label-static">Избери локация</label>
                     <div class="checkbox-group">
-                        @foreach (var location in Model.Locations)
+                        @foreach (LocationViewModel location in Model.Locations)
                         {
                             <div class="form-check">
                                 <input class="form-check-input location-checkbox" 
@@ -74,13 +75,13 @@
                             </div>
                         }
                     </div>
-                    <input type="hidden" name="SelectedLocationId" id="selectedLocation" value="" />
+                    <input type="hidden" asp-for="@Model.LocationId" id="selectedLocation" value="" />
                 </div>
                 <hr/>
                 
                 <div class="form-group mb-3">
                     <label class="custom-label-static" for="fileInput">Качи снимка</label>
-                    <input type="file" id="fileInput" name="uploadedFile" accept="image/png, image/jpeg, image/jpg, image/gif" class="form-control">
+                    <input type="file" id="fileInput" asp-for="@Model.CarImage" accept="image/png, image/jpeg, image/jpg, image/gif" class="form-control">
                 </div>
                 <div class="form-field">
                     <input asp-for="@Model.PricePerDay" class="custom-input" placeholder=" " />
@@ -99,7 +100,5 @@
     <partial name="_ValidationScriptsPartial" />
 }
 
-<script src="~/js/date.js" asp-append-version="true"></script>
-<script src="~/js/rent.js" asp-append-version="true"></script>
 <script src="~/js/restrict-checkbox.js" asp-append-version="true"></script>
 <script src="~/js/checkbox-values.js" asp-append-version="true"></script>

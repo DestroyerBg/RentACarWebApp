@@ -52,6 +52,15 @@ namespace RentACar.Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        
+        [HttpPost]
+        public async Task<IActionResult> AddCar(AddCarViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            return RedirectToAction("ManageCars");
+        }
     }
 }

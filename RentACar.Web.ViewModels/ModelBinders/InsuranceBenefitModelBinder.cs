@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace RentACar.Web.Infrastructure.ModelBinders
+namespace RentACar.Web.ViewModels.ModelBinders
 {
     public class InsuranceBenefitModelBinder : IModelBinder
     {

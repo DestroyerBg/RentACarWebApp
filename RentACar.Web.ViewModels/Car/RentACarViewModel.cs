@@ -18,7 +18,7 @@ namespace RentACar.Web.ViewModels.Car
 
         public decimal PricePerDay { get; set; }
 
-        public string City { get; set; } = null!;
+        public string? City { get; set; }
 
         [Required(ErrorMessage = FieldIsRequired)]
         public string LocationId { get; set; } = null!;

@@ -23,6 +23,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews(options =>
     {
         options.ModelBinderProviders.Insert(0, new InsuranceBenefitCustomModelBinderProvider());
+        options.ModelBinderProviders.Insert(1, new AddCarModelBinderProvider());
     });
 
 builder.Services.AddDistributedMemoryCache();

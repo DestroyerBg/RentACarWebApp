@@ -5,8 +5,12 @@ using RentACar.Web.ViewModels.Category;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Car;
 using RentACar.Web.ViewModels.Location;
+using Microsoft.AspNetCore.Mvc;
+using RentACar.Web.ViewModels.ModelBinders;
+
 namespace RentACar.Web.ViewModels.Admin
 {
+    [ModelBinder(BinderType = typeof(AddCarModelBinder))]
     public class AddCarViewModel
     {
         [Required(ErrorMessage = FieldIsRequired)]
@@ -22,7 +26,7 @@ namespace RentACar.Web.ViewModels.Admin
         public int YearOfManifacture { get; set; }
 
         [Required(ErrorMessage = FieldIsRequired)]
-        [NumberValidation(HorsePowerMinValue, HorsePowerMaxValue)]
+        //[NumberValidation(HorsePowerMinValue, HorsePowerMaxValue)]
         public int HorsePower { get; set; }
 
         [Required(ErrorMessage = FieldIsRequired)]
@@ -30,10 +34,10 @@ namespace RentACar.Web.ViewModels.Admin
         public string RegistrationNumber { get; set; } = null!;
 
         [Required(ErrorMessage = FieldIsRequired)]
-        public string CategoryId { get; set; }
+        public string CategoryId { get; set; } = null!;
 
         [Required(ErrorMessage = FieldIsRequired)]
-        public string LocationId { get; set; }
+        public string LocationId { get; set; } = null!;
 
         [Required(ErrorMessage = FieldIsRequired)]
         public decimal PricePerDay { get; set; }

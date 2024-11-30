@@ -3,13 +3,13 @@ using RentACar.Web.ViewModels.ModelBinders;
 
 namespace RentACar.Web.Infrastructure.ModelBinderProviders
 {
-    public class InsuranceBenefitCustomModelBinderProvider : IModelBinderProvider
+    public class AddCarModelBinderProvider : IModelBinderProvider
     {
         public IModelBinder? GetBinder(ModelBinderProviderContext context)
         {
             if (context.Metadata.ModelType == typeof(bool))
             {
-                return new InsuranceBenefitModelBinder();
+                return new AddCarModelBinder();
             }
 
             return null;
