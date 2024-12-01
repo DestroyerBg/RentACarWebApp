@@ -1,6 +1,7 @@
 ﻿using RentACar.Common.ValidationAttributes;
 using System.ComponentModel.DataAnnotations;
 using RentACar.DTO.Category;
+using RentACar.DTO.Feature;
 using RentACar.DTO.Location;
 
 namespace RentACar.DTO.Car
@@ -29,6 +30,6 @@ namespace RentACar.DTO.Car
 
         public ICollection<CategoryDTO> Categories { get; set; } = new HashSet<CategoryDTO>();
 
-        public ICollection<FeatureDTO> Features { get; set; } = new HashSet<FeatureDTO>();
+        public ICollection<FeatureCheckboxDTO> Features { get; set; } = new HashSet<FeatureCheckboxDTO>();
     }
 }

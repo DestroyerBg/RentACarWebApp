@@ -1,4 +1,6 @@
-﻿namespace RentACar.Web.ViewModels.Car
+﻿using System.Dynamic;
+
+namespace RentACar.Web.ViewModels.Car
 {
     public class CarFeatureViewModel
     {

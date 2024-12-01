@@ -6,6 +6,7 @@ using RentACar.Data.Models;
 using RentACar.Data.Repository.Interfaces;
 using RentACar.DTO.Car;
 using RentACar.DTO.Category;
+using RentACar.DTO.Feature;
 using RentACar.DTO.InsuranceBenefit;
 using RentACar.DTO.Location;
 using RentACar.DTO.Reservation;
@@ -24,13 +25,15 @@ namespace RentACar.Core.Services
             IMapper _mapperService,
             IRepository<InsuranceBenefit, Guid> _insuranceBenefitRepository,
             IRepository<Location, Guid> _locationRepository,
-            IRepository<Category, Guid> _categoryRepository)
+            IRepository<Category, Guid> _categoryRepository,
+            IRepository<Feature, Guid> _featureRepository)
         {
             carRepository = _carRepository;
             mapperService = _mapperService;
             insuranceBenefitRepository = _insuranceBenefitRepository;
             locationRepository = _locationRepository;
             categoryRepository = _categoryRepository;
+            featureRepository = _featureRepository;
         }
         public async Task<IEnumerable<ViewCarDTO>> GetCarsAsync()
         {
@@ -121,8 +124,14 @@ namespace RentACar.Core.Services
                 .Select(l => mapperService.Map<LocationDTO>(l))
                 .ToListAsync();
 
+            ICollection<FeatureCheckboxDTO> features = await featureRepository
+                .GetAllAttached()
+                .Select(f => mapperService.Map<FeatureCheckboxDTO>(f))
+                .ToListAsync();
+
             dto.Categories = categories;
             dto.Locations = locations;
+            dto.Features = features;
             return dto;
         }
 

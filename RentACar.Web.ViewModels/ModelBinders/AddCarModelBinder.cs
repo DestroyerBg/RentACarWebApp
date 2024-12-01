@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using RentACar.Web.ViewModels.Admin;
 using RentACar.Web.ViewModels.Category;
+using RentACar.Web.ViewModels.Feature;
 using RentACar.Web.ViewModels.Location;
 
 namespace RentACar.Web.ViewModels.ModelBinders
@@ -56,6 +57,21 @@ namespace RentACar.Web.ViewModels.ModelBinders
                 string city = request.Form[cityKey];
 
                 model.Locations.Add(new LocationViewModel { Id = id, City = city });
+            }
+
+            IEnumerable<string> featureKeys = request.Form.Keys.Where(key => key.StartsWith("Features["));
+            foreach (string key in featureKeys)
+            {
+                string index = key.Split('[', ']')[1];
+                string idKey = $"Features[{index}].Id";
+                string nameKey = $"Features[{index}].Name";
+                string isCheckedKey = $"Features[{index}].IsChecked";
+
+                string id = request.Form[idKey];
+                string name = request.Form[nameKey];
+                string isChecked = request.Form[isCheckedKey];
+
+                model.Features.Add(new FeatureCheckboxViewModel(){ Id = id, Name = name, IsChecked = bool.Parse(isChecked)});
             }
 
             bindingContext.Result = ModelBindingResult.Success(model);

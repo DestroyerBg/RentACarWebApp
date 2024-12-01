@@ -1,6 +1,7 @@
 ﻿@using RentACar.Common.Constants
 @using RentACar.Data.Models
 @using RentACar.Web.ViewModels.Category
+@using RentACar.Web.ViewModels.Feature
 @using RentACar.Web.ViewModels.Location
 @model RentACar.Web.ViewModels.Admin.AddCarViewModel
 <div class="row">
@@ -16,32 +17,60 @@
                     <label asp-for="@Model.Brand" class="custom-label">Марка на колата</label>
                     <span asp-validation-for="@Model.Brand" class="text-danger"></span>
                 </div>
-                
+
                 <div class="form-field">
                     <input asp-for="@Model.Model" class="custom-input" placeholder=" " />
                     <label asp-for="@Model.Model" class="custom-label">Модел на колата</label>
                     <span asp-validation-for="@Model.Model" class="text-danger validation-message"></span>
                 </div>
 
-                
+
                 <div class="form-field">
                     <label asp-for="@Model.YearOfManifacture" class="custom-label-static">Година на производство</label>
                     <input asp-for="@Model.YearOfManifacture" class="custom-input-static" placeholder=" " />
                     <span asp-validation-for="@Model.YearOfManifacture" class="text-danger validation-message"></span>
                 </div>
-                
+
                 <div class="form-field">
                     <label asp-for="@Model.HorsePower" class="custom-label-static">Конски сили</label>
                     <input asp-for="@Model.HorsePower" class="custom-input-static" placeholder=" " />
                     <span asp-validation-for="@Model.HorsePower" class="text-danger validation-message"></span>
                 </div>
-                
+
                 <div class="form-field">
                     <input asp-for="@Model.RegistrationNumber" class="custom-input" placeholder=" " />
                     <label asp-for="@Model.RegistrationNumber" class="custom-label">Регистрационен номер</label>
                     <span asp-validation-for="@Model.RegistrationNumber" class="text-danger validation-message"></span>
                 </div>
+                
+                <hr/>
+                <div class="form-field">
+                    <label class="custom-label-static">Избери екстри, които има колата</label>
+                    <div class="checkbox-group">
+                        @{ int featureIndex = 0; }
+                        @foreach (FeatureCheckboxViewModel feature in Model.Features)
+                        {
+                            <div class="form-check feature-checkbox">
 
+                                <input type="hidden" name="Features[@featureIndex].IsChecked" id="hidden-@featureIndex" value="false"/>
+
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       id="feature_@featureIndex"
+                                       name="Features[@featureIndex].IsChecked"
+                                       value="true"
+                                       @(feature.IsChecked ? "checked" : "")/>
+                                <label class="form-check-label" for="feature_@featureIndex">@feature.Name</label>
+                            </div>
+                            <input type="hidden" name="Features[@featureIndex].Id" value="@feature.Id" />
+                            <input type="hidden" name="Features[@featureIndex].Name" value="@feature.Name" />
+                            featureIndex++;
+                        }
+                    </div>
+                </div>
+
+
+                <hr/>
                 <div class="form-field">
                     <label class="custom-label-static">Избери категория</label>
                     <div class="checkbox-group">
@@ -49,10 +78,10 @@
                         @foreach (CategoryViewModel category in Model.Categories)
                         {
                             <div class="form-check">
-                                <input class="form-check-input category-checkbox" 
-                                       type="checkbox" 
-                                       id="category_@categoryIndex" 
-                                       name="Categories[@categoryIndex].IsChecked" 
+                                <input class="form-check-input category-checkbox"
+                                       type="checkbox"
+                                       id="category_@categoryIndex"
+                                       name="Categories[@categoryIndex].IsChecked"
                                        value="true" />
                                 <label class="form-check-label" for="category_@category.Id">@category.Name</label>
                             </div>
@@ -73,10 +102,10 @@
                         @foreach (LocationViewModel location in Model.Locations)
                         {
                             <div class="form-check">
-                                <input class="form-check-input location-checkbox" 
-                                       type="checkbox" 
-                                       id="location_@locationIndex" 
-                                       name="Locations[@locationIndex].IsChecked" 
+                                <input class="form-check-input location-checkbox"
+                                       type="checkbox"
+                                       id="location_@locationIndex"
+                                       name="Locations[@locationIndex].IsChecked"
                                        value="true" />
                                 <label class="form-check-label" for="location_@location.Id">@location.City</label>
                             </div>
@@ -87,8 +116,8 @@
                     </div>
                     <input type="hidden" asp-for="@Model.LocationId" id="selectedLocation" value="" />
                 </div>
-                <hr/>
-                
+                <hr />
+
                 <div class="form-group mb-3">
                     <label class="custom-label-static" for="fileInput">Качи снимка</label>
                     <input type="file" id="fileInput" asp-for="@Model.CarImage" accept="image/png, image/jpeg, image/jpg, image/gif" class="form-control">
@@ -112,3 +141,4 @@
 
 <script src="~/js/restrict-checkbox.js" asp-append-version="true"></script>
 <script src="~/js/checkbox-values.js" asp-append-version="true"></script>
+<script src="~/js/checkbox.js" asp-append-version="true"></script>

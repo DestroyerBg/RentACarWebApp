@@ -6,6 +6,8 @@ using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Car;
 using RentACar.Web.ViewModels.Location;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Web.ViewModels.Car;
+using RentACar.Web.ViewModels.Feature;
 using RentACar.Web.ViewModels.ModelBinders;
 
 namespace RentACar.Web.ViewModels.Admin
@@ -49,5 +51,7 @@ namespace RentACar.Web.ViewModels.Admin
         public ICollection<LocationViewModel> Locations { get; set; } = new HashSet<LocationViewModel>();
 
         public ICollection<CategoryViewModel> Categories { get; set; } = new HashSet<CategoryViewModel>();
+
+        public ICollection<FeatureCheckboxViewModel> Features { get; set; } = new HashSet<FeatureCheckboxViewModel>();
     }
 }
