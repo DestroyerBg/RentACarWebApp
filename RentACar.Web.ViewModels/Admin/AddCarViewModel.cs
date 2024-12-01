@@ -26,7 +26,7 @@ namespace RentACar.Web.ViewModels.Admin
         public int YearOfManifacture { get; set; }
 
         [Required(ErrorMessage = FieldIsRequired)]
-        //[NumberValidation(HorsePowerMinValue, HorsePowerMaxValue)]
+        [NumberValidation(HorsePowerMinValue, HorsePowerMaxValue)]
         public int HorsePower { get; set; }
 
         [Required(ErrorMessage = FieldIsRequired)]

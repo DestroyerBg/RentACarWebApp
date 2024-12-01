@@ -2,7 +2,7 @@
 {
     public class LocationViewModel
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string City { get; set; } = null!;
     }

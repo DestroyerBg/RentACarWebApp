@@ -1,4 +1,6 @@
-﻿@using RentACar.Web.ViewModels.Category
+﻿@using RentACar.Common.Constants
+@using RentACar.Data.Models
+@using RentACar.Web.ViewModels.Category
 @using RentACar.Web.ViewModels.Location
 @model RentACar.Web.ViewModels.Admin.AddCarViewModel
 <div class="row">
@@ -43,16 +45,20 @@
                 <div class="form-field">
                     <label class="custom-label-static">Избери категория</label>
                     <div class="checkbox-group">
+                        @{ int categoryIndex = 0;}
                         @foreach (CategoryViewModel category in Model.Categories)
                         {
                             <div class="form-check">
                                 <input class="form-check-input category-checkbox" 
                                        type="checkbox" 
-                                       id="category_@category.Id" 
-                                       name="CategoryId" 
-                                       value="@category.Id" />
+                                       id="category_@categoryIndex" 
+                                       name="Categories[@categoryIndex].IsChecked" 
+                                       value="true" />
                                 <label class="form-check-label" for="category_@category.Id">@category.Name</label>
                             </div>
+                            <input type="hidden" name="Categories[@categoryIndex].Id" value="@category.Id" />
+                            <input type="hidden" name="Categories[@categoryIndex].Name" value="@category.Name" />
+                            categoryIndex++;
                         }
                     </div>
                     <input type="hidden" asp-for="@Model.CategoryId" id="selectedCategory" value="" />
@@ -63,16 +69,20 @@
                 <div class="form-field mt-4">
                     <label class="custom-label-static">Избери локация</label>
                     <div class="checkbox-group">
+                        @{ int locationIndex = 0; }
                         @foreach (LocationViewModel location in Model.Locations)
                         {
                             <div class="form-check">
                                 <input class="form-check-input location-checkbox" 
                                        type="checkbox" 
-                                       id="location_@location.Id" 
-                                       name="LocationId" 
-                                       value="@location.Id" />
+                                       id="location_@locationIndex" 
+                                       name="Locations[@locationIndex].IsChecked" 
+                                       value="true" />
                                 <label class="form-check-label" for="location_@location.Id">@location.City</label>
                             </div>
+                            <input type="hidden" name="Locations[@locationIndex].Id" value="@location.Id" />
+                            <input type="hidden" name="Locations[@locationIndex].City" value="@location.City" />
+                            locationIndex++;
                         }
                     </div>
                     <input type="hidden" asp-for="@Model.LocationId" id="selectedLocation" value="" />
