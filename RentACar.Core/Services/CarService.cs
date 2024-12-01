@@ -18,6 +18,7 @@ namespace RentACar.Core.Services
         private readonly IRepository<InsuranceBenefit, Guid> insuranceBenefitRepository;
         private readonly IRepository<Location, Guid> locationRepository;
         private readonly IRepository<Category, Guid> categoryRepository;
+        private readonly IRepository<Feature, Guid> featureRepository;
         private readonly IMapper mapperService;
         public CarService(IRepository<Car, Guid> _carRepository,
             IMapper _mapperService,

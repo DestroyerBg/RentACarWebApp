@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentACar.Data;
 
@@ -11,9 +12,11 @@ using RentACar.Data;
 namespace RentACar.Data.Migrations
 {
     [DbContext(typeof(RentACarDbContext))]
-    partial class RentACarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241201155140_AddedIsDeletedToFeatureModel")]
+    partial class AddedIsDeletedToFeatureModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -299,7 +302,7 @@ namespace RentACar.Data.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Cars", (string)null);
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.CarFeature", b =>
@@ -317,7 +320,7 @@ namespace RentACar.Data.Migrations
 
                     b.HasIndex("FeatureId");
 
-                    b.ToTable("CarsFeatures", (string)null);
+                    b.ToTable("CarsFeatures");
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.Category", b =>
@@ -337,7 +340,7 @@ namespace RentACar.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.CustomerFeedback", b =>
@@ -380,7 +383,7 @@ namespace RentACar.Data.Migrations
 
                     b.HasIndex("ReservationId");
 
-                    b.ToTable("CustomerFeedbacks", (string)null);
+                    b.ToTable("CustomerFeedbacks");
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.Feature", b =>
@@ -401,7 +404,7 @@ namespace RentACar.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Features", (string)null);
+                    b.ToTable("Features");
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.InsuranceBenefit", b =>
@@ -430,7 +433,7 @@ namespace RentACar.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InsuranceBenefits", (string)null);
+                    b.ToTable("InsuranceBenefits");
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.Location", b =>
@@ -454,7 +457,7 @@ namespace RentACar.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations", (string)null);
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.Reservation", b =>
@@ -513,7 +516,7 @@ namespace RentACar.Data.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Reservations", (string)null);
+                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("RentACar.Data.Models.ReservationInsuranceBenefit", b =>
@@ -528,7 +531,7 @@ namespace RentACar.Data.Migrations
 
                     b.HasIndex("ReservationId");
 
-                    b.ToTable("ReservationInsuranceBenefit", (string)null);
+                    b.ToTable("ReservationInsuranceBenefit");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

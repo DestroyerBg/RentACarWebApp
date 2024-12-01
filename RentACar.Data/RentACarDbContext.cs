@@ -9,6 +9,10 @@ namespace RentACar.Data
 {
     public class RentACarDbContext : IdentityDbContext<ApplicationUser,IdentityRole<Guid>, Guid>
     {
+        public RentACarDbContext()
+        {
+            
+        }
         public RentACarDbContext(DbContextOptions<RentACarDbContext> options) : base(options)
         {
             

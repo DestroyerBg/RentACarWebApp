@@ -28,5 +28,7 @@ namespace RentACar.DTO.Car
         public ICollection<LocationDTO> Locations { get; set; } = new HashSet<LocationDTO>();
 
         public ICollection<CategoryDTO> Categories { get; set; } = new HashSet<CategoryDTO>();
+
+        public ICollection<FeatureDTO> Features { get; set; } = new HashSet<FeatureDTO>();
     }
 }
