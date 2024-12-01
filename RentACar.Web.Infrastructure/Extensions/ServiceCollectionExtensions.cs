@@ -17,6 +17,7 @@ namespace RentACar.Web.Infrastructure.Extensions
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IReservationService, ReservationService>();
             services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IFileService, FileService>();
             return services;
         }
 

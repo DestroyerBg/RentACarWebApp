@@ -13,13 +13,16 @@ namespace RentACar.Web.Areas.Admin.Controllers
         private readonly IAdminService adminService;
         private readonly IMapper mapperService;
         private readonly ICarService carService;
+        private readonly IFileService fileService;
         public AdminController(IAdminService _adminService,
             IMapper _mapperService,
-            ICarService _carService)
+            ICarService _carService,
+            IFileService _fileService)
         {
-           adminService = _adminService;
-           mapperService = _mapperService;
-           carService = _carService;
+            adminService = _adminService;
+            mapperService = _mapperService;
+            carService = _carService;
+            fileService = _fileService;
         }
 
         [HttpGet]
@@ -55,6 +58,21 @@ namespace RentACar.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCar(AddCarViewModel model)
         {
+            if (model.CarImage == null)
+            {
+                model.CarImageUrl = "nishto";
+            }
+            else
+            {
+                string filePath =
+                    await fileService.SavePhotoToServerAsync(model.CarImage);
+
+                if (filePath == null)
+                {
+                    ModelState.AddModelError(string.Empty,"Снимката не можа да се качи успешно. Опитай пак!");
+                }
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);

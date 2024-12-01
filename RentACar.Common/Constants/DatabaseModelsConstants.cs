@@ -81,6 +81,9 @@ namespace RentACar.Common.Constants
             public const int AddressMinLength = 4;
             public const int AddressMaxLength = 100;
 
+            public const int MaxPhotoFileSize = 1_048_576_00;
+
+            
         }
 
         public static class Feature
