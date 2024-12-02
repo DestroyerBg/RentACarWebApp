@@ -70,8 +70,18 @@ namespace RentACar.Web.ViewModels.ModelBinders
                 string id = request.Form[idKey];
                 string name = request.Form[nameKey];
                 string isChecked = request.Form[isCheckedKey];
+                bool isCheckedValue;
 
-                model.Features.Add(new FeatureCheckboxViewModel(){ Id = id, Name = name, IsChecked = bool.Parse(isChecked)});
+                if (isChecked.Contains(','))
+                {
+                    isCheckedValue = bool.Parse(isChecked.Split(',')[0]);
+                }
+                else
+                {
+                    isCheckedValue = bool.Parse(isChecked);
+                }
+
+                model.Features.Add(new FeatureCheckboxViewModel(){ Id = id, Name = name, IsChecked = isCheckedValue});
             }
 
             bindingContext.Result = ModelBindingResult.Success(model);
