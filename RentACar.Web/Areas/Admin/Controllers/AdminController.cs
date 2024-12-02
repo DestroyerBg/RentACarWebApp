@@ -5,7 +5,8 @@ using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
 using RentACar.Web.ViewModels.Admin;
 using RentACar.Web.ViewModels.Car;
-
+using static RentACar.Common.Constants.DatabaseModelsConstants.Car;
+using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 namespace RentACar.Web.Areas.Admin.Controllers
 {
     public class AdminController : BaseAdminController
@@ -65,13 +66,13 @@ namespace RentACar.Web.Areas.Admin.Controllers
 
             if (await carService.FindCarByRegistrationNumberAsync(model.RegistrationNumber))
             {
-                ModelState.AddModelError(string.Empty, "Вече е добавена кола с този регистрационен номер.");
+                ModelState.AddModelError(string.Empty, CarWithThatRegistrationNumberExists);
                 return View(model);
             }
 
             if (model.CarImage == null)
             {
-                model.CarImageUrl = $"{Url.Content("~/images/cars/no-image.jpg")}";
+                model.CarImageUrl = $"{Url.Content(NoImageUrl)}";
             }
             else
             {
@@ -80,7 +81,7 @@ namespace RentACar.Web.Areas.Admin.Controllers
 
                 if (filePath == null)
                 {
-                    ModelState.AddModelError(string.Empty,"Снимката не можа да се качи успешно. Опитай пак!");
+                    ModelState.AddModelError(string.Empty, UploadPhotoError);
                 }
 
                 model.CarImageUrl = filePath;
@@ -93,11 +94,11 @@ namespace RentACar.Web.Areas.Admin.Controllers
 
             if (!result)
             {
-                ModelState.AddModelError(string.Empty, "Възникна грешка при добавяне на колата.");
+                ModelState.AddModelError(string.Empty, ErrorWhenAddingCar);
                 return View(model);
             }
 
-            TempData["Successfull"] = "Колата е добавена успешно!";
+            TempData[SuccessfullMessageString] = CarAddedSuccessfully;
             return RedirectToAction("ManageCars");
         }
     }

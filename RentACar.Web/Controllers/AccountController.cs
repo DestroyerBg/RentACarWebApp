@@ -9,7 +9,7 @@ using static RentACar.Common.Messages.IdentityMessages;
 using Microsoft.AspNetCore.Identity;
 using RentACar.Web.ViewModels.Account;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
-
+using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 namespace RentACar.Web.Controllers
 {
     public class AccountController : BaseController
@@ -86,7 +86,7 @@ namespace RentACar.Web.Controllers
             if (result.Succeeded)
             {
                 logger.LogInformation(Result.UserCreatedAccount);
-                TempData["Successfull"] = RegistrationSuccess;
+                TempData[SuccessfullMessageString] = RegistrationSuccess;
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -156,7 +156,7 @@ namespace RentACar.Web.Controllers
 
             if (result)
             {
-                TempData["Successfull"] = SuccessfullUpdatedProfile;
+                TempData[SuccessfullMessageString] = SuccessfullUpdatedProfile;
                 return RedirectToAction("MyProfile");
             }
 
@@ -191,7 +191,7 @@ namespace RentACar.Web.Controllers
                 return View(model);
             }
 
-            TempData["Successfull"] = result;
+            TempData[SuccessfullMessageString] = result;
             return RedirectToAction("MyProfile");
             
         }

@@ -20,6 +20,10 @@ namespace RentACar.Common.Constants
             public const string NullYearValidation = "Годината не може да бъде null.";
             public const string YearShouldBeANumber = "Годината трябва да е число.";
             public const string NumberShouldBeInARange = "{0} трябва да е число в диапазона {1}-{2}";
+            public const string NoImageUrl = "~/images/cars/no-image.jpg";
+            public const string UploadPhotoError = "Снимката не можа да се качи успешно. Опитай пак!";
+            public const string SuccessfullMessageString = "Successfull";
+            public const string UniqueDateFormat = "yyyyMMddHHmmss";
         }
         public static class ApplicationUser
         {
@@ -83,7 +87,10 @@ namespace RentACar.Common.Constants
 
             public const int MaxPhotoFileSize = 1_048_576_00;
 
-            
+            public const string CarWithThatRegistrationNumberExists = "Вече е добавена кола с този регистрационен номер.";
+
+            public const string ErrorWhenAddingCar = "Възникна грешка при добавяне на колата.";
+            public const string CarAddedSuccessfully = "Колата е добавена успешно!";
         }
 
         public static class Feature
