@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 using RentACar.Data.Models.Interfaces;
 using RentACar.Data.Repository.Interfaces;
@@ -50,7 +51,7 @@ namespace RentACar.Data.Repository
 
         public virtual async Task AddAsync(TType item)
         {
-            dbSet.Add(item);
+            EntityEntry<TType> type = dbSet.Add(item);
 
             await SaveChangesAsync();
         }

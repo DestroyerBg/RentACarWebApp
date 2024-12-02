@@ -26,9 +26,9 @@
 
 
                 <div class="form-field">
-                    <label asp-for="@Model.YearOfManifacture" class="custom-label-static">Година на производство</label>
-                    <input asp-for="@Model.YearOfManifacture" class="custom-input-static" placeholder=" " />
-                    <span asp-validation-for="@Model.YearOfManifacture" class="text-danger validation-message"></span>
+                    <label asp-for="@Model.YearOfManufacture" class="custom-label-static">Година на производство</label>
+                    <input asp-for="@Model.YearOfManufacture" class="custom-input-static" placeholder=" " />
+                    <span asp-validation-for="@Model.YearOfManufacture" class="text-danger validation-message"></span>
                 </div>
 
                 <div class="form-field">
@@ -82,7 +82,7 @@
                                        type="checkbox"
                                        id="category_@categoryIndex"
                                        name="Categories[@categoryIndex].IsChecked"
-                                       value="true" />
+                                       value="@category.Id" />
                                 <label class="form-check-label" for="category_@category.Id">@category.Name</label>
                             </div>
                             <input type="hidden" name="Categories[@categoryIndex].Id" value="@category.Id" />
@@ -90,7 +90,7 @@
                             categoryIndex++;
                         }
                     </div>
-                    <input type="hidden" asp-for="@Model.CategoryId" id="selectedCategory" value="" />
+                    <input type="hidden" name="SelectedCategory" id="selectedCategory" value="" />
                 </div>
 
                 <hr />
@@ -106,7 +106,7 @@
                                        type="checkbox"
                                        id="location_@locationIndex"
                                        name="Locations[@locationIndex].IsChecked"
-                                       value="true"
+                                       value="@location.Id"
                                        onclick=""/>
                                 <label class="form-check-label" for="location_@location.Id">@location.City</label>
                             </div>
@@ -115,7 +115,7 @@
                             locationIndex++;
                         }
                     </div>
-                    <input type="hidden" asp-for="@Model.LocationId" id="selectedLocation" value="" />
+                    <input type="hidden" name="SelectedLocation" id="selectedLocation" value="" />
                 </div>
                 <hr />
 

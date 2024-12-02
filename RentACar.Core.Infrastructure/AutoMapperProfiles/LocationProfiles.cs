@@ -11,6 +11,7 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
         {
             CreateMap<Location, LocationDTO>();
             CreateMap<LocationDTO, LocationViewModel>();
+            CreateMap<LocationViewModel, LocationDTO>();
         }
     }
 }

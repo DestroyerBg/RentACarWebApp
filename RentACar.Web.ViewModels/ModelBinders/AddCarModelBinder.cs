@@ -21,12 +21,12 @@ namespace RentACar.Web.ViewModels.ModelBinders
             AddCarViewModel model = new AddCarViewModel();
             model.Brand = bindingContext.ValueProvider.GetValue("Brand").FirstValue;
             model.Model = bindingContext.ValueProvider.GetValue("Model").FirstValue;
-            model.YearOfManifacture = int.Parse(bindingContext.ValueProvider.GetValue("YearOfManifacture").FirstValue);
+            model.YearOfManufacture = int.Parse(bindingContext.ValueProvider.GetValue("YearOfManufacture").FirstValue);
             model.HorsePower = int.Parse(bindingContext.ValueProvider.GetValue("HorsePower").FirstValue);
             model.RegistrationNumber = bindingContext.ValueProvider.GetValue("RegistrationNumber").FirstValue;
             model.PricePerDay = decimal.Parse(bindingContext.ValueProvider.GetValue("PricePerDay").FirstValue);
-            model.CategoryId = bindingContext.ValueProvider.GetValue("CategoryId").FirstValue;
-            model.LocationId = bindingContext.ValueProvider.GetValue("LocationId").FirstValue;
+            model.CategoryId = bindingContext.ValueProvider.GetValue("SelectedCategory").FirstValue;
+            model.LocationId = bindingContext.ValueProvider.GetValue("SelectedLocation").FirstValue;
 
             if (request.Form.Files.Count > 0)
             {

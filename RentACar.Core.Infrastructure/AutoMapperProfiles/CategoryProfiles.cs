@@ -13,6 +13,7 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
                 .ForMember(dest => dest.Id, src =>
                     src.MapFrom(s => s.Id.ToString()));
             CreateMap<CategoryDTO, CategoryViewModel>();
+            CreateMap<CategoryViewModel, CategoryDTO>();
         }
     }
 }

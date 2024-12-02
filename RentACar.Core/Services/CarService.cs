@@ -135,6 +135,41 @@ namespace RentACar.Core.Services
             return dto;
         }
 
+        public async Task<bool> AddCar(AddCarDTO dto)
+        {
+            Car car = mapperService.Map<Car>(dto);
+
+            foreach (FeatureCheckboxDTO feature in dto.Features.Where(f => f.IsChecked))
+            {
+                if (!await FindFeatureByIdAsync(feature.Id))
+                {
+                    continue;
+                }
+
+                CarFeature cf = new CarFeature()
+                {
+                    FeatureId = Guid.Parse(feature.Id)
+                };
+                car.CarFeatures.Add(cf);
+            }
+
+            await carRepository.AddAsync(car);
+
+            return true;
+        }
+
+        public async Task<bool> FindCarByRegistrationNumberAsync(string registrationNumber)
+        {
+            Car? car = await carRepository.FirstOrDefaultAsync(c => c.RegistrationNumber == registrationNumber);
+
+            if (car == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private async Task<decimal> CalculateTotalPrice(CreateReservationDTO reservationDTO)
         {
             Car? car = await carRepository.GetByIdAsync(Guid.Parse(reservationDTO.CarId));
@@ -168,6 +203,23 @@ namespace RentACar.Core.Services
             }
 
             return totalPrice;
+        }
+
+        private async Task<bool> FindFeatureByIdAsync(string id)
+        {
+            if (!IsValidGuid(id))
+            {
+                return false;
+            }
+
+            Feature? feature = await featureRepository.GetByIdAsync(Guid.Parse(id));
+
+            if (feature == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

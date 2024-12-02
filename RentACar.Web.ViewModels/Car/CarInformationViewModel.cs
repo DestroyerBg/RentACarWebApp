@@ -8,6 +8,7 @@
         public int HorsePower { get; set; }
         public int YearOfManufacture { get; set; }
         public string City { get; set; } = null!;
+        public string RegistrationNumber { get; set; } = null!;
         public bool IsHired { get; set; }
     }
 }

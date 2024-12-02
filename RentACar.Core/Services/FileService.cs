@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using RentACar.Core.Interfaces;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Car;
-using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 namespace RentACar.Core.Services
 {
     public class FileService : IFileService

@@ -12,15 +12,15 @@ namespace RentACar.DTO.Car
 
         public string Model { get; set; } = null!;
 
-        public int YearOfManifacture { get; set; }
+        public int YearOfManufacture { get; set; }
 
         public int HorsePower { get; set; }
 
         public string RegistrationNumber { get; set; } = null!;
 
-        public int CategoryId { get; set; }
+        public string CategoryId { get; set; }
 
-        public int LocationId { get; set; }
+        public string LocationId { get; set; }
 
         public decimal PricePerDay { get; set; }
 

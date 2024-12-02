@@ -58,9 +58,20 @@ namespace RentACar.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCar(AddCarViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (await carService.FindCarByRegistrationNumberAsync(model.RegistrationNumber))
+            {
+                ModelState.AddModelError(string.Empty, "Вече е добавена кола с този регистрационен номер.");
+                return View(model);
+            }
+
             if (model.CarImage == null)
             {
-                model.CarImageUrl = "nishto";
+                model.CarImageUrl = $"{Url.Content("~/images/cars/no-image.jpg")}";
             }
             else
             {
@@ -71,14 +82,23 @@ namespace RentACar.Web.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError(string.Empty,"Снимката не можа да се качи успешно. Опитай пак!");
                 }
+
+                model.CarImageUrl = filePath;
             }
 
-            if (!ModelState.IsValid)
+
+            AddCarDTO dto = mapperService.Map<AddCarDTO>(model);
+
+            bool result = await carService.AddCar(dto);
+
+            if (!result)
             {
+                ModelState.AddModelError(string.Empty, "Възникна грешка при добавяне на колата.");
                 return View(model);
             }
 
-            return View(model);
+            TempData["Successfull"] = "Колата е добавена успешно!";
+            return RedirectToAction("ManageCars");
         }
     }
 }

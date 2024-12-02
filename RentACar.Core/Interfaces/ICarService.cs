@@ -8,7 +8,9 @@ namespace RentACar.Core.Interfaces
         Task<IEnumerable<ViewCarDTO>> GetCarsAsync();
         Task<RentACarDTO> ReserveACar(Guid carId);
         Task<ConfirmReservationDTO> CreateReservationConfirmation(CreateReservationDTO reservationDTO);
-
         Task<AddCarDTO> CreateAddCarDto();
+        Task<bool> AddCar(AddCarDTO dto);
+
+        Task<bool> FindCarByRegistrationNumberAsync(string registrationNumber);
     }
 }
