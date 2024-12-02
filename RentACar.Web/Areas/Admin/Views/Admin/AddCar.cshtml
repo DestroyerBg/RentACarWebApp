@@ -50,13 +50,13 @@
                         @{ int featureIndex = 0; }
                         @foreach (FeatureCheckboxViewModel feature in Model.Features)
                         {
-                            <div class="form-check feature-checkbox">
+                            <div class="form-check">
 
                                 <input type="hidden" name="Features[@featureIndex].IsChecked" id="hidden-@featureIndex" value="false"/>
 
-                                <input class="form-check-input"
+                                <input class="form-check-input feature-checkbox"
                                        type="checkbox"
-                                       id="feature_@featureIndex"
+                                       id="feature-@featureIndex"
                                        name="Features[@featureIndex].IsChecked"
                                        value="true"
                                        @(feature.IsChecked ? "checked" : "")/>
@@ -106,7 +106,8 @@
                                        type="checkbox"
                                        id="location_@locationIndex"
                                        name="Locations[@locationIndex].IsChecked"
-                                       value="true" />
+                                       value="true"
+                                       onclick=""/>
                                 <label class="form-check-label" for="location_@location.Id">@location.City</label>
                             </div>
                             <input type="hidden" name="Locations[@locationIndex].Id" value="@location.Id" />

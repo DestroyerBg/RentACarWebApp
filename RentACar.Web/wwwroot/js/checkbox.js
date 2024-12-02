@@ -3,7 +3,8 @@
 
     checkboxes.forEach(c => c.addEventListener('click', () => ChangeCheckboxValue(c)));
     function ChangeCheckboxValue(checkbox) {
-        const hiddenInput = document.querySelector(`input[type="hidden"]#hidden-${checkbox.id.split('-')[1]}`);
+        const index = checkbox.id.split('-')[1];
+        const hiddenInput = document.querySelector(`input[type="hidden"]#hidden-${index}`);
         if (hiddenInput) {
             hiddenInput.value = checkbox.checked ? "true" : "false";
         } else {
@@ -12,5 +13,7 @@
     }
 }
 
-ChangeCheckboxesValues('.insurance-checkbox');
-ChangeCheckboxValue('.feature-checkbox');
+document.addEventListener("DOMContentLoaded", () => {
+    ChangeCheckboxesValues('.insurance-checkbox');
+    ChangeCheckboxesValues('.feature-checkbox');
+});
