@@ -78,7 +78,7 @@ namespace RentACar.Web.Areas.Admin.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("ManageCars");
+            return View(model);
         }
     }
 }

@@ -33,10 +33,13 @@ namespace RentACar.Web.ViewModels.ModelBinders
                 model.CarImage = request.Form.Files["CarImage"];
             }
 
-            IEnumerable<string> categoryKeys = request.Form.Keys.Where(key => key.StartsWith("Categories["));
-            foreach (string key in categoryKeys)
+            IEnumerable<string> categoryKeys = request.Form.Keys
+                .Where(key => key.StartsWith("Categories["))
+                .Select(key => key.Split('[', ']')[1])
+                .Distinct();
+
+            foreach (string index in categoryKeys)
             {
-                string index = key.Split('[', ']')[1];
                 string idKey = $"Categories[{index}].Id";
                 string nameKey = $"Categories[{index}].Name";
 
@@ -46,10 +49,13 @@ namespace RentACar.Web.ViewModels.ModelBinders
                 model.Categories.Add(new CategoryViewModel { Id = id, Name = name });
             }
 
-            IEnumerable<string> locationKeys = request.Form.Keys.Where(key => key.StartsWith("Locations["));
-            foreach (string key in locationKeys)
+            IEnumerable<string> locationKeys = request.Form.Keys
+                .Where(key => key.StartsWith("Locations["))
+                .Select(key => key.Split('[', ']')[1])
+                .Distinct();
+
+            foreach (string index in locationKeys)
             {
-                string index = key.Split('[', ']')[1]; 
                 string idKey = $"Locations[{index}].Id";
                 string cityKey = $"Locations[{index}].City";
 
@@ -59,29 +65,29 @@ namespace RentACar.Web.ViewModels.ModelBinders
                 model.Locations.Add(new LocationViewModel { Id = id, City = city });
             }
 
-            IEnumerable<string> featureKeys = request.Form.Keys.Where(key => key.StartsWith("Features["));
-            foreach (string key in featureKeys)
+            IEnumerable<string> featureKeys = request.Form.Keys
+                .Where(key => key.StartsWith("Features["))
+                .Select(key => key.Split('[', ']')[1])
+                .Distinct();
+
+            foreach (string index in featureKeys)
             {
-                string index = key.Split('[', ']')[1];
                 string idKey = $"Features[{index}].Id";
                 string nameKey = $"Features[{index}].Name";
                 string isCheckedKey = $"Features[{index}].IsChecked";
 
                 string id = request.Form[idKey];
                 string name = request.Form[nameKey];
-                string isChecked = request.Form[isCheckedKey];
-                bool isCheckedValue;
 
-                if (isChecked.Contains(','))
-                {
-                    isCheckedValue = bool.Parse(isChecked.Split(',')[0]);
-                }
-                else
-                {
-                    isCheckedValue = bool.Parse(isChecked);
-                }
+                string isCheckedRaw = request.Form[isCheckedKey];
+                bool isChecked = isCheckedRaw == "true";
 
-                model.Features.Add(new FeatureCheckboxViewModel(){ Id = id, Name = name, IsChecked = isCheckedValue});
+                model.Features.Add(new FeatureCheckboxViewModel
+                {
+                    Id = id,
+                    Name = name,
+                    IsChecked = isChecked
+                });
             }
 
             bindingContext.Result = ModelBindingResult.Success(model);
