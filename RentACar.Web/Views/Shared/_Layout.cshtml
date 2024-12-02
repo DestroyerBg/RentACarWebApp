@@ -40,7 +40,7 @@
                         if (User.IsInRole("Admin"))
                         {
                             ApplicationUser? user = await UserManager.GetUserAsync(User);
-                            if (await UserManager.IsInRoleAsync(user, "Admin"))
+                            if (user != null &&await UserManager.IsInRoleAsync(user, "Admin"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">Админска страница</a>
@@ -98,9 +98,16 @@
     @await RenderSectionAsync("Scripts", required: false)
     <script>
         window.onload = function () {
-            const successMessage = '@Html.Raw(TempData["Successfull"])';
+            const successMessage = '@Html.Raw(TempData[SuccessfullMessageString])';
+            const errorMessage = '@Html.Raw(TempData[ErrorMessageString])';
 
-            PrintAlert(successMessage);
+            if (successMessage) {
+                PrintAlert(successMessage);
+            }
+
+            if (errorMessage) {
+                PrintAlert(errorMessage);
+            }
         };
     </script>
     </body>

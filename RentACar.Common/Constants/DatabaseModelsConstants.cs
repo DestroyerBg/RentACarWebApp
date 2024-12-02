@@ -24,6 +24,8 @@ namespace RentACar.Common.Constants
             public const string UploadPhotoError = "Снимката не можа да се качи успешно. Опитай пак!";
             public const string SuccessfullMessageString = "Successfull";
             public const string UniqueDateFormat = "yyyyMMddHHmmss";
+            public const string ErrorMessageString = "Error";
+            public const string InvalidGuidId = "Невалидно Id";
         }
         public static class ApplicationUser
         {
@@ -91,6 +93,8 @@ namespace RentACar.Common.Constants
 
             public const string ErrorWhenAddingCar = "Възникна грешка при добавяне на колата.";
             public const string CarAddedSuccessfully = "Колата е добавена успешно!";
+            public const string CarDeletionError = "Възникна грешка при изтриването на колата.";
+            public const string CarDeletedSuccessfully = "Колата беше изтрита успешно";
         }
 
         public static class Feature

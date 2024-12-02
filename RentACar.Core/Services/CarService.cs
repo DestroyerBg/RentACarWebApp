@@ -170,6 +170,23 @@ namespace RentACar.Core.Services
             return true;
         }
 
+        public async Task<bool> DeleteCarAsync(Guid id)
+        {
+            Car? car = await carRepository
+                .GetByIdAsync(id);
+
+            if (car == null)
+            {
+                return false;
+            }
+
+            car.IsDeleted = true;
+
+            bool result = await carRepository.SaveChangesAsync();
+
+            return result;
+        }
+
         private async Task<decimal> CalculateTotalPrice(CreateReservationDTO reservationDTO)
         {
             Car? car = await carRepository.GetByIdAsync(Guid.Parse(reservationDTO.CarId));

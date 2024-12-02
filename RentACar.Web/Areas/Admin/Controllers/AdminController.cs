@@ -101,5 +101,27 @@ namespace RentACar.Web.Areas.Admin.Controllers
             TempData[SuccessfullMessageString] = CarAddedSuccessfully;
             return RedirectToAction("ManageCars");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteCar(string id)
+        {
+            if (!base.IsValidGuid(id))
+            {
+                TempData[ErrorMessageString] = InvalidGuidId;
+            }
+
+            bool result = await carService.DeleteCarAsync(Guid.Parse(id));
+
+            if (!result)
+            {
+                TempData[ErrorMessageString] = CarDeletionError;
+            }
+            else
+            {
+                TempData[SuccessfullMessageString] = CarDeletedSuccessfully;
+            }
+
+            return RedirectToAction("ManageCars");
+        }
     }
 }
