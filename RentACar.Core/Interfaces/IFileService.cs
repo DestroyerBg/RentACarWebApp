@@ -5,5 +5,7 @@ namespace RentACar.Core.Interfaces
     public interface IFileService
     {
         Task<string> SavePhotoToServerAsync(IFormFile file);
+
+        Task<string> ChangePhotoAsync(IFormFile file, string imageUrl);
     }
 }

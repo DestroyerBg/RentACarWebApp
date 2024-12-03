@@ -33,12 +33,6 @@ namespace RentACar.Web.ViewModels.Admin
         public string RegistrationNumber { get; set; } = null!;
 
         [Required(ErrorMessage = FieldIsRequired)]
-        public string CategoryId { get; set; }
-
-        [Required(ErrorMessage = FieldIsRequired)]
-        public string LocationId { get; set; }
-
-        [Required(ErrorMessage = FieldIsRequired)]
         public decimal PricePerDay { get; set; }
         public string? CarImageUrl { get; set; }
 

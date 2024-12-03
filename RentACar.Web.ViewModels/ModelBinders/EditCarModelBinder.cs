@@ -26,13 +26,11 @@ namespace RentACar.Web.ViewModels.ModelBinders
             model.HorsePower = int.Parse(bindingContext.ValueProvider.GetValue("HorsePower").FirstValue);
             model.RegistrationNumber = bindingContext.ValueProvider.GetValue("RegistrationNumber").FirstValue;
             model.PricePerDay = decimal.Parse(bindingContext.ValueProvider.GetValue("PricePerDay").FirstValue);
-            model.CategoryId = bindingContext.ValueProvider.GetValue("SelectedCategory").FirstValue;
-            model.LocationId = bindingContext.ValueProvider.GetValue("SelectedLocation").FirstValue;
-
-            //if (request.Form.Files.Count > 0)
-            //{
-            //    model.CarImage = request.Form.Files["CarImage"];
-            //}
+            model.CarImageUrl = bindingContext.ValueProvider.GetValue("CarImageUrl").FirstValue;
+            if (request.Form.Files.Count > 0)
+            {
+                model.CarImage = request.Form.Files["CarImage"];
+            }
 
             IEnumerable<string> categoryKeys = request.Form.Keys
                 .Where(key => key.StartsWith("Categories["))

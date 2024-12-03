@@ -6,7 +6,7 @@
                 <h2>Добави кола</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
-
+                <input type="hidden" asp-for="@Model.CarImageUrl"/>
                 <div class="form-field">
                     <input asp-for="@Model.Brand" class="custom-input" aria-required="true" placeholder="" />
                     <label asp-for="@Model.Brand" class="custom-label">Марка на колата</label>
@@ -87,7 +87,6 @@
                             categoryIndex++;
                         }
                     </div>
-                    <input type="hidden" name="SelectedCategory" id="selectedCategory" value="" />
                 </div>
 
                 <hr />
@@ -113,7 +112,6 @@
                             locationIndex++;
                         }
                     </div>
-                    <input type="hidden" name="SelectedLocation" id="selectedLocation" value="" />
                 </div>
                 <hr />
 

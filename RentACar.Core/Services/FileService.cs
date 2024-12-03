@@ -47,6 +47,27 @@ namespace RentACar.Core.Services
             return $"/images/cars/{photoName}"; 
         }
 
+        public async Task<string> ChangePhotoAsync(IFormFile file, string imageUrl)
+        {
+            string wwwRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+
+            imageUrl = imageUrl.TrimStart('~');
+
+            string physicalPath = Path.Combine(wwwRootPath, imageUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+
+            if (File.Exists(physicalPath))
+            {
+                File.Delete(physicalPath);
+            }
+            else
+            {
+                Console.WriteLine($"File not found: {physicalPath}");
+            }
+
+            string newPhotoPath = await SavePhotoToServerAsync(file);
+
+            return newPhotoPath;
+        }
     }
 }
 

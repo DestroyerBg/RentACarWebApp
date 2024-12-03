@@ -155,6 +155,11 @@ namespace RentACar.Web.Areas.Admin.Controllers
                 return View(model);
             }
 
+            if (model.CarImage != null)
+            {
+                string newPhotoPath = await fileService.ChangePhotoAsync(model.CarImage, model.CarImageUrl);
+            }
+
             return View(model);
         }
     }
