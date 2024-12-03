@@ -123,5 +123,39 @@ namespace RentACar.Web.Areas.Admin.Controllers
 
             return RedirectToAction("ManageCars");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditCar(string id)
+        {
+            if (!base.IsValidGuid(id))
+            {
+                TempData[ErrorMessageString] = InvalidGuidId;
+                return RedirectToAction("ManageCars");
+            }
+
+            EditCarDTO dto = await carService.CreateEditCarDto(Guid.Parse(id));
+
+            if (dto == null)
+            {
+                TempData[ErrorMessageString] = "Няма такава кола.";
+                return RedirectToAction("ManageCars");
+            }
+            EditCarViewModel model = mapperService.Map<EditCarViewModel>(dto);
+
+            return View(model);
+
+            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCar(EditCarViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            return View(model);
+        }
     }
 }

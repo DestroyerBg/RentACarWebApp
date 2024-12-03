@@ -23,7 +23,6 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews(options =>
     {
         options.ModelBinderProviders.Insert(0, new InsuranceBenefitCustomModelBinderProvider());
-        options.ModelBinderProviders.Insert(1, new AddCarModelBinderProvider());
     });
 
 builder.Services.AddDistributedMemoryCache();
@@ -32,6 +31,10 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
     options.IdleTimeout = TimeSpan.FromMinutes(60);
+});
+
+builder.Services.ConfigureApplicationCookie(opt =>
+{
 });
 
 builder.Services.RegisterRepositories();

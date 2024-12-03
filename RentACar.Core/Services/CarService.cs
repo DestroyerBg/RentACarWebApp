@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
@@ -185,6 +186,67 @@ namespace RentACar.Core.Services
             bool result = await carRepository.SaveChangesAsync();
 
             return result;
+        }
+
+        public async Task<EditCarDTO> CreateEditCarDto(Guid id)
+        {
+            Car? car = await carRepository
+                .GetAllAttached()
+                .Include(c => c.CarFeatures)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (car == null)
+            {
+                return null;
+            }
+
+            ICollection<CategoryDTO> categories = await categoryRepository
+                .GetAllAttached()
+                .Select(c => mapperService.Map<CategoryDTO>(c))
+                .ToListAsync();
+
+            ICollection<LocationDTO> locations = await locationRepository
+                .GetAllAttached()
+                .Select(l => mapperService.Map<LocationDTO>(l))
+                .ToListAsync();
+
+            ICollection<FeatureCheckboxDTO> features = await featureRepository
+                .GetAllAttached()
+                .Select(f => mapperService.Map<FeatureCheckboxDTO>(f))
+                .ToListAsync();
+
+            EditCarDTO dto = new EditCarDTO()
+            {
+                Brand = car.Brand,
+                Model = car.Model,
+                CarImageUrl = car.ImageUrl,
+                CategoryId = car.CategoryId.ToString(),
+                LocationId = car.LocationId.ToString(),
+                HorsePower = car.HorsePower,
+                PricePerDay = car.PricePerDay,
+                YearOfManufacture = car.YearOfManufacture,
+                RegistrationNumber = car.RegistrationNumber,
+                Categories = categories.Select(c => new SelectListItem()
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name,
+                    Selected = car.CategoryId == Guid.Parse(c.Id)
+                }).ToList(),
+                Locations = locations.Select(l => new SelectListItem()
+                {
+                    Value = l.Id.ToString(),
+                    Text = l.City,
+                    Selected = car.LocationId == Guid.Parse(l.Id.ToString()),
+                }).ToList(),
+                Features = features.Select(f => new SelectListItem()
+                {
+                    Text = f.Name,
+                    Value = f.Id.ToString(),
+                    Selected = car.CarFeatures.Any(cf => cf.FeatureId == Guid.Parse(f.Id))
+                }).ToList()
+            };
+
+            return dto;
         }
 
         private async Task<decimal> CalculateTotalPrice(CreateReservationDTO reservationDTO)

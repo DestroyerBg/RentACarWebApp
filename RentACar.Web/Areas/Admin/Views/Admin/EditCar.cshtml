@@ -1,0 +1,143 @@
+﻿@model RentACar.Web.ViewModels.Admin.EditCarViewModel
+<div class="row">
+    <div class="form-wrapper">
+        <section>
+            <form id="registerForm" method="post" asp-controller="Admin" asp-action="EditCar" enctype="multipart/form-data">
+                <h2>Добави кола</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
+
+                <div class="form-field">
+                    <input asp-for="@Model.Brand" class="custom-input" aria-required="true" placeholder="" />
+                    <label asp-for="@Model.Brand" class="custom-label">Марка на колата</label>
+                    <span asp-validation-for="@Model.Brand" class="text-danger"></span>
+                </div>
+
+                <div class="form-field">
+                    <input asp-for="@Model.Model" class="custom-input" placeholder=" " />
+                    <label asp-for="@Model.Model" class="custom-label">Модел на колата</label>
+                    <span asp-validation-for="@Model.Model" class="text-danger validation-message"></span>
+                </div>
+
+
+                <div class="form-field">
+                    <label asp-for="@Model.YearOfManufacture" class="custom-label-static">Година на производство</label>
+                    <input asp-for="@Model.YearOfManufacture" class="custom-input-static" placeholder=" " />
+                    <span asp-validation-for="@Model.YearOfManufacture" class="text-danger validation-message"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="@Model.HorsePower" class="custom-label-static">Конски сили</label>
+                    <input asp-for="@Model.HorsePower" class="custom-input-static" placeholder=" " />
+                    <span asp-validation-for="@Model.HorsePower" class="text-danger validation-message"></span>
+                </div>
+
+                <div class="form-field">
+                    <input asp-for="@Model.RegistrationNumber" class="custom-input" placeholder=" " />
+                    <label asp-for="@Model.RegistrationNumber" class="custom-label">Регистрационен номер</label>
+                    <span asp-validation-for="@Model.RegistrationNumber" class="text-danger validation-message"></span>
+                </div>
+
+                <hr />
+                <div class="form-field">
+                    <label class="custom-label-static">Избери екстри, които има колата</label>
+                    <div class="checkbox-group">
+                        @{ int featureIndex = 0; }
+                        @foreach (SelectListItem feature in Model.Features)
+                        {
+                            <div class="form-check">
+
+                                <input type="hidden" name="Features[@featureIndex].HiddenIsChecked" id="hidden-@featureIndex" value="false" />
+
+                                <input class="form-check-input feature-checkbox"
+                                       type="checkbox"
+                                       id="feature-@featureIndex"
+                                       name="Features[@featureIndex].Selected"
+                                       value="true"
+                                       @(feature.Selected ? "checked" : "") />
+                                <label class="form-check-label" for="feature_@featureIndex">@feature.Text</label>
+                            </div>
+                            <input type="hidden" name="Features[@featureIndex].Value" value="@feature.Value" />
+                            <input type="hidden" name="Features[@featureIndex].Text" value="@feature.Text" />
+                            featureIndex++;
+                        }
+                    </div>
+                </div>
+
+
+                <hr />
+                <div class="form-field">
+                    <label class="custom-label-static">Избери категория</label>
+                    <div class="checkbox-group">
+                        @{ int categoryIndex = 0;}
+                        @foreach (SelectListItem category in Model.Categories)
+                        {
+                            <div class="form-check">
+                                <input type="hidden" id="hidden-@categoryIndex" name="Categories[@categoryIndex].Selected" value="false" />
+                                <input class="form-check-input category-checkbox"
+                                       type="checkbox"
+                                       id="category-@categoryIndex"
+                                       name="Categories[@categoryIndex].Selected"
+                                       value="true"
+                                       @(category.Selected ? "checked" : "") />
+                                <label class="form-check-label" for="category_@category.Value">@category.Text</label>
+                            </div>
+                            <input type="hidden" name="Categories[@categoryIndex].Value" value="@category.Value" />
+                            <input type="hidden" name="Categories[@categoryIndex].Text" value="@category.Text" />
+                            categoryIndex++;
+                        }
+                    </div>
+                    <input type="hidden" name="SelectedCategory" id="selectedCategory" value="" />
+                </div>
+
+                <hr />
+
+                <div class="form-field mt-4">
+                    <label class="custom-label-static">Избери локация</label>
+                    <div class="checkbox-group">
+                        @{ int locationIndex = 0; }
+                        @foreach (SelectListItem location in Model.Locations)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input location-checkbox"
+                                       type="checkbox"
+                                       id="location_@locationIndex"
+                                       name="Locations[@locationIndex].Selected"
+                                       value="@location.Selected"
+                                       @(location.Selected ? "checked" : "")
+                                       />
+                                <label class="form-check-label" for="location_@location.Value">@location.Text</label>
+                            </div>
+                            <input type="hidden" name="Locations[@locationIndex].Value" value="@location.Value" />
+                            <input type="hidden" name="Locations[@locationIndex].Text" value="@location.Text" />
+                            locationIndex++;
+                        }
+                    </div>
+                    <input type="hidden" name="SelectedLocation" id="selectedLocation" value="" />
+                </div>
+                <hr />
+
+                <div class="form-group mb-3">
+                    <label class="custom-label-static" for="fileInput">Качи снимка</label>
+                    <input type="file" id="fileInput" asp-for="@Model.CarImage" accept="image/png, image/jpeg, image/jpg, image/gif" class="form-control">
+                </div>
+                <div class="form-field">
+                    <input asp-for="@Model.PricePerDay" class="custom-input" placeholder=" " />
+                    <label asp-for="@Model.PricePerDay" class="custom-label">Цена за наемане</label>
+                    <span asp-validation-for="@Model.PricePerDay" class="text-danger validation-message"></span>
+                </div>
+
+                <a href="@Url.Action("ManageCars", "Admin", new { area = "Admin"})" class="btn btn-outline-warning back-btn">Назад</a>
+                <button id="registerSubmit" type="submit" class="btn btn-outline-warning custom-button">Добави кола</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script src="~/js/restrict-checkbox.js" asp-append-version="true"></script>
+<script src="~/js/checkbox-values.js" asp-append-version="true"></script>
+<script src="~/js/checkbox.js" asp-append-version="true"></script>

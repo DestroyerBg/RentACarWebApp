@@ -1,5 +1,8 @@
 ﻿function ChangeCheckboxesValues(querySelector) {
     const checkboxes = document.querySelectorAll(querySelector);
+    if (checkboxes == undefined || checkboxes == null) {
+        return;
+    }
 
     checkboxes.forEach(c => c.addEventListener('click', () => ChangeCheckboxValue(c)));
     function ChangeCheckboxValue(checkbox) {
@@ -16,4 +19,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     ChangeCheckboxesValues('.insurance-checkbox');
     ChangeCheckboxesValues('.feature-checkbox');
+    ChangeCheckboxesValues('.category-checkbox');
 });

@@ -11,7 +11,7 @@ namespace RentACar.Core.Interfaces
         Task<AddCarDTO> CreateAddCarDto();
         Task<bool> AddCar(AddCarDTO dto);
         Task<bool> FindCarByRegistrationNumberAsync(string registrationNumber);
-
         Task<bool> DeleteCarAsync(Guid id);
+        Task<EditCarDTO> CreateEditCarDto(Guid id);
     }
 }
