@@ -12,6 +12,8 @@ namespace RentACar.Web.ViewModels.Admin
     [ModelBinder(typeof(EditCarModelBinder))]
     public class EditCarViewModel
     {
+        [Required]
+        public string Id { get; set; } = null!;
         [Required(ErrorMessage = FieldIsRequired)]
         [CustomStringLength(BrandMinLength, BrandMaxLength, AnyInputLengthErrorMessage)]
         public string Brand { get; set; } = null!;

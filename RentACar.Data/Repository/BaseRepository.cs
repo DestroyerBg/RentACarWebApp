@@ -49,6 +49,11 @@ namespace RentACar.Data.Repository
             return entities;
         }
 
+        public virtual async Task ApplyAsModified(TType entity)
+        {
+            dbContext.Entry(entity).State = EntityState.Modified;
+        }
+
         public virtual async Task AddAsync(TType item)
         {
             EntityEntry<TType> type = dbSet.Add(item);

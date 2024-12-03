@@ -6,7 +6,7 @@ namespace RentACar.Core.Services
 {
     public class FileService : IFileService
     {
-        public async Task<string> SavePhotoToServerAsync(IFormFile file)
+        public async Task<string> SavePhotoToServerAsync(IFormFile file, string photoName)
         {
             if (file == null || file.Length == 0)
             {
@@ -28,7 +28,6 @@ namespace RentACar.Core.Services
             }
 
             string currDate = DateTime.Now.ToString(UniqueDateFormat);
-            string photoName = $"{currDate}{fileExtension}";
 
             string uploadDir = Path.Combine("wwwroot", "images", "cars");
 
@@ -44,10 +43,10 @@ namespace RentACar.Core.Services
                 await file.CopyToAsync(stream);
             }
 
-            return $"/images/cars/{photoName}"; 
+            return $"~/images/cars/{photoName}"; 
         }
 
-        public async Task<string> ChangePhotoAsync(IFormFile file, string imageUrl)
+        public async Task<string> ChangePhotoAsync(IFormFile file, string imageUrl, string photoName)
         {
             string wwwRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
 
@@ -64,7 +63,7 @@ namespace RentACar.Core.Services
                 Console.WriteLine($"File not found: {physicalPath}");
             }
 
-            string newPhotoPath = await SavePhotoToServerAsync(file);
+            string newPhotoPath = await SavePhotoToServerAsync(file, photoName);
 
             return newPhotoPath;
         }

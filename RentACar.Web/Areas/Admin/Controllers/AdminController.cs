@@ -77,7 +77,7 @@ namespace RentACar.Web.Areas.Admin.Controllers
             else
             {
                 string filePath =
-                    await fileService.SavePhotoToServerAsync(model.CarImage);
+                    await fileService.SavePhotoToServerAsync(model.CarImage, model.RegistrationNumber);
 
                 if (filePath == null)
                 {
@@ -150,17 +150,42 @@ namespace RentACar.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> EditCar(EditCarViewModel model)
         {
+            if (!base.IsValidGuid(model.Id))
+            {
+                TempData[ErrorMessageString] = "Невалидно Id на колата";
+                return RedirectToAction("ManageCars");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
+            if (!await carService.FindCarByIdAsync(Guid.Parse(model.Id)))
+            {
+                TempData[ErrorMessageString] = "Няма кола с това Id";
+                return RedirectToAction("ManageCars");
+            }
+            
             if (model.CarImage != null)
             {
-                string newPhotoPath = await fileService.ChangePhotoAsync(model.CarImage, model.CarImageUrl);
+                string newPhotoPath = await fileService.ChangePhotoAsync(model.CarImage, model.CarImageUrl, model.RegistrationNumber);
+                model.CarImageUrl = newPhotoPath;
             }
 
-            return View(model);
+            EditCarDTO dto = mapperService.Map<EditCarDTO>(model);
+
+            bool result = await carService.EditCarAsync(dto);
+
+            if (!result)
+            {
+                TempData[ErrorMessageString] = "Възникна грешка при записването на промените по колата.";
+                return View(model);
+            }
+
+            TempData[SuccessfullMessageString] = "Промените са записани успешно.";
+
+            return RedirectToAction("ManageCars");
         }
     }
 }

@@ -12,6 +12,7 @@ namespace RentACar.Data.Repository.Interfaces
 
         IQueryable<TType> GetAllAttached();
 
+        Task ApplyAsModified(TType entity);
         Task AddAsync(TType item);
 
         Task AddRangeAsync(TType[] items);

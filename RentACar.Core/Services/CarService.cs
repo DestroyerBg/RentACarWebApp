@@ -170,7 +170,17 @@ namespace RentACar.Core.Services
 
             return true;
         }
+        public async Task<bool> FindCarByIdAsync(Guid id)
+        {
+            Car? car = await carRepository.GetByIdAsync(id);
 
+            if (car == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
         public async Task<bool> DeleteCarAsync(Guid id)
         {
             Car? car = await carRepository
@@ -217,11 +227,10 @@ namespace RentACar.Core.Services
 
             EditCarDTO dto = new EditCarDTO()
             {
+                Id = car.Id.ToString(),
                 Brand = car.Brand,
                 Model = car.Model,
                 CarImageUrl = car.ImageUrl,
-                CategoryId = car.CategoryId.ToString(),
-                LocationId = car.LocationId.ToString(),
                 HorsePower = car.HorsePower,
                 PricePerDay = car.PricePerDay,
                 YearOfManufacture = car.YearOfManufacture,
@@ -248,6 +257,43 @@ namespace RentACar.Core.Services
 
             return dto;
         }
+
+        public async Task<bool> EditCarAsync(EditCarDTO dto)
+        {
+            Car? car = await carRepository
+                .GetAllAttached()
+                .Include(cf => cf.CarFeatures)
+                .FirstOrDefaultAsync(c => c.Id == Guid.Parse(dto.Id));
+
+            if (car == null)
+            {
+                return false;
+            }
+
+            mapperService.Map<EditCarDTO, Car>(dto, car);
+
+            car.CarFeatures.Clear();
+
+            foreach (SelectListItem selectListItem in dto.Features.Where(f => f.Selected))
+            {
+                if (!await FindFeatureByIdAsync(selectListItem.Value))
+                {
+                    continue;
+                }
+
+                CarFeature cf = new CarFeature()
+                {
+                    CarId = car.Id,
+                    FeatureId = Guid.Parse(selectListItem.Value)
+                };
+
+                car.CarFeatures.Add(cf);
+            }
+
+            await carRepository.ApplyAsModified(car);
+            return await carRepository.SaveChangesAsync();
+        }
+
 
         private async Task<decimal> CalculateTotalPrice(CreateReservationDTO reservationDTO)
         {
@@ -300,5 +346,6 @@ namespace RentACar.Core.Services
 
             return true;
         }
+
     }
 }

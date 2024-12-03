@@ -20,6 +20,7 @@ namespace RentACar.Web.ViewModels.ModelBinders
             HttpRequest? request = bindingContext.HttpContext.Request;
 
             EditCarViewModel model = new EditCarViewModel();
+            model.Id = bindingContext.ValueProvider.GetValue("Id").FirstValue;
             model.Brand = bindingContext.ValueProvider.GetValue("Brand").FirstValue;
             model.Model = bindingContext.ValueProvider.GetValue("Model").FirstValue;
             model.YearOfManufacture = int.Parse(bindingContext.ValueProvider.GetValue("YearOfManufacture").FirstValue);

@@ -6,6 +6,7 @@ namespace RentACar.DTO.Car
 {
     public class EditCarDTO
     {
+        public string Id { get; set; } = null!;
         public string Brand { get; set; } = null!;
 
         public string Model { get; set; } = null!;
@@ -15,10 +16,6 @@ namespace RentACar.DTO.Car
         public int HorsePower { get; set; }
 
         public string RegistrationNumber { get; set; } = null!;
-
-        public string CategoryId { get; set; }
-
-        public string LocationId { get; set; }
 
         public decimal PricePerDay { get; set; }
 

@@ -7,6 +7,7 @@
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
                 <input type="hidden" asp-for="@Model.CarImageUrl"/>
+                <input type="hidden" asp-for="@Model.Id"/>
                 <div class="form-field">
                     <input asp-for="@Model.Brand" class="custom-input" aria-required="true" placeholder="" />
                     <label asp-for="@Model.Brand" class="custom-label">Марка на колата</label>
