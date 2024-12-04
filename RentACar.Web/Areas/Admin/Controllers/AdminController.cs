@@ -5,8 +5,9 @@ using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
 using RentACar.Web.ViewModels.Admin;
 using RentACar.Web.ViewModels.Car;
-using static RentACar.Common.Constants.DatabaseModelsConstants.Car;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
+using static RentACar.Common.Messages.DatabaseModelsMessages.Car;
+using static RentACar.Common.Messages.DatabaseModelsMessages.Common;
 namespace RentACar.Web.Areas.Admin.Controllers
 {
     public class AdminController : BaseAdminController
@@ -137,7 +138,7 @@ namespace RentACar.Web.Areas.Admin.Controllers
 
             if (dto == null)
             {
-                TempData[ErrorMessageString] = "Няма такава кола.";
+                TempData[ErrorMessageString] = InvalidCarId;
                 return RedirectToAction("ManageCars");
             }
             EditCarViewModel model = mapperService.Map<EditCarViewModel>(dto);
@@ -163,10 +164,10 @@ namespace RentACar.Web.Areas.Admin.Controllers
 
             if (!await carService.FindCarByIdAsync(Guid.Parse(model.Id)))
             {
-                TempData[ErrorMessageString] = "Няма кола с това Id";
+                TempData[ErrorMessageString] = InvalidCarId;
                 return RedirectToAction("ManageCars");
             }
-            
+
             if (model.CarImage != null)
             {
                 string newPhotoPath = await fileService.ChangePhotoAsync(model.CarImage, model.CarImageUrl, model.RegistrationNumber);
@@ -179,11 +180,11 @@ namespace RentACar.Web.Areas.Admin.Controllers
 
             if (!result)
             {
-                TempData[ErrorMessageString] = "Възникна грешка при записването на промените по колата.";
+                TempData[ErrorMessageString] = ErrorWhenEditCar;
                 return View(model);
             }
 
-            TempData[SuccessfullMessageString] = "Промените са записани успешно.";
+            TempData[SuccessfullMessageString] = EditCarSuccessfull;
 
             return RedirectToAction("ManageCars");
         }

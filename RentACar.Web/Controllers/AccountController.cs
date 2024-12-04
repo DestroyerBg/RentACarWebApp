@@ -7,9 +7,10 @@ using RentACar.DTO.Identity;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using static RentACar.Common.Messages.IdentityMessages;
 using Microsoft.AspNetCore.Identity;
+using RentACar.Common.Messages;
 using RentACar.Web.ViewModels.Account;
-using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
+using static RentACar.Common.Messages.DatabaseModelsMessages.ApplicationUser;
 namespace RentACar.Web.Controllers
 {
     public class AccountController : BaseController

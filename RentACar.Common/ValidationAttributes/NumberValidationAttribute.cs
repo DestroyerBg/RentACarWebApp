@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
+using static RentACar.Common.Messages.DatabaseModelsMessages.Common;
 namespace RentACar.Common.ValidationAttributes
 {
     public class NumberValidationAttribute : ValidationAttribute

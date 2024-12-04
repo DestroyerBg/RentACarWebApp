@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using RentACar.Common.ValidationAttributes;
 using System.ComponentModel.DataAnnotations;
-using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Car;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Web.ViewModels.ModelBinders;
-
+using static RentACar.Common.Messages.DatabaseModelsMessages.Common;
 namespace RentACar.Web.ViewModels.Admin
 {
     [ModelBinder(typeof(EditCarModelBinder))]
@@ -31,7 +30,6 @@ namespace RentACar.Web.ViewModels.Admin
         public int HorsePower { get; set; }
 
         [Required(ErrorMessage = FieldIsRequired)]
-        //[RegularExpression(RegistrationNumberRegex)]
         public string RegistrationNumber { get; set; } = null!;
 
         [Required(ErrorMessage = FieldIsRequired)]

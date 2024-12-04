@@ -2,11 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using RentACar.Common.ValidationAttributes;
 using RentACar.Web.ViewModels.Category;
-using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Car;
+using static RentACar.Common.Messages.DatabaseModelsMessages.Common;
 using RentACar.Web.ViewModels.Location;
 using Microsoft.AspNetCore.Mvc;
-using RentACar.Web.ViewModels.Car;
 using RentACar.Web.ViewModels.Feature;
 using RentACar.Web.ViewModels.ModelBinders;
 

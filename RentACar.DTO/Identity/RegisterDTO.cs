@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using RentACar.Common.Constants;
+using RentACar.Common.Messages;
 using RentACar.Common.ValidationAttributes;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
+using static RentACar.Common.Messages.DatabaseModelsMessages.ApplicationUser;
+using static RentACar.Common.Messages.DatabaseModelsMessages.Common;
 namespace RentACar.DTO.Identity
 {
     public class RegisterDTO
@@ -12,15 +15,15 @@ namespace RentACar.DTO.Identity
         public string Email { get; set; } = null!;
 
         [Required]
-        [CustomStringLength(UsernameNameMinLength, UsernameNameMaxLength, DatabaseModelsConstants.Common.AnyInputLengthErrorMessage)]
+        [CustomStringLength(UsernameNameMinLength, UsernameNameMaxLength, AnyInputLengthErrorMessage)]
         public string Username { get; set; } = null!;
 
         [Required]
-        [CustomStringLength(FirstNameMinLength, FirstNameMaxLength, DatabaseModelsConstants.Common.AnyInputLengthErrorMessage)]
+        [CustomStringLength(FirstNameMinLength, FirstNameMaxLength, AnyInputLengthErrorMessage)]
         public string FirstName { get; set; } = null!;
 
         [Required]
-        [CustomStringLength(LastNameMinLength, LastNameMaxLength, DatabaseModelsConstants.Common.AnyInputLengthErrorMessage)]
+        [CustomStringLength(LastNameMinLength, LastNameMaxLength, AnyInputLengthErrorMessage)]
         public string LastName { get; set; } = null!;
 
         [Required]
@@ -28,7 +31,7 @@ namespace RentACar.DTO.Identity
         public string PhoneNumber { get; set; } = null!;
 
         [Required]
-        [DateValidation(DatabaseModelsConstants.Common.DateFormat, DateIncorrectFormatErrorMessage)]
+        [DateValidation(DateFormat, DateIncorrectFormatErrorMessage)]
         public string BirthDate { get; set; } = null!;
 
         [Required]

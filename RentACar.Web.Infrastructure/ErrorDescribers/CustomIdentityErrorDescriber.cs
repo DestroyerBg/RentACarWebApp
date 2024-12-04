@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
+using static RentACar.Common.Messages.DatabaseModelsMessages.ApplicationUser;
 namespace RentACar.Web.Infrastructure.ErrorDescribers
 {
     public class CustomIdentityErrorDescriber : IdentityErrorDescriber

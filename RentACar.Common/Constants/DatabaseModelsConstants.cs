@@ -1,31 +1,17 @@
-﻿using System.Reflection.Metadata;
-
-namespace RentACar.Common.Constants
+﻿namespace RentACar.Common.Constants
 {
     public static class DatabaseModelsConstants
     {
         public static class Common
         {
             public const string DateFormat = "dd.MM.yyyy";
-            public const string DateIncorrectFormatErrorMessage =
-                "Некоректен формат за {0}! Моля въведете валиден формат за {1}.";
-
-            public const string AnyInputLengthErrorMessage = "{0} трябва да е с дължина между {1} и {2} символа.";
-
             public const string InternationalPhoneNumberRegex =
                 @"^\+(1|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])\d{4,14}$";
             public const string PhoneNumberRegex = @"^\+?([0-9]{1,3})?[-. ]?(\(?[0-9]{2,4}\)?)?[-. ]?[0-9]{3,4}[-. ]?[0-9]{3,4}$";
-            public const string FieldIsRequired = "{0} е задължително поле.";
-            public const string YearRangeError = "Годината трябва да съдържа стойност между {0} и {1}";
-            public const string NullYearValidation = "Годината не може да бъде null.";
-            public const string YearShouldBeANumber = "Годината трябва да е число.";
-            public const string NumberShouldBeInARange = "{0} трябва да е число в диапазона {1}-{2}";
             public const string NoImageUrl = "~/images/cars/no-image.jpg";
-            public const string UploadPhotoError = "Снимката не можа да се качи успешно. Опитай пак!";
-            public const string SuccessfullMessageString = "Successfull";
             public const string UniqueDateFormat = "yyyyMMddHHmmss";
+            public const string SuccessfullMessageString = "Successfull";
             public const string ErrorMessageString = "Error";
-            public const string InvalidGuidId = "Невалидно Id";
         }
         public static class ApplicationUser
         {
@@ -35,33 +21,14 @@ namespace RentACar.Common.Constants
             public const int LastNameMaxLength = 20;
 
             public const int PhoneNumberLength = 10;
-            public const string IncorrectPhoneNumberFormat = "Невалиден формат на телефонен номер.";
             public const int UsernameNameMinLength = 5;
             public const int UsernameNameMaxLength = 20;
             public const string StardardUserRoleName = "User";
             public const string ModeratorRoleName = "Moderator";
             public const string AdminRoleName = "Admin";
-
-            public const string PasswordsDoNotMatch = "Двете пароли не съвпадат.";
-            public const string PasswordRequiresAtLeastOneDigit = "Задължително е паролата да съдържа поне 1 цифра.";
-
-            public const string PasswordRequireAtLeastOneLowerCase =
-                "Задължително е паролата да съдържа поне 1 малка буква.";
-            public const string PasswordRequireAtLeastOneUpperCase =
-                "Задължително е паролата да съдържа поне 1 главна буква.";
-
-            public const string PasswordRequireAtLeastOneNonAlphaNumericCharacter = "Задължително е паролата да съдържа поне един уникален символ.";
-            public const string PasswordTooShortMessage = "Паролата трябва да съдържа минимум {0} и максимум {1} знака";
             public const int PasswordMinlength = 8;
             public const int PasswordMaxLength = 100;
-            public const string SuccessfullUpdatedProfile = "Успешно ъпдейтнахте профила си.";
-            public const string CannotFindLoggedInUser = "Грешка при намирането на текущо логнатия потребител.";
-            public const string NewPasswordIsDifferentThanOldPassword = "Паролите не съвпадат!";
-            public const string ErrorWhenChangingPasswords = "Възникна грешка при смяна на паролата!";
-            public const string ChangePasswordSuccess = "Смяната на паролата е успешна.";
-            public const string UserWithThatUsernameExists = "Вече съществува потребител с това потребителско име.";
-            public const string UserWithThatEmailExists = "Вече съществува потребител с този имейл.";
-            public const string RegistrationSuccess = "Регистрацията е успешна";
+            
         }
 
         public static class Car
@@ -89,12 +56,6 @@ namespace RentACar.Common.Constants
 
             public const int MaxPhotoFileSize = 1_048_576_00;
 
-            public const string CarWithThatRegistrationNumberExists = "Вече е добавена кола с този регистрационен номер.";
-
-            public const string ErrorWhenAddingCar = "Възникна грешка при добавяне на колата.";
-            public const string CarAddedSuccessfully = "Колата е добавена успешно!";
-            public const string CarDeletionError = "Възникна грешка при изтриването на колата.";
-            public const string CarDeletedSuccessfully = "Колата беше изтрита успешно";
         }
 
         public static class Feature

@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using RentACar.Common.Messages;
 using RentACar.Common.ValidationAttributes;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
+using static RentACar.Common.Messages.DatabaseModelsMessages.Common;
+using static RentACar.Common.Messages.DatabaseModelsMessages.ApplicationUser;
 namespace RentACar.Web.ViewModels.Account
 {
     public class RegisterViewModel

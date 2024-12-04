@@ -7,7 +7,7 @@ using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
 using RentACar.DTO.Identity;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
-using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
+using static RentACar.Common.Messages.DatabaseModelsMessages.ApplicationUser;
 namespace RentACar.Core.Services
 {
     public class ApplicationUserService : BaseService, IUserService

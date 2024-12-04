@@ -5,7 +5,10 @@ using RentACar.Web.ViewModels.Location;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Car;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
+using static RentACar.Common.Messages.DatabaseModelsMessages.Common;
 using RentACar.Common.Constants;
+using RentACar.Common.Messages;
+
 namespace RentACar.Web.ViewModels.Car
 {
     public class RentACarViewModel

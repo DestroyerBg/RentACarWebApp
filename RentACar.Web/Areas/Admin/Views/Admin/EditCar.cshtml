@@ -3,7 +3,7 @@
     <div class="form-wrapper">
         <section>
             <form id="registerForm" method="post" asp-controller="Admin" asp-action="EditCar" enctype="multipart/form-data">
-                <h2>Добави кола</h2>
+                <h2>Промени @($"{Model.Brand} {Model.Model}")</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
                 <input type="hidden" asp-for="@Model.CarImageUrl"/>
@@ -127,7 +127,7 @@
                 </div>
 
                 <a href="@Url.Action("ManageCars", "Admin", new { area = "Admin"})" class="btn btn-outline-warning back-btn">Назад</a>
-                <button id="registerSubmit" type="submit" class="btn btn-outline-warning custom-button">Добави кола</button>
+                <button id="registerSubmit" type="submit" class="btn btn-outline-warning custom-button">Запиши промените</button>
             </form>
         </section>
     </div>
