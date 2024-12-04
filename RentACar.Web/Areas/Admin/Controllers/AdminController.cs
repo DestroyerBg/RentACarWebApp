@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using RentACar.Core.Interfaces;
+using RentACar.Core.Services;
 using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
 using RentACar.Web.ViewModels.Admin;
 using RentACar.Web.ViewModels.Car;
+using RentACar.Web.ViewModels.User;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 using static RentACar.Common.Messages.DatabaseModelsMessages.Car;
 using static RentACar.Common.Messages.DatabaseModelsMessages.Common;
@@ -16,15 +19,18 @@ namespace RentACar.Web.Areas.Admin.Controllers
         private readonly IMapper mapperService;
         private readonly ICarService carService;
         private readonly IFileService fileService;
+        private readonly IUserService userService;
         public AdminController(IAdminService _adminService,
             IMapper _mapperService,
             ICarService _carService,
-            IFileService _fileService)
+            IFileService _fileService,
+            IUserService _userService)
         {
             adminService = _adminService;
             mapperService = _mapperService;
             carService = _carService;
             fileService = _fileService;
+            userService = _userService;
         }
 
         [HttpGet]
@@ -187,6 +193,15 @@ namespace RentACar.Web.Areas.Admin.Controllers
             TempData[SuccessfullMessageString] = EditCarSuccessfull;
 
             return RedirectToAction("ManageCars");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ManageUsers()
+        {
+            ManagerUsersViewModel model =
+                mapperService.Map<ManagerUsersViewModel>(await userService.GetAllUsersWithAllRoles());
+
+            return View(model);
         }
     }
 }

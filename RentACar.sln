@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.Core.Infrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.Web.Infrastructure", "RentACar.Web.Infrastructure\RentACar.Web.Infrastructure.csproj", "{3975D83B-46EB-4026-B014-EA2D3A143F36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACar.Web.API", "RentACar.Web.API\RentACar.Web.API.csproj", "{3EB27B21-D9E1-4D99-86DD-7DCC99534D02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar.Web.API", "RentACar.Web.API\RentACar.Web.API.csproj", "{3EB27B21-D9E1-4D99-86DD-7DCC99534D02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

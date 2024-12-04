@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using RentACar.Data.Models;
 using RentACar.DTO.Identity;
+using RentACar.DTO.User;
 using System.Security.Claims;
 namespace RentACar.Core.Interfaces
 {
@@ -18,5 +19,7 @@ namespace RentACar.Core.Interfaces
         Task<string> ChangePasswordWithOldPassword(ChangePasswordDTO dto, ClaimsPrincipal principal);
 
         ChangePasswordDTO GenerateNewChangePasswordDto();
+
+        Task<ManageUsersDTO> GetAllUsersWithAllRoles();
     }
 }

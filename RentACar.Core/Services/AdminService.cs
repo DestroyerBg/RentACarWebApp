@@ -2,17 +2,20 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Core.Interfaces;
+using RentACar.Data;
 using RentACar.Data.Models;
-using RentACar.Data.Repository;
 using RentACar.Data.Repository.Interfaces;
 using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
+using RentACar.DTO.User;
 
 namespace RentACar.Core.Services
 {
     public class AdminService : BaseService, IAdminService
     {
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole<Guid>> roleManager;
+        private readonly RentACarDbContext context;
         private readonly IRepository<Car, Guid> carRepository;
         private readonly IRepository<Reservation, Guid> reservationRepository;
         private readonly IMapper mapperService;
@@ -48,6 +51,5 @@ namespace RentACar.Core.Services
 
             return cars;
         }
-
     }
 }

@@ -3,32 +3,41 @@ using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
 using RentACar.Core.Interfaces;
+using RentACar.Data;
 using RentACar.Data.Models;
 using RentACar.DTO.Identity;
+using RentACar.DTO.User;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 using static RentACar.Common.Messages.DatabaseModelsMessages.ApplicationUser;
 namespace RentACar.Core.Services
 {
     public class ApplicationUserService : BaseService, IUserService
     {
-        private SignInManager<ApplicationUser> signInManager;
-        private UserManager<ApplicationUser> userManager;
-        private IUserStore<ApplicationUser> userStore;
-        private IEmailSender emailSender;
-        private IMapper mapperService;
+        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole<Guid>> roleManager;
+        private readonly RentACarDbContext dbContext;
+        private readonly IUserStore<ApplicationUser> userStore;
+        private readonly IEmailSender emailSender;
+        private readonly IMapper mapperService;
         public ApplicationUserService(
             SignInManager<ApplicationUser> _signInManager,
             UserManager<ApplicationUser> _userManager,
             IUserStore<ApplicationUser> _userStore,
             IEmailSender _emailSender,
-            IMapper _mapperService)
+            IMapper _mapperService,
+            RoleManager<IdentityRole<Guid>> _roleManager,
+            RentACarDbContext _dbContext)
         {
             signInManager = _signInManager;
             userManager = _userManager;
             userStore = _userStore;
             emailSender = _emailSender;
             mapperService = _mapperService;
+            roleManager = _roleManager;
+            dbContext = _dbContext;
         }
 
         private ApplicationUser CreateNewUserInstance()
@@ -185,6 +194,38 @@ namespace RentACar.Core.Services
             }
 
             return ChangePasswordSuccess;
+        }
+
+        public async Task<ManageUsersDTO> GetAllUsersWithAllRoles()
+        {
+            ICollection<UsersDTO> users = await userManager.Users
+                .Select(u => mapperService.Map<UsersDTO>(u))
+                .ToListAsync();
+
+            ICollection<RoleDTO> roles = await roleManager.Roles
+                .Select(r => mapperService.Map<RoleDTO>(r))
+                .ToListAsync();
+
+            foreach (UsersDTO usersDto in users)
+            {
+                usersDto.UserRoles = dbContext.UserRoles
+                    .Where(r => r.UserId == Guid.Parse(usersDto.Id))
+                    .AsEnumerable()
+                    .Select(ur => new RoleDTO()
+                    {
+                        Id = ur.RoleId.ToString(),
+                        Name = roles.FirstOrDefault(r => r.Id == ur.RoleId.ToString()).Name
+                    })
+                    .ToList();
+            }
+
+            ManageUsersDTO dto = new ManageUsersDTO()
+            {
+                Roles = roles,
+                Users = users
+            };
+
+            return dto;
         }
     }
 }

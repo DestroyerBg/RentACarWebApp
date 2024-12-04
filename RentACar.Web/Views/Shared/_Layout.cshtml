@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using RentACar.Common.Messages
 @using RentACar.Data.Models
 @{
     int appReleaseYear = 2024;
@@ -23,76 +22,76 @@
     <script type="module" src="~/js/config.js" asp-append-version="true"></script>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-           
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
 
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                <i class="fa-solid fa-car me-1"></i> RentACar
-            </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    @{
-                        if (User?.Identity?.IsAuthenticated ?? false)
-                        {
-                            if (User.IsInRole("Admin"))
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid fa-car me-1"></i> RentACar
+                </a>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        @{
+                            if (User?.Identity?.IsAuthenticated ?? false)
                             {
-                                ApplicationUser? user = await UserManager.GetUserAsync(User);
-                                if (user != null && await UserManager.IsInRoleAsync(user, "Admin"))
+                                if (User.IsInRole("Admin"))
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">Админска страница</a>
-                                    </li>
+                                    ApplicationUser? user = await UserManager.GetUserAsync(User);
+                                    if (user != null && await UserManager.IsInRoleAsync(user, "Admin"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">Админска страница</a>
+                                        </li>
+                                    }
                                 }
                             }
                         }
-                    }
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Начална страница</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Car" asp-action="AllCars">Каталог от автомобили</a>
-                    </li>
-                </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Начална страница</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Car" asp-action="AllCars">Каталог от автомобили</a>
+                        </li>
+                    </ul>
 
-                <partial name="_LoginPartial" />
+                    <partial name="_LoginPartial" />
+                </div>
             </div>
+        </nav>
+    </header>
+
+    <div class="page-container d-flex mt-lg-3 mx-auto">
+
+        @if (ViewBag.ShowSideMenu != null && (bool)ViewBag.ShowSideMenu)
+        {
+            <aside class="sidebar-menu">
+                <partial name="SideMenuPartial" />
+            </aside>
+        }
+        <div class="container-fluid hero">
+            <main role="main" class="pb-3 hero d-flex justify-content-center align-items-center">
+                <div class="content">
+                    @RenderBody()
+                </div>
+            </main>
         </div>
-    </nav>
-</header>
 
-<div class="page-container d-flex mt-lg-3 mx-auto">
-
-    @if (ViewBag.ShowSideMenu != null && (bool)ViewBag.ShowSideMenu)
-    {
-        <aside class="sidebar-menu">
-            <partial name="SideMenuPartial"/>
-        </aside>
-    }
-    <div class="container-fluid hero">
-        <main role="main" class="pb-3 hero d-flex justify-content-center align-items-center">
-            <div class="content">
-                @RenderBody()
-            </div>
-        </main>
     </div>
-
-</div>
 
     <footer class="footer mt-auto">
         <div class="container">
             <p>&copy; RentACar @footer</p>
         </div>
     </footer>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/navbar.js" asp-append-version="true"></script>
-<script src="~/js/alert.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/navbar.js" asp-append-version="true"></script>
+    <script src="~/js/alert.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
         window.onload = function () {
@@ -108,5 +107,5 @@
             }
         };
     </script>
-    </body>
+</body>
 </html>

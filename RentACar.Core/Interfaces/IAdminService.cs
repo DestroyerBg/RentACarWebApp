@@ -1,5 +1,6 @@
 ﻿using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
+using RentACar.DTO.User;
 
 namespace RentACar.Core.Interfaces
 {
