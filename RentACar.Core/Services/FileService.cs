@@ -36,27 +36,42 @@ namespace RentACar.Core.Services
                 Directory.CreateDirectory(uploadDir);
             }
 
-            string uploadPath = Path.Combine(uploadDir, photoName);
+            string uploadPath = Path.Combine(uploadDir, $"{photoName}{fileExtension}");
 
             using (FileStream stream = new FileStream(uploadPath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-            return $"~/images/cars/{photoName}"; 
+            return $"~/images/cars/{photoName}{fileExtension}"; 
         }
 
         public async Task<string> ChangePhotoAsync(IFormFile file, string imageUrl, string photoName)
         {
             string wwwRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
 
-            imageUrl = imageUrl.TrimStart('~');
+            string uploadDir = Path.Combine(wwwRootPath, "images", "cars");
 
-            string physicalPath = Path.Combine(wwwRootPath, imageUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+           
+            if (!Directory.Exists(uploadDir))
+            {
+                Directory.CreateDirectory(uploadDir);
+            }
+
+            imageUrl = imageUrl?.TrimStart('~').TrimStart('/');
+
+            string physicalPath = Path.Combine(wwwRootPath, imageUrl?.Replace('/', Path.DirectorySeparatorChar));
 
             if (File.Exists(physicalPath))
             {
-                File.Delete(physicalPath);
+                try
+                {
+                    File.Delete(physicalPath);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error deleting file: {ex.Message}");
+                }
             }
             else
             {

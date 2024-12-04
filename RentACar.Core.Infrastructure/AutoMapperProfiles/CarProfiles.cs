@@ -48,7 +48,9 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
                     .ForMember(dest => dest.CategoryId, src =>
                     src.MapFrom(s => Guid.Parse(s.Categories.FirstOrDefault(c => c.Selected).Value)))
                 .ForMember(dest => dest.YearOfManufacture, src => 
-                    src.MapFrom(s => s.YearOfManufacture));
+                    src.MapFrom(s => s.YearOfManufacture))
+                .ForMember(dest => dest.ImageUrl, src => 
+                    src.MapFrom(s => s.CarImageUrl));
         }
     }
 }

@@ -32,7 +32,6 @@ namespace RentACar.Web.ViewModels.Admin
         public int HorsePower { get; set; }
 
         [Required(ErrorMessage = FieldIsRequired)]
-        [RegularExpression(RegistrationNumberRegex)]
         public string RegistrationNumber { get; set; } = null!;
 
         [Required(ErrorMessage = FieldIsRequired)]
