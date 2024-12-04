@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using RentACar.Data.Models;
+using RentACar.DTO.Role;
 using RentACar.DTO.User;
+using RentACar.Web.ViewModels.Role;
 using RentACar.Web.ViewModels.User;
 
 namespace RentACar.Core.Infrastructure.AutoMapperProfiles
@@ -27,6 +29,7 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
             CreateMap<RoleDTO, RoleViewModel>();
             CreateMap<UsersDTO, UserViewModel>();
             CreateMap<ManageUsersDTO, ManagerUsersViewModel>();
+            CreateMap<SetRoleViewModel, SetRoleDTO>();
         }
     }
 }

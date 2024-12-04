@@ -19,7 +19,7 @@ namespace RentACar.Core.Interfaces
         Task<string> ChangePasswordWithOldPassword(ChangePasswordDTO dto, ClaimsPrincipal principal);
 
         ChangePasswordDTO GenerateNewChangePasswordDto();
-
         Task<ManageUsersDTO> GetAllUsersWithAllRoles();
+
     }
 }

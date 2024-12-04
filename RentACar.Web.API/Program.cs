@@ -1,5 +1,6 @@
 using RentACar.Core.Services;
 using RentACar.Web.Infrastructure.Extensions;
+using static System.Net.WebRequestMethods;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +30,10 @@ builder.AddIdentity();
 builder.Services.RegisterRepositories();
 
 builder.Services.RegisterUserDefinedServices();
+
 builder.Services.AddHttpClient<LocationService>();
+builder.Services.AddHttpClient();
+
 
 builder.Services.RegisterAutoMapper();
 

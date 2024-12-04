@@ -1,5 +1,6 @@
 ﻿using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
+using RentACar.DTO.Role;
 using RentACar.DTO.User;
 
 namespace RentACar.Core.Interfaces
@@ -8,5 +9,8 @@ namespace RentACar.Core.Interfaces
     { 
         Task<DashboardDTO> GetAppInfo();
         Task<IEnumerable<CarInformationDTO>> GetCarsInformation();
+        Task<bool> IsUserAdmin(string id);
+
+        Task<bool> SetRoleToUser(SetRoleDTO dto);
     }
 }

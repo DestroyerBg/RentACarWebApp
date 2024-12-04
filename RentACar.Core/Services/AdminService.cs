@@ -7,8 +7,8 @@ using RentACar.Data.Models;
 using RentACar.Data.Repository.Interfaces;
 using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
-using RentACar.DTO.User;
-
+using RentACar.DTO.Role;
+using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 namespace RentACar.Core.Services
 {
     public class AdminService : BaseService, IAdminService
@@ -50,6 +50,59 @@ namespace RentACar.Core.Services
                 .ToListAsync();
 
             return cars;
+        }
+
+        public async Task<bool> IsUserAdmin(string id)
+        {
+            if (!IsValidGuid(id))
+            {
+                return false;
+            }
+
+            ApplicationUser? user = await userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            if (!await userManager.IsInRoleAsync(user, AdminRoleName))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task<bool> SetRoleToUser(SetRoleDTO dto)
+        {
+            if (!IsValidGuid(dto.UserId) || !IsValidGuid(dto.RoleId) )
+            {
+                return false;
+            }
+
+            ApplicationUser? user = await userManager.FindByIdAsync(dto.UserId);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            IdentityRole<Guid>? role = await roleManager.FindByIdAsync(dto.RoleId);
+
+            if (role == null)
+            {
+                return false;
+            }
+
+            IdentityResult result = await userManager.AddToRoleAsync(user, role.Name);
+
+            if (result.Succeeded)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

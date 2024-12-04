@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
 using RentACar.Core.Interfaces;
-using RentACar.Core.Services;
 using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
+using RentACar.DTO.Role;
 using RentACar.Web.ViewModels.Admin;
 using RentACar.Web.ViewModels.Car;
+using RentACar.Web.ViewModels.Role;
 using RentACar.Web.ViewModels.User;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 using static RentACar.Common.Messages.DatabaseModelsMessages.Car;
@@ -202,6 +202,24 @@ namespace RentACar.Web.Areas.Admin.Controllers
                 mapperService.Map<ManagerUsersViewModel>(await userService.GetAllUsersWithAllRoles());
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SetUserRole([FromBody] SetRoleViewModel model)
+        {
+            if (!await adminService.IsUserAdmin(model.UserId))
+            {
+                return Unauthorized();
+            }
+
+            bool result = await adminService.SetRoleToUser(mapperService.Map<SetRoleDTO>(model));
+
+            if (result)
+            {
+                return Ok(new { status = "Successfull" });
+            }
+
+            return BadRequest();
         }
     }
 }
