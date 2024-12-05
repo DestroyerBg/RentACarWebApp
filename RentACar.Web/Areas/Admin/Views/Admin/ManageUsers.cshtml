@@ -91,19 +91,19 @@
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.save-role-btn').forEach(button => {
             button.addEventListener('click', function () {
-                const userId = this.getAttribute('data-userid'); 
-                const modalId = this.getAttribute('data-modalid'); 
+                const userId = this.getAttribute('data-userid');
+                const modalId = this.getAttribute('data-modalid');
                 const roleSelect = document.getElementById(`role-${userId}`);
-                const selectedRole = roleSelect ? roleSelect.value : null; 
+                const selectedRole = roleSelect ? roleSelect.value : null;
 
                 if (!selectedRole) {
-                    alert('Моля, изберете роля.'); 
+                    alert('Моля, изберете роля.');
                     return;
                 }
 
                 console.log(`Задаване на роля '${selectedRole}' за потребител с ID '${userId}'`);
                 const data = {
-                    RoleId: selectedRole,
+                    RoleName: selectedRole,
                     UserId: userId
                 };
 
@@ -115,33 +115,33 @@
                         },
                         body: JSON.stringify(data)
                     }).then(res => {
-                    if (res.ok) {
-                        const rolesList = document.getElementById(`roles-list${userId}`);
-                        const newRoleItem = document.createElement('li');
-                        newRoleItem.className = 'd-flex align-items-center mb-2';
-                        newRoleItem.innerHTML = `
+                        if (res.ok) {
+                            const rolesList = document.getElementById(`roles-list${userId}`);
+                            const newRoleItem = document.createElement('li');
+                            newRoleItem.className = 'd-flex align-items-center mb-2';
+                            newRoleItem.innerHTML = `
                         <span>${selectedRole}</span>
                         <button type="button" class="btn btn-sm btn-danger ms-2 remove-role-btn" data-userid="${userId}" data-role="${selectedRole}">
                         <i class="bi bi-x-circle"></i>
                         </button>
                        `;
-                        rolesList.appendChild(newRoleItem);
+                            rolesList.appendChild(newRoleItem);
 
-                        const assignRoleModal = bootstrap.Modal.getInstance(document.getElementById(modalId));
-                        if (assignRoleModal) {
-                            assignRoleModal.hide(); 
+                            const assignRoleModal = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                            if (assignRoleModal) {
+                                assignRoleModal.hide();
+                            }
+
+                            const backdrop = document.querySelector('.modal-backdrop');
+                            if (backdrop) {
+                                backdrop.remove();
+                            }
+
+                            addRemoveRoleEvent(newRoleItem.querySelector('.remove-role-btn'));
                         }
+                    });
 
-                        const backdrop = document.querySelector('.modal-backdrop');
-                        if (backdrop) {
-                            backdrop.remove();
-                        }
 
-                        addRemoveRoleEvent(newRoleItem.querySelector('.remove-role-btn'));
-                    }
-                });
-
-                
             });
         });
 
@@ -149,10 +149,26 @@
             button.addEventListener('click', function () {
                 const userId = this.getAttribute('data-userid');
                 const role = this.getAttribute('data-role');
-
+                const deleteData = {
+                    RoleName: role,
+                    UserId: userId
+                };
                 if (confirm(`Сигурни ли сте, че искате да премахнете роля '${role}'?`)) {
                     console.log(`Премахване на роля '${role}' за потребител с ID '${userId}'`);
-                    this.closest('li').remove();
+                    fetch('/Admin/Admin/RemoveUserRole',
+                        {
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(deleteData)
+                        })
+                        .then(res => {
+                            if (res.ok) {
+                                this.closest('li').remove();
+                            }
+                        });
+
                 }
             });
         }

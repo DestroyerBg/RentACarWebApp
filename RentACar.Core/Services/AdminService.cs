@@ -86,7 +86,7 @@ namespace RentACar.Core.Services
                 return false;
             }
 
-            IdentityRole<Guid>? role = await roleManager.FindByNameAsync(dto.RoleId);
+            IdentityRole<Guid>? role = await roleManager.FindByNameAsync(dto.RoleName);
 
             if (role == null)
             {
@@ -94,6 +94,37 @@ namespace RentACar.Core.Services
             }
 
             IdentityResult result = await userManager.AddToRoleAsync(user, role.Name);
+
+            if (result.Succeeded)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> DeleteRoleFromUser(SetRoleDTO dto)
+        {
+            if (!IsValidGuid(dto.UserId))
+            {
+                return false;
+            }
+
+            ApplicationUser? user = await userManager.FindByIdAsync(dto.UserId);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            IdentityRole<Guid>? role = await roleManager.FindByNameAsync(dto.RoleName);
+
+            if (role == null)
+            {
+                return false;
+            }
+
+            IdentityResult result = await userManager.RemoveFromRoleAsync(user, dto.RoleName);
 
             if (result.Succeeded)
             {

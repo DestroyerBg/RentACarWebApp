@@ -12,5 +12,7 @@ namespace RentACar.Core.Interfaces
         Task<bool> IsUserAdmin(ClaimsPrincipal claim);
 
         Task<bool> SetRoleToUser(SetRoleDTO dto);
+
+        Task<bool> DeleteRoleFromUser(SetRoleDTO dto);
     }
 }

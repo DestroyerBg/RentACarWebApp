@@ -223,5 +223,25 @@ namespace RentACar.Web.Areas.Admin.Controllers
 
             return BadRequest();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveUserRole([FromBody] SetRoleViewModel model)
+        {
+            if (!await adminService.IsUserAdmin(User))
+            {
+                return Unauthorized();
+            }
+
+            SetRoleDTO dto = mapperService.Map<SetRoleDTO>(model);
+
+            bool result = await adminService.DeleteRoleFromUser(dto);
+
+            if (result)
+            {
+                return Ok(new { status = "successfull" });
+            }
+
+            return BadRequest();
+        }
     }
 }
