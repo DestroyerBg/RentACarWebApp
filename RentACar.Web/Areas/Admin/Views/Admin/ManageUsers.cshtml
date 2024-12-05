@@ -21,7 +21,7 @@
                         <td>@user.Username</td>
                         <td>@user.Email</td>
                         <td>
-                            <ul class="list-unstyled mb-0">
+                            <ul class="list-unstyled mb-0" id="roles-list@(user.Id)">
                                 @if (user.UserRoles.Count == 0)
                                 {
                                     <li><span class="text-bg-info">Потребителят няма зададени роли.</span></li>
@@ -30,7 +30,7 @@
                                 {
                                     @foreach (RoleViewModel role in user.UserRoles)
                                     {
-                                        <li class="d-flex align-items-center mb-2">
+                                        <li class="d-flex align-items-center mb-2" id="user@(user.Id)-roles">
                                             <span>@role.Name</span>
                                             <button type="button" class="btn btn-sm btn-danger ms-2 remove-role-btn"
                                                     data-userid="@user.Id" data-role="@role.Name">
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <form id="assignRoleForm-@user.Id">
-                                        <input type="hidden" name="userId" value="@user.Id" />
+                                        <input type="hidden" id="userId-@user.Id" value="@user.Id" />
                                         <div class="mb-3">
                                             <label for="role-@user.Id" class="form-label">Избери роля:</label>
                                             <select class="form-select" id="role-@user.Id" name="role">
@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Откажи</button>
-                                    <button type="button" class="btn btn-primary save-role-btn" data-userid="@user.Id">
+                                    <button type="button" class="btn btn-primary save-role-btn" data-userid="@user.Id" data-modalid="assignRoleModal-@user.Id">
                                         Запази
                                     </button>
                                 </div>
@@ -89,42 +89,60 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.assign-role-btn').forEach(button => {
+        document.querySelectorAll('.save-role-btn').forEach(button => {
             button.addEventListener('click', function () {
-                const userId = this.getAttribute('data-userid');
-                document.getElementById('userId').value = userId;
-                const assignRoleModal = new bootstrap.Modal(document.getElementById('assignRoleModal'));
-                assignRoleModal.show();
+                const userId = this.getAttribute('data-userid'); 
+                const modalId = this.getAttribute('data-modalid'); 
+                const roleSelect = document.getElementById(`role-${userId}`);
+                const selectedRole = roleSelect ? roleSelect.value : null; 
+
+                if (!selectedRole) {
+                    alert('Моля, изберете роля.'); 
+                    return;
+                }
+
+                console.log(`Задаване на роля '${selectedRole}' за потребител с ID '${userId}'`);
+                const data = {
+                    RoleId: selectedRole,
+                    UserId: userId
+                };
+
+                fetch('/Admin/Admin/SetUserRole',
+                    {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    }).then(res => {
+                    if (res.ok) {
+                        const rolesList = document.getElementById(`roles-list${userId}`);
+                        const newRoleItem = document.createElement('li');
+                        newRoleItem.className = 'd-flex align-items-center mb-2';
+                        newRoleItem.innerHTML = `
+                        <span>${selectedRole}</span>
+                        <button type="button" class="btn btn-sm btn-danger ms-2 remove-role-btn" data-userid="${userId}" data-role="${selectedRole}">
+                        <i class="bi bi-x-circle"></i>
+                        </button>
+                       `;
+                        rolesList.appendChild(newRoleItem);
+
+                        const assignRoleModal = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                        if (assignRoleModal) {
+                            assignRoleModal.hide(); 
+                        }
+
+                        const backdrop = document.querySelector('.modal-backdrop');
+                        if (backdrop) {
+                            backdrop.remove();
+                        }
+
+                        addRemoveRoleEvent(newRoleItem.querySelector('.remove-role-btn'));
+                    }
+                });
+
+                
             });
-        });
-
-        document.querySelectorAll('.saveRoleButton').addEventListener('click', function () {
-            const userId = document.getElementById('userId').value;
-            const role = document.getElementById('role').value;
-
-            if (!userId || !role) {
-                alert('Моля, изберете потребител и роля.');
-                return;
-            }
-
-            console.log(`Задаване на роля '${role}' за потребител с ID '${userId}'`);
-
-            const userRow = document.querySelector(`.assign-role-btn[data-userid="${userId}"]`).closest('tr');
-            const rolesList = userRow.querySelector('td:nth-child(3) ul');
-            const newRoleItem = document.createElement('li');
-            newRoleItem.className = 'd-flex align-items-center';
-            newRoleItem.innerHTML = `
-        <span>${role}</span>
-        <button type="button" class="btn btn-sm btn-danger ms-2 remove-role-btn" data-userid="${userId}" data-role="${role}">
-            <i class="bi bi-x-circle"></i>
-        </button>
-        `;
-            rolesList.appendChild(newRoleItem);
-
-            const assignRoleModal = bootstrap.Modal.getInstance(document.getElementById('assignRoleModal'));
-            assignRoleModal.hide();
-
-            addRemoveRoleEvent(newRoleItem.querySelector('.remove-role-btn'));
         });
 
         function addRemoveRoleEvent(button) {
@@ -141,4 +159,6 @@
 
         document.querySelectorAll('.remove-role-btn').forEach(addRemoveRoleEvent);
     });
+
+
 </script>

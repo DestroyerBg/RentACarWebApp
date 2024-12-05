@@ -207,10 +207,12 @@ namespace RentACar.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> SetUserRole([FromBody] SetRoleViewModel model)
         {
-            if (!await adminService.IsUserAdmin(model.UserId))
+            if (!await adminService.IsUserAdmin(User))
             {
                 return Unauthorized();
             }
+
+            SetRoleDTO dto = mapperService.Map<SetRoleDTO>(model);
 
             bool result = await adminService.SetRoleToUser(mapperService.Map<SetRoleDTO>(model));
 

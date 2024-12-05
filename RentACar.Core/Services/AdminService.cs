@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Core.Interfaces;
@@ -22,12 +23,14 @@ namespace RentACar.Core.Services
         public AdminService(UserManager<ApplicationUser> _userManager,
             IRepository<Car, Guid> _carRepository,
             IRepository<Reservation, Guid> _reservationRepository,
-            IMapper _mapperService)
+            IMapper _mapperService,
+            RoleManager<IdentityRole<Guid>> _roleManager)
         {
             userManager = _userManager;
             carRepository = _carRepository;
             reservationRepository = _reservationRepository;
             mapperService = _mapperService;
+            roleManager = _roleManager;
         }
         public async Task<DashboardDTO> GetAppInfo()
         {
@@ -52,14 +55,9 @@ namespace RentACar.Core.Services
             return cars;
         }
 
-        public async Task<bool> IsUserAdmin(string id)
+        public async Task<bool> IsUserAdmin(ClaimsPrincipal claim)
         {
-            if (!IsValidGuid(id))
-            {
-                return false;
-            }
-
-            ApplicationUser? user = await userManager.FindByIdAsync(id);
+            ApplicationUser? user = await userManager.GetUserAsync(claim);
 
             if (user == null)
             {
@@ -76,7 +74,7 @@ namespace RentACar.Core.Services
 
         public async Task<bool> SetRoleToUser(SetRoleDTO dto)
         {
-            if (!IsValidGuid(dto.UserId) || !IsValidGuid(dto.RoleId) )
+            if (!IsValidGuid(dto.UserId))
             {
                 return false;
             }
@@ -88,7 +86,7 @@ namespace RentACar.Core.Services
                 return false;
             }
 
-            IdentityRole<Guid>? role = await roleManager.FindByIdAsync(dto.RoleId);
+            IdentityRole<Guid>? role = await roleManager.FindByNameAsync(dto.RoleId);
 
             if (role == null)
             {
