@@ -213,6 +213,11 @@ namespace RentACar.Web.Areas.Admin.Controllers
                 return Unauthorized();
             }
 
+            if (!await adminService.IsModifyingOwnRole(User, model.UserId))
+            {
+                return BadRequest(new { status = "Не може да променяш свойте роли." });
+            }
+
             SetRoleDTO dto = mapperService.Map<SetRoleDTO>(model);
 
             bool result = await adminService.SetRoleToUser(mapperService.Map<SetRoleDTO>(model));
@@ -222,7 +227,7 @@ namespace RentACar.Web.Areas.Admin.Controllers
                 return Ok(new { status = "Successfull" });
             }
 
-            return BadRequest();
+            return BadRequest(new { status = "Възникна грешка при задаването на ролята." });
         }
 
         [HttpPost]
@@ -231,6 +236,11 @@ namespace RentACar.Web.Areas.Admin.Controllers
             if (!await adminService.IsUserAdmin(User))
             {
                 return Unauthorized();
+            }
+
+            if (!await adminService.IsModifyingOwnRole(User, model.UserId))
+            {
+                return BadRequest(new { status = "Не може да променяш свойте роли." });
             }
 
             SetRoleDTO dto = mapperService.Map<SetRoleDTO>(model);
@@ -251,6 +261,11 @@ namespace RentACar.Web.Areas.Admin.Controllers
             if (!await adminService.IsUserAdmin(User))
             {
                 return Unauthorized();
+            }
+
+            if (!await adminService.IsModifyingOwnRole(User, model.Id))
+            {
+                return BadRequest(new { status = "Не може да изтриваш своя акаунт от тук." });
             }
 
             DeleteUserDTO dto = mapperService.Map<DeleteUserDTO>(model);

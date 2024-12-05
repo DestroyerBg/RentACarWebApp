@@ -11,6 +11,19 @@
     }
 }
 
+function PrintError(message) {
+    if (message) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Възникна грешка',
+            text: message,
+            background: '#343a40',
+            color: '#f8f9fa',
+            confirmButtonColor: '#6c757d'
+        });
+    }
+}
+
 function ConfirmAction(actionUrl, carBrandAndModel) {
     Swal.fire({
         title: `Сигурen ли сu, че искаш да изтриеш ${carBrandAndModel}?`,

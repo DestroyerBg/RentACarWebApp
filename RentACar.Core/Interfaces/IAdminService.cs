@@ -17,5 +17,7 @@ namespace RentACar.Core.Interfaces
         Task<bool> DeleteRoleFromUser(SetRoleDTO dto);
 
         Task<bool> DeleteUser(DeleteUserDTO dto);
+
+        Task<bool> IsModifyingOwnRole(ClaimsPrincipal claim, string targetUserId);
     }
 }

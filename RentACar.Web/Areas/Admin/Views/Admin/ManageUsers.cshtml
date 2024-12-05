@@ -66,7 +66,7 @@
                                             <select class="form-select" id="role-@user.Id" name="role">
                                                 @foreach (RoleViewModel availableRole in Model.Roles.Where(r => !user.UserRoles.Any(ur => ur.Name == r.Name)))
                                                 {
-                                                    <option value="@availableRole.Name">@availableRole.Name</option>
+                                                    <option id="option-@user.Id" value="@availableRole.Name">@availableRole.Name</option>
                                                 }
                                             </select>
                                         </div>
@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Откажи</button>
-                                    <button type="button" class="btn btn-primary save-role-btn" data-userid="@user.Id" data-modalid="assignRoleModal-@user.Id">
+                                    <button type="button" class="btn btn-primary save-role-btn" data-userid="@user.Id" data-modalid="assignRoleModal-@user.Id" data-username="@user.Username">
                                         Запази
                                     </button>
                                 </div>
@@ -93,8 +93,10 @@
             button.addEventListener('click', function () {
                 const userId = this.getAttribute('data-userid');
                 const modalId = this.getAttribute('data-modalid');
+                const username = this.getAttribute('data-username');
                 const roleSelect = document.getElementById(`role-${userId}`);
                 const selectedRole = roleSelect ? roleSelect.value : null;
+                const option = document.getElementById(`option-${userId}`);
 
                 if (!selectedRole) {
                     alert('Моля, изберете роля.');
@@ -114,7 +116,7 @@
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(data)
-                    }).then(res => {
+                    }).then(async res => {
                         if (res.ok) {
                             const rolesList = document.getElementById(`roles-list${userId}`);
                             const newRoleItem = document.createElement('li');
@@ -138,6 +140,22 @@
                             }
 
                             addRemoveRoleEvent(newRoleItem.querySelector('.remove-role-btn'));
+                            option.remove();
+                            PrintAlert(`Ролята ${selectedRole} e успешно добавена.`);
+                        } else {
+                            const data = await res.json();
+                            if (data.status) {
+                                PrintError(data.status);
+                            }
+                            const assignRoleModal = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                            if (assignRoleModal) {
+                                assignRoleModal.hide();
+                            }
+
+                            const backdrop = document.querySelector('.modal-backdrop');
+                            if (backdrop) {
+                                backdrop.remove();
+                            }
                         }
                     });
 
@@ -150,6 +168,7 @@
                 const userId = this.getAttribute('data-userid');
                 const role = this.getAttribute('data-role');
                 const username = this.getAttribute('data-username');
+                const roleSelector = document.getElementById(`role-${userId}`);
                 const deleteData = {
                     RoleName: role,
                     UserId: userId
@@ -167,16 +186,25 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         fetch('/Admin/Admin/RemoveUserRole',
-                                {
-                                    method: "POST",
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    body: JSON.stringify(deleteData)
-                                })
-                            .then(res => {
+                            {
+                                method: "POST",
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(deleteData)
+                            })
+                            .then(async res => {
                                 if (res.ok) {
                                     this.closest('li').remove();
+                                    const optionElement = document.createElement('option');
+                                    optionElement.innerHTML = `<option id="option-${userId}" value="${role}">${role}</option>`;
+                                    roleSelector.append(optionElement);
+                                    PrintAlert(`Ролята ${role} e успешно премахната.`);
+                                } else {
+                                    const data = await res.json();
+                                    if (data.status) {
+                                        PrintError(data.status);
+                                    }
                                 }
                             });
                     }
@@ -206,18 +234,21 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         fetch('/Admin/Admin/RemoveUser', {
-                                method: "POST",
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(deletionData)
-                            })
-                            .then(res => {
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(deletionData)
+                        })
+                            .then(async res => {
                                 if (res.ok) {
                                     this.closest('tr').remove();
-                                    console.log(`Акаунтът на '${username}' беше успешно изтрит.`);
+                                    PrintAlert('Акаунтът беше успешно изтрит.');
                                 } else {
-                                    console.error(`Грешка при изтриването на акаунт с ID '${userId}'.`);
+                                    const data = await res.json();
+                                    if (data.status) {
+                                        PrintError(data.status);
+                                    }
                                 }
                             })
                             .catch(error => {

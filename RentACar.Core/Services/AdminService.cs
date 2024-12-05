@@ -159,5 +159,19 @@ namespace RentACar.Core.Services
 
             return false;
         }
+
+        public async Task<bool> IsModifyingOwnRole(ClaimsPrincipal claim, string targetUserId)
+        {
+            ApplicationUser? admin = await userManager.GetUserAsync(claim);
+
+            ApplicationUser? targetUser = await userManager.FindByIdAsync(targetUserId);
+
+            if (admin?.Id == targetUser?.Id)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
