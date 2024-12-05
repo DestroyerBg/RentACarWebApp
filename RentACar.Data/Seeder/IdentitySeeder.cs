@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using RentACar.Common.Constants;
 using RentACar.Data.Helpers;
 using RentACar.Data.Models;
 using RentACar.DTO.Identity;
+using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 namespace RentACar.Data.Seeder
 {
     public static class IdentitySeeder
@@ -68,6 +70,14 @@ namespace RentACar.Data.Seeder
                     await userManager.AddToRoleAsync(user, role.Name);
                 }
             }
+
+            IList<Claim> existingClaims = await userManager.GetClaimsAsync(user);
+
+            if (!existingClaims.Any(c => c.Type == SuperAdminClaimType && c.Value == SuperAdminClaimValue))
+            {
+                await userManager.AddClaimAsync(user, new Claim(SuperAdminClaimType, SuperAdminClaimValue));
+            }
+
 
         }
 

@@ -10,6 +10,7 @@ using RentACar.Web.ViewModels.Car;
 using RentACar.Web.ViewModels.Role;
 using RentACar.Web.ViewModels.User;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
+using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 using static RentACar.Common.Messages.DatabaseModelsMessages.Car;
 using static RentACar.Common.Messages.DatabaseModelsMessages.Common;
 namespace RentACar.Web.Areas.Admin.Controllers
@@ -208,26 +209,15 @@ namespace RentACar.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> SetUserRole([FromBody] SetRoleViewModel model)
         {
-            if (!await adminService.IsUserAdmin(User))
-            {
-                return Unauthorized();
-            }
-
-            if (!await adminService.IsModifyingOwnRole(User, model.UserId))
-            {
-                return BadRequest(new { status = "Не може да променяш свойте роли." });
-            }
-
             SetRoleDTO dto = mapperService.Map<SetRoleDTO>(model);
+            (bool success, string message) result = await adminService.SetRoleToUser(mapperService.Map<SetRoleDTO>(model), User);
 
-            bool result = await adminService.SetRoleToUser(mapperService.Map<SetRoleDTO>(model));
-
-            if (result)
+            if (result.success)
             {
-                return Ok(new { status = "Successfull" });
+                return Ok();
             }
 
-            return BadRequest(new { status = "Възникна грешка при задаването на ролята." });
+            return BadRequest(new { status = result.message });
         }
 
         [HttpPost]

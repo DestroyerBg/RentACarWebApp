@@ -28,7 +28,9 @@
             public const string AdminRoleName = "Admin";
             public const int PasswordMinlength = 8;
             public const int PasswordMaxLength = 100;
-            
+            public const string SuperAdminClaimType = "SuperAdmin";
+            public const string SuperAdminClaimValue = "true";
+
         }
 
         public static class Car

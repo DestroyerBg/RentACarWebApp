@@ -37,6 +37,11 @@
             public const string UserWithThatUsernameExists = "Вече съществува потребител с това потребителско име.";
             public const string UserWithThatEmailExists = "Вече съществува потребител с този имейл.";
             public const string RegistrationSuccess = "Регистрацията е успешна";
+            public const string InvalidUserId = "Няма потребител с това Id";
+            public const string InvalidRoleId = "Няма роля с това Id";
+            public const string CannotModifyYourselfARoleRestrictionMessage = "Не може да променяш свойте роли.";
+            public const string CannotSetOtherUsersAdminRole = "Не може да задаваш админски роли на други потребители";
+            public const string ErrorWhenAddingRoles = "Възникна грешка при задаването на ролята.";
         }
         public static class Car
         {

@@ -11,6 +11,9 @@ using RentACar.DTO.Car;
 using RentACar.DTO.Role;
 using RentACar.DTO.User;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
+using static RentACar.Common.Messages.DatabaseModelsMessages.Common;
+using static RentACar.Common.Messages.DatabaseModelsMessages.ApplicationUser;
+using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 namespace RentACar.Core.Services
 {
     public class AdminService : BaseService, IAdminService
@@ -73,35 +76,50 @@ namespace RentACar.Core.Services
             return true;
         }
 
-        public async Task<bool> SetRoleToUser(SetRoleDTO dto)
+        public async Task<(bool success, string message)> SetRoleToUser(SetRoleDTO dto, ClaimsPrincipal claim)
         {
             if (!IsValidGuid(dto.UserId))
             {
-                return false;
+                return (false, InvalidGuidId);
             }
 
             ApplicationUser? user = await userManager.FindByIdAsync(dto.UserId);
 
             if (user == null)
             {
-                return false;
+                return (false, InvalidUserId);
             }
 
             IdentityRole<Guid>? role = await roleManager.FindByNameAsync(dto.RoleName);
 
             if (role == null)
             {
-                return false;
+                return (false, InvalidRoleId);
+            }
+
+            if (!await IsModifyingOwnRole(claim, dto.UserId))
+            {
+                return (false, CannotModifyYourselfARoleRestrictionMessage);
+            }
+
+            if (dto.RoleName == AdminRoleName)
+            {
+                bool checkCurrentAdmin = await CheckIfCurrentAdminIsSuperAdmin(claim);
+
+                if (!checkCurrentAdmin)
+                {
+                    return (false, CannotSetOtherUsersAdminRole);
+                }
             }
 
             IdentityResult result = await userManager.AddToRoleAsync(user, role.Name);
 
             if (result.Succeeded)
             {
-                return true;
+                return (true, SuccessfullMessageString);
             }
 
-            return false;
+            return (false, ErrorWhenAddingRoles);
         }
 
         public async Task<bool> DeleteRoleFromUser(SetRoleDTO dto)
@@ -172,6 +190,14 @@ namespace RentACar.Core.Services
             }
 
             return true;
+        }
+
+        public async Task<bool> CheckIfCurrentAdminIsSuperAdmin(ClaimsPrincipal claim)
+        {
+            ApplicationUser? user = await userManager.GetUserAsync(claim);
+            IList<Claim> userClaims = await userManager.GetClaimsAsync(user);
+
+            return userClaims.Any(c => c.Type == SuperAdminClaimType && c.Value == SuperAdminClaimValue);
         }
     }
 }
