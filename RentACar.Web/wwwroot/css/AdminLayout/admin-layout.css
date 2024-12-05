@@ -38,3 +38,12 @@ footer {
     font-size: 0.9rem;
     background-color: #1e1e1e;
 }
+
+.btn {
+    font-size: 1.2em;
+    margin-right: 1em;
+}
+
+span {
+    font-size: 1.1em;
+}

@@ -33,7 +33,7 @@
                                         <li class="d-flex align-items-center mb-2" id="user@(user.Id)-roles">
                                             <span>@role.Name</span>
                                             <button type="button" class="btn btn-sm btn-danger ms-2 remove-role-btn"
-                                                    data-userid="@user.Id" data-role="@role.Name">
+                                                    data-userid="@user.Id" data-role="@role.Name" data-username="@user.Username">
                                                 <i class="bi bi-x-circle"></i>
                                             </button>
                                         </li>
@@ -121,7 +121,7 @@
                             newRoleItem.className = 'd-flex align-items-center mb-2';
                             newRoleItem.innerHTML = `
                         <span>${selectedRole}</span>
-                        <button type="button" class="btn btn-sm btn-danger ms-2 remove-role-btn" data-userid="${userId}" data-role="${selectedRole}">
+                        <button type="button" class="btn btn-sm btn-danger ms-2 remove-role-btn" data-userid="${userId}" data-role="${selectedRole}" data-username="${username}">
                         <i class="bi bi-x-circle"></i>
                         </button>
                        `;
@@ -149,27 +149,38 @@
             button.addEventListener('click', function () {
                 const userId = this.getAttribute('data-userid');
                 const role = this.getAttribute('data-role');
+                const username = this.getAttribute('data-username');
                 const deleteData = {
                     RoleName: role,
                     UserId: userId
                 };
-                if (confirm(`Сигурни ли сте, че искате да премахнете роля '${role}'?`)) {
-                    console.log(`Премахване на роля '${role}' за потребител с ID '${userId}'`);
-                    fetch('/Admin/Admin/RemoveUserRole',
-                        {
-                            method: "POST",
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(deleteData)
-                        })
-                        .then(res => {
-                            if (res.ok) {
-                                this.closest('li').remove();
-                            }
-                        });
-
-                }
+                Swal.fire({
+                    title: `Премахване на роля '${role}' за потребител ${username}'`,
+                    icon: 'warning',
+                    background: '#343a40',
+                    color: '#f8f9fa',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Да, премахни ролята',
+                    cancelButtonText: 'Отказ'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch('/Admin/Admin/RemoveUserRole',
+                                {
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify(deleteData)
+                                })
+                            .then(res => {
+                                if (res.ok) {
+                                    this.closest('li').remove();
+                                }
+                            });
+                    }
+                });
             });
         }
 
@@ -182,26 +193,38 @@
                     Id: userId
                 };
 
-                if (confirm(`Сигурен ли си, че искаш да изтриеш акаунт с потребителско име '${username}'?`)) {
-                    fetch('/Admin/Admin/RemoveUser', {
-                            method: "POST",
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(deletionData)
-                        })
-                        .then(res => {
-                            if (res.ok) {
-                                this.closest('tr').remove();
-                                console.log(`Акаунтът на '${username}' беше успешно изтрит.`);
-                            } else {
-                                console.error(`Грешка при изтриването на акаунт с ID '${userId}'.`);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Грешка при заявката:', error);
-                        });
-                }
+                Swal.fire({
+                    title: `Сигурен ли си, че искаш да изтриеш акаунт с потребителско име '${username}'?`,
+                    icon: 'warning',
+                    background: '#343a40',
+                    color: '#f8f9fa',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Да, продължи',
+                    cancelButtonText: 'Отказ'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch('/Admin/Admin/RemoveUser', {
+                                method: "POST",
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(deletionData)
+                            })
+                            .then(res => {
+                                if (res.ok) {
+                                    this.closest('tr').remove();
+                                    console.log(`Акаунтът на '${username}' беше успешно изтрит.`);
+                                } else {
+                                    console.error(`Грешка при изтриването на акаунт с ID '${userId}'.`);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Грешка при заявката:', error);
+                            });
+                    }
+                });
             });
         });
 
