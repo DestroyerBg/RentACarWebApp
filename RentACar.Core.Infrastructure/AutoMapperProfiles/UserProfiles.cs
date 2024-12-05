@@ -30,6 +30,7 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
             CreateMap<UsersDTO, UserViewModel>();
             CreateMap<ManageUsersDTO, ManagerUsersViewModel>();
             CreateMap<SetRoleViewModel, SetRoleDTO>();
+            CreateMap<DeleteUserViewModel, DeleteUserDTO>();
         }
     }
 }

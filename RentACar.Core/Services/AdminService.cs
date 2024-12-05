@@ -9,6 +9,7 @@ using RentACar.Data.Repository.Interfaces;
 using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
 using RentACar.DTO.Role;
+using RentACar.DTO.User;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 namespace RentACar.Core.Services
 {
@@ -125,6 +126,31 @@ namespace RentACar.Core.Services
             }
 
             IdentityResult result = await userManager.RemoveFromRoleAsync(user, dto.RoleName);
+
+            if (result.Succeeded)
+            {
+                return true;
+            }
+
+            return false;
+
+        }
+
+        public async Task<bool> DeleteUser(DeleteUserDTO dto)
+        {
+            if (!IsValidGuid(dto.Id))
+            {
+                return false;
+            }
+
+            ApplicationUser? user = await userManager.FindByIdAsync(dto.Id);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            IdentityResult result = await userManager.DeleteAsync(user);
 
             if (result.Succeeded)
             {

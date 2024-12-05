@@ -4,6 +4,7 @@ using RentACar.Core.Interfaces;
 using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
 using RentACar.DTO.Role;
+using RentACar.DTO.User;
 using RentACar.Web.ViewModels.Admin;
 using RentACar.Web.ViewModels.Car;
 using RentACar.Web.ViewModels.Role;
@@ -235,6 +236,26 @@ namespace RentACar.Web.Areas.Admin.Controllers
             SetRoleDTO dto = mapperService.Map<SetRoleDTO>(model);
 
             bool result = await adminService.DeleteRoleFromUser(dto);
+
+            if (result)
+            {
+                return Ok(new { status = "successfull" });
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveUser([FromBody] DeleteUserViewModel model)
+        {
+            if (!await adminService.IsUserAdmin(User))
+            {
+                return Unauthorized();
+            }
+
+            DeleteUserDTO dto = mapperService.Map<DeleteUserDTO>(model);
+
+            bool result = await adminService.DeleteUser(dto);
 
             if (result)
             {
