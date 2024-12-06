@@ -4,12 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using RentACar.Core.Interfaces;
 using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
-using RentACar.DTO.Result;
-using RentACar.DTO.Role;
-using RentACar.DTO.User;
 using RentACar.Web.ViewModels.Admin;
 using RentACar.Web.ViewModels.Car;
-using RentACar.Web.ViewModels.Role;
 using RentACar.Web.ViewModels.User;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 namespace RentACar.Web.Areas.Admin.Controllers
@@ -21,7 +17,6 @@ namespace RentACar.Web.Areas.Admin.Controllers
         private readonly IUserService userService;
         public AdminController(IAdminService _adminService,
             IMapper _mapperService,
-            IFileService _fileService,
             IUserService _userService)
         {
             adminService = _adminService;

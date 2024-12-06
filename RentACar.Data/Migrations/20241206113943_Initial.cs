@@ -33,6 +33,7 @@ namespace RentACar.Data.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, comment: "User's first name."),
                     LastName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, comment: "User's last name"),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "User's birthdate."),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -58,7 +59,8 @@ namespace RentACar.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, comment: "Category name")
+                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, comment: "Category name"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,7 +72,8 @@ namespace RentACar.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Feature name")
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Feature name"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,7 +87,8 @@ namespace RentACar.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Issurance benefit name"),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IconClass = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Icon font-awesome class which is used for front-end")
+                    IconClass = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Icon font-awesome class which is used for front-end"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,7 +101,8 @@ namespace RentACar.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "City name"),
-                    PostalCode = table.Column<int>(type: "int", nullable: false, comment: "City's postal code")
+                    PostalCode = table.Column<int>(type: "int", nullable: false, comment: "City's postal code"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -278,8 +283,11 @@ namespace RentACar.Data.Migrations
                     CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "This is car id"),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "When the reservation begins"),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "When the reservation ends"),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false, comment: "Reservation customer phone number. Could be different than the user's registered phone number"),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "Total price for the reservation"),
                     LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    OrderNumber = table.Column<long>(type: "bigint", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Is the entity deleted?")
                 },
                 constraints: table =>

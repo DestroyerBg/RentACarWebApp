@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using RentACar.Data.Models.Interfaces;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 namespace RentACar.Data.Models
 {
-    public class ApplicationUser : IdentityUser<Guid>
+    public class ApplicationUser : IdentityUser<Guid>, ISoftDeletable
     {
         [Required]
         [MaxLength(FirstNameMaxLength)]
@@ -22,5 +23,6 @@ namespace RentACar.Data.Models
         public DateTime BirthDate { get; set; }
 
         public ICollection<Reservation> Reservations { get; set; } = new HashSet<Reservation>();
+        public bool IsDeleted { get; set; }
     }
 }

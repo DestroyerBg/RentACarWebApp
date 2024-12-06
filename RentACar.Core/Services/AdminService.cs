@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Core.Interfaces;
 using RentACar.Data;
@@ -27,16 +26,18 @@ namespace RentACar.Core.Services
         private readonly IRepository<Reservation, Guid> reservationRepository;
         private readonly IMapper mapperService;
         public AdminService(UserManager<ApplicationUser> _userManager,
+            RoleManager<IdentityRole<Guid>> _roleManager,
+            RentACarDbContext _context,
             IRepository<Car, Guid> _carRepository,
             IRepository<Reservation, Guid> _reservationRepository,
-            IMapper _mapperService,
-            RoleManager<IdentityRole<Guid>> _roleManager)
+            IMapper _mapperService)
         {
             userManager = _userManager;
+            roleManager = _roleManager;
+            context = _context;
             carRepository = _carRepository;
             reservationRepository = _reservationRepository;
             mapperService = _mapperService;
-            roleManager = _roleManager;
         }
         public async Task<DashboardDTO> GetAppInfo()
         {
@@ -95,7 +96,7 @@ namespace RentACar.Core.Services
             {
                 return new Result()
                 {
-                    Success = false, 
+                    Success = false,
                     Message = InvalidUserId
                 };
             }
@@ -106,7 +107,7 @@ namespace RentACar.Core.Services
             {
                 return new Result()
                 {
-                    Success = false, 
+                    Success = false,
                     Message = InvalidRoleId
                 };
             }
@@ -115,7 +116,7 @@ namespace RentACar.Core.Services
             {
                 return new Result()
                 {
-                    Success = false, 
+                    Success = false,
                     Message = CannotModifyYourselfARoleRestrictionMessage
                 };
             }
@@ -138,7 +139,7 @@ namespace RentACar.Core.Services
                 {
                     return new Result()
                     {
-                        Success = false, 
+                        Success = false,
                         Message = CannotSetOtherUsersAdminRole
                     };
                 }
@@ -150,14 +151,14 @@ namespace RentACar.Core.Services
             {
                 return new Result()
                 {
-                    Success = true, 
+                    Success = true,
                     Message = SuccessfullMessageString
                 };
             }
 
             return new Result()
             {
-                Success = false, 
+                Success = false,
                 Message = ErrorWhenAddingRoles
             };
         }
@@ -188,7 +189,7 @@ namespace RentACar.Core.Services
             {
                 return new Result()
                 {
-                    Success = false, 
+                    Success = false,
                     Message = InvalidUserId
                 };
             }
@@ -227,7 +228,7 @@ namespace RentACar.Core.Services
 
             return new Result()
             {
-                Success = false, 
+                Success = false,
                 Message = ErrorWhenDeletingRoles
             };
 
@@ -274,22 +275,25 @@ namespace RentACar.Core.Services
                 };
             }
 
-            IdentityResult result = await userManager.DeleteAsync(user);
-
-            if (result.Succeeded)
+            user.IsDeleted = true;
+            try
             {
+                await context.SaveChangesAsync();
                 return new Result()
                 {
                     Success = true,
                     Message = SuccessfullMessageString
                 };
             }
-
-            return new Result()
+            catch (Exception e)
             {
-                Success = false,
-                Message = ErrorWhenDeletingUser
-            };
+                return new Result()
+                {
+                    Success = false,
+                    Message = ErrorWhenDeletingUser
+                };
+            }
+
         }
 
         private async Task<bool> IsModifyingOwnRole(ClaimsPrincipal claim, string targetUserId)
