@@ -20,8 +20,5 @@ namespace RentACar.Core.Interfaces
 
         Task<Result> DeleteUser(DeleteUserDTO dto, ClaimsPrincipal claim);
 
-        Task<bool> IsModifyingOwnRole(ClaimsPrincipal claim, string targetUserId);
-
-        Task<bool> CheckIfCurrentAdminIsSuperAdmin(ClaimsPrincipal claim);
     }
 }

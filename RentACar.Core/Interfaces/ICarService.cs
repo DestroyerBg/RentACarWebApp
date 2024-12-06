@@ -1,5 +1,6 @@
 ﻿using RentACar.DTO.Car;
 using RentACar.DTO.Reservation;
+using RentACar.DTO.Result;
 
 namespace RentACar.Core.Interfaces
 {
@@ -9,7 +10,7 @@ namespace RentACar.Core.Interfaces
         Task<RentACarDTO> ReserveACar(Guid carId);
         Task<ConfirmReservationDTO> CreateReservationConfirmation(CreateReservationDTO reservationDTO);
         Task<AddCarDTO> CreateAddCarDto();
-        Task<bool> AddCar(AddCarDTO dto);
+        Task<ResultWithErrors> AddCar(AddCarDTO dto);
         Task<bool> FindCarByRegistrationNumberAsync(string registrationNumber);
         Task<bool> DeleteCarAsync(Guid id);
         Task<EditCarDTO> CreateEditCarDto(Guid id);

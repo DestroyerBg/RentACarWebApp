@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Security.Policy;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,10 @@ using RentACar.DTO.Feature;
 using RentACar.DTO.InsuranceBenefit;
 using RentACar.DTO.Location;
 using RentACar.DTO.Reservation;
+using RentACar.DTO.Result;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
+using static RentACar.Common.Messages.DatabaseModelsMessages.Car;
+using static RentACar.Common.Messages.DatabaseModelsMessages.Common;
 namespace RentACar.Core.Services
 {
     public class CarService : BaseService, ICarService
@@ -22,12 +26,14 @@ namespace RentACar.Core.Services
         private readonly IRepository<Category, Guid> categoryRepository;
         private readonly IRepository<Feature, Guid> featureRepository;
         private readonly IMapper mapperService;
+        private readonly IFileService fileService;
         public CarService(IRepository<Car, Guid> _carRepository,
             IMapper _mapperService,
             IRepository<InsuranceBenefit, Guid> _insuranceBenefitRepository,
             IRepository<Location, Guid> _locationRepository,
             IRepository<Category, Guid> _categoryRepository,
-            IRepository<Feature, Guid> _featureRepository)
+            IRepository<Feature, Guid> _featureRepository,
+            IFileService _fileService)
         {
             carRepository = _carRepository;
             mapperService = _mapperService;
@@ -35,6 +41,7 @@ namespace RentACar.Core.Services
             locationRepository = _locationRepository;
             categoryRepository = _categoryRepository;
             featureRepository = _featureRepository;
+            fileService = _fileService;
         }
         public async Task<IEnumerable<ViewCarDTO>> GetCarsAsync()
         {
@@ -136,8 +143,34 @@ namespace RentACar.Core.Services
             return dto;
         }
 
-        public async Task<bool> AddCar(AddCarDTO dto)
+        public async Task<ResultWithErrors> AddCar(AddCarDTO dto)
         {
+            ResultWithErrors result = new ResultWithErrors();
+            if (await FindCarByRegistrationNumberAsync(dto.RegistrationNumber))
+            {
+                result.Errors.Add(CarWithThatRegistrationNumberExists);
+                result.Success = false;
+
+                return result;
+            }
+
+            if (dto.CarImage == null)
+            {
+                dto.CarImageUrl = NoImageUrl;
+            }
+            else
+            {
+                string filePath =
+                    await fileService.SavePhotoToServerAsync(dto.CarImage, dto.RegistrationNumber);
+
+                if (filePath == null)
+                {
+                    dto.CarImageUrl = NoImageUrl;
+                }
+
+                dto.CarImageUrl = filePath;
+            }
+
             Car car = mapperService.Map<Car>(dto);
 
             foreach (FeatureCheckboxDTO feature in dto.Features.Where(f => f.IsChecked))
@@ -156,7 +189,8 @@ namespace RentACar.Core.Services
 
             await carRepository.AddAsync(car);
 
-            return true;
+            result.Success = true;
+            return result;
         }
 
         public async Task<bool> FindCarByRegistrationNumberAsync(string registrationNumber)

@@ -75,35 +75,11 @@ namespace RentACar.Web.Areas.Admin.Controllers
                 return View(model);
             }
 
-            if (await carService.FindCarByRegistrationNumberAsync(model.RegistrationNumber))
-            {
-                ModelState.AddModelError(string.Empty, CarWithThatRegistrationNumberExists);
-                return View(model);
-            }
-
-            if (model.CarImage == null)
-            {
-                model.CarImageUrl = $"{Url.Content(NoImageUrl)}";
-            }
-            else
-            {
-                string filePath =
-                    await fileService.SavePhotoToServerAsync(model.CarImage, model.RegistrationNumber);
-
-                if (filePath == null)
-                {
-                    ModelState.AddModelError(string.Empty, UploadPhotoError);
-                }
-
-                model.CarImageUrl = filePath;
-            }
-
-
             AddCarDTO dto = mapperService.Map<AddCarDTO>(model);
 
-            bool result = await carService.AddCar(dto);
+            ResultWithErrors result = await carService.AddCar(dto);
 
-            if (!result)
+            if (result.Errors.Any())
             {
                 ModelState.AddModelError(string.Empty, ErrorWhenAddingCar);
                 return View(model);
@@ -163,7 +139,7 @@ namespace RentACar.Web.Areas.Admin.Controllers
         {
             if (!base.IsValidGuid(model.Id))
             {
-                TempData[ErrorMessageString] = "Невалидно Id на колата";
+                TempData[ErrorMessageString] = InvalidGuidId;
                 return RedirectToAction("ManageCars");
             }
 

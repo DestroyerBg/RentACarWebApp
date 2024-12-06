@@ -292,7 +292,7 @@ namespace RentACar.Core.Services
             };
         }
 
-        public async Task<bool> IsModifyingOwnRole(ClaimsPrincipal claim, string targetUserId)
+        private async Task<bool> IsModifyingOwnRole(ClaimsPrincipal claim, string targetUserId)
         {
             ApplicationUser? admin = await userManager.GetUserAsync(claim);
 
@@ -306,7 +306,7 @@ namespace RentACar.Core.Services
             return true;
         }
 
-        public async Task<bool> CheckIfCurrentAdminIsSuperAdmin(ClaimsPrincipal claim)
+        private async Task<bool> CheckIfCurrentAdminIsSuperAdmin(ClaimsPrincipal claim)
         {
             ApplicationUser? user = await userManager.GetUserAsync(claim);
             IList<Claim> userClaims = await userManager.GetClaimsAsync(user);

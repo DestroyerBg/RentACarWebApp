@@ -1,5 +1,6 @@
 ﻿using RentACar.Common.ValidationAttributes;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 using RentACar.DTO.Category;
 using RentACar.DTO.Feature;
 using RentACar.DTO.Location;
@@ -24,7 +25,9 @@ namespace RentACar.DTO.Car
 
         public decimal PricePerDay { get; set; }
 
-        public string CarImageUrl { get; set; } = null!;
+        public string? CarImageUrl { get; set; }
+
+        public IFormFile? CarImage { get; set; } 
 
         public ICollection<LocationDTO> Locations { get; set; } = new HashSet<LocationDTO>();
 

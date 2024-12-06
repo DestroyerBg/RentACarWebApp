@@ -28,7 +28,9 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
                 .ForMember(dest => dest.Id, src => 
                     src.MapFrom(s => s.Id.ToString()));
             CreateMap<CarInformationDTO, CarInformationViewModel>();
-            CreateMap<AddCarDTO, AddCarViewModel>();
+            CreateMap<AddCarDTO, AddCarViewModel>()
+                .ForMember(dest => dest.CarImage, src => 
+                    src.MapFrom(s => s.CarImage));
             CreateMap<AddCarViewModel, AddCarDTO>();
             CreateMap<AddCarDTO, Car>()
                 .ForMember(src => src.CategoryId, dest => 
