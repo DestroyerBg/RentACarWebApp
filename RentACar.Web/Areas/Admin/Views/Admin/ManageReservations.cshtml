@@ -1,0 +1,59 @@
+﻿@using RentACar.Web.ViewModels.Reservation
+@model IEnumerable<RentACar.Web.ViewModels.Admin.ManageReservationViewModel>
+
+<div class="container my-4">
+    <h2 class="text-center text-light mb-4">Управление на резервации</h2>
+
+    <div class="table-responsive">
+        <table class="table table-dark table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Номер на поръчка</th>
+                    <th>Потребител</th>
+                    <th>Марка на кола</th>
+                    <th>Обща сума</th>
+                    <th class="text-center">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reservation in Model)
+                {
+                    <tr>
+                        <td>@reservation.OrderNumber</td>
+                        <td>@reservation.AccountUsername</td>
+                        <td>@reservation.CarBrandAndModel</td>
+                        <td>@reservation.TotalPrice.ToString("C")</td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#reservationDetailsModal-@reservation.OrderNumber">
+                                Детайли
+                            </button>
+                        </td>
+                    </tr>
+
+                    <div class="modal fade" id="reservationDetailsModal-@reservation.OrderNumber" tabindex="-1" aria-labelledby="reservationDetailsModalLabel-@reservation.OrderNumber" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content bg-dark text-light">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="reservationDetailsModalLabel-@reservation.OrderNumber">Детайли за резервация #@reservation.OrderNumber</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Затвори"></button>
+                                </div>
+                                @*<div class="modal-body">
+                                    <p><strong>Номер на поръчка:</strong> @reservation.OrderNumber</p>
+                                    <p><strong>Потребител:</strong> @reservation.Username</p>
+                                    <p><strong>Марка на кола:</strong> @reservation.CarBrand</p>
+                                    <p><strong>Обща сума:</strong> @reservation.TotalPrice.ToString("C")</p>
+                                    <p><strong>Детайли:</strong> @reservation.Details</p>
+                                </div>*@
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Затвори</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

@@ -12,6 +12,8 @@ namespace RentACar.Core.Interfaces
     { 
         Task<DashboardDTO> GetAppInfo();
         Task<IEnumerable<CarInformationDTO>> GetCarsInformation();
+
+        Task<IEnumerable<ManageReservationDTO>> GetReservationsInformation();
         Task<bool> IsUserAdmin(ClaimsPrincipal claim);
 
         Task<Result> SetRoleToUser(SetRoleDTO dto, ClaimsPrincipal claim);

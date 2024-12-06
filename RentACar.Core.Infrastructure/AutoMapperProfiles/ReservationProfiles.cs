@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using RentACar.Data.Models;
+using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
 using RentACar.DTO.Reservation;
+using RentACar.Web.ViewModels.Admin;
 using RentACar.Web.ViewModels.Car;
 using RentACar.Web.ViewModels.Reservation;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
@@ -56,6 +58,13 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
                 .ForMember(dest => dest.CarImageUrl, 
                     src => src.MapFrom(s => s.Car.ImageUrl));
             CreateMap<ReservationDetailsDTO, ReservationDetailsViewModel>();
+            CreateMap<Reservation, ManageReservationDTO>()
+                .ForMember(dest => dest.Id, src => src.MapFrom(s => s.Id.ToString()))
+                .ForMember(dest => dest.CarBrandAndModel, src =>
+                    src.MapFrom(s => $"{s.Car.Brand} {s.Car.Model}"))
+                .ForMember(dest => dest.AccountUsername, 
+                    src => src.MapFrom(s => s.Customer.UserName));
+            CreateMap<ManageReservationDTO, ManageReservationViewModel>();
         }
     }
 }

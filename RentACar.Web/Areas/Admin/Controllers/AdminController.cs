@@ -53,5 +53,17 @@ namespace RentACar.Web.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ManageReservations()
+        {
+            IEnumerable<ManageReservationDTO> dtos = await adminService
+                .GetReservationsInformation();
+
+            IEnumerable<ManageReservationViewModel> models =
+                dtos.Select(d => mapperService.Map<ManageReservationViewModel>(d));
+
+            return View(models);
+        }
     }
 }

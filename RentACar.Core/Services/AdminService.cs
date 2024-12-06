@@ -62,6 +62,18 @@ namespace RentACar.Core.Services
             return cars;
         }
 
+        public async Task<IEnumerable<ManageReservationDTO>> GetReservationsInformation()
+        {
+            IEnumerable<ManageReservationDTO> reservations = await reservationRepository
+                .GetAllAttached()
+                .Include(c => c.Car)
+                .Include(c => c.Customer)
+                .Select(r => mapperService.Map<ManageReservationDTO>(r))
+                .ToListAsync();
+
+            return reservations;
+        }
+
         public async Task<bool> IsUserAdmin(ClaimsPrincipal claim)
         {
             ApplicationUser? user = await userManager.GetUserAsync(claim);
