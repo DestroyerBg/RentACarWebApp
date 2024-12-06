@@ -1,4 +1,5 @@
-﻿@model RentACar.Web.ViewModels.Reservation.ReservationDetailsViewModel;
+﻿@using RentACar.Web.ViewModels.InsuranceBenefit
+@model RentACar.Web.ViewModels.Reservation.ReservationDetailsViewModel;
 <div class="form-wrapper">
     <div class="container mt-5">
         <h2 class="text-center">Резюме на вашата резервация</h2>
@@ -36,7 +37,7 @@
                 @if (Model.InsuranceBenefits.Any())
                 {
                     <ul>
-                        @foreach (var benefit in Model.InsuranceBenefits.Where(i => i.IsChecked))
+                        @foreach (ReservationDetailsInsuranceBenefitViewModel benefit in Model.InsuranceBenefits)
                         {
                             <li><i class="@benefit.IconClass"></i> @benefit.Name</li>
                         }

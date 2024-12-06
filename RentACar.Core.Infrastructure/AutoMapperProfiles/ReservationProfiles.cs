@@ -2,9 +2,11 @@
 using RentACar.Data.Models;
 using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
+using RentACar.DTO.InsuranceBenefit;
 using RentACar.DTO.Reservation;
 using RentACar.Web.ViewModels.Admin;
 using RentACar.Web.ViewModels.Car;
+using RentACar.Web.ViewModels.InsuranceBenefit;
 using RentACar.Web.ViewModels.Reservation;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 namespace RentACar.Core.Infrastructure.AutoMapperProfiles
@@ -22,13 +24,13 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
             CreateMap<CreateReservationDTO, ConfirmReservationDTO>();
             CreateMap<ConfirmReservationDTO, ConfirmReservationViewModel>();
             CreateMap<ConfirmReservationDTO, Reservation>()
-                .ForMember(dest => dest.CarId, 
+                .ForMember(dest => dest.CarId,
                     src => src.MapFrom(s => Guid.Parse(s.CarId)))
                 .ForMember(dest => dest.LocationId,
                     src => src.MapFrom(s => Guid.Parse(s.LocationId)))
                 .ForMember(dest => dest.CustomerId,
                     src => src.MapFrom(s => Guid.Parse(s.CustomerId)))
-                .ForMember(dest => dest.InsuranceBenefits, src => 
+                .ForMember(dest => dest.InsuranceBenefits, src =>
                     src.MapFrom(s => s.InsuranceBenefits.Select(i => new ReservationInsuranceBenefit()
                     {
                         InsuranceBenefitId = i.Id,
@@ -47,16 +49,28 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
                     src.MapFrom(s => s.OrderNumber.ToString()))
                 .ForMember(dest => dest.TotalPrice, src =>
                     src.MapFrom(s => s.TotalPrice.ToString()))
-                .ForMember(dest => dest.Id, src => 
+                .ForMember(dest => dest.Id, src =>
                     src.MapFrom(s => s.Id.ToString()));
             CreateMap<ReservationDTO, ReservationViewModel>();
             CreateMap<Reservation, ReservationDetailsDTO>()
-                .ForMember(dest => dest.CarBrand, src => 
+                .ForMember(dest => dest.CarBrand, src =>
                     src.MapFrom(s => s.Car.Brand))
                 .ForMember(dest => dest.CarModel, src =>
                     src.MapFrom(s => s.Car.Model))
-                .ForMember(dest => dest.CarImageUrl, 
-                    src => src.MapFrom(s => s.Car.ImageUrl));
+                .ForMember(dest => dest.CarImageUrl,
+                    src => src.MapFrom(s => s.Car.ImageUrl))
+                .ForMember(dest => dest.InsuranceBenefits, src =>
+                    src.MapFrom(r => r.InsuranceBenefits.Select(s => new ReservationDetailsInsuranceBenefitDTO()
+                    {
+                        IconClass = s.InsuranceBenefit.IconClass,
+                        Name = s.InsuranceBenefit.Name,
+                        TotalPrice = s.InsuranceBenefit.Price
+                    })))
+                .ForMember(dest => dest.StartDate, src => 
+                    src.MapFrom(s => s.StartDate.ToString(DateFormat)))
+                .ForMember(dest => dest.EndDate, src =>
+                    src.MapFrom(s => s.EndDate.ToString(DateFormat)));
+
             CreateMap<ReservationDetailsDTO, ReservationDetailsViewModel>();
             CreateMap<Reservation, ManageReservationDTO>()
                 .ForMember(dest => dest.Id, src => src.MapFrom(s => s.Id.ToString()))
@@ -65,6 +79,7 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
                 .ForMember(dest => dest.AccountUsername, 
                     src => src.MapFrom(s => s.Customer.UserName));
             CreateMap<ManageReservationDTO, ManageReservationViewModel>();
+            CreateMap<ReservationDetailsInsuranceBenefitDTO, ReservationDetailsInsuranceBenefitViewModel>();
         }
     }
 }

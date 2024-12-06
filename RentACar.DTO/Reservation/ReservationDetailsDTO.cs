@@ -4,6 +4,7 @@ namespace RentACar.DTO.Reservation
 {
     public class ReservationDetailsDTO
     {
+        public string OrderNumber { get; set; } = null!;
         public string? CarBrand { get; set; }
         public string? CarModel { get; set; }
         public string StartDate { get; set; } = null!;
@@ -14,7 +15,7 @@ namespace RentACar.DTO.Reservation
         public decimal TotalPrice { get; set; }
         public string PhoneNumber { get; set; } = null!;
 
-        public ICollection<InsuranceBenefitDTO> InsuranceBenefits { get; set; } =
-            new HashSet<InsuranceBenefitDTO>();
+        public ICollection<ReservationDetailsInsuranceBenefitDTO> InsuranceBenefits { get; set; } =
+            new HashSet<ReservationDetailsInsuranceBenefitDTO>();
     }
 }

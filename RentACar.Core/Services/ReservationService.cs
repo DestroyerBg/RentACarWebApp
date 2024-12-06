@@ -20,9 +20,10 @@ namespace RentACar.Core.Services
         }
         public async Task<bool> CreateReservation(ConfirmReservationDTO dto)
         {
+            dto.InsuranceBenefits = dto.InsuranceBenefits.Where(i => i.IsChecked == true).ToList();
             Reservation reservation = mapperService.Map<Reservation>(dto);
 
-            reservation.OrderNumber = reservationRepository.GetAllAttached().Count();
+            reservation.OrderNumber = reservationRepository.GetAllAttached().Count() + 1;
             await reservationRepository.AddAsync(reservation);
 
             bool isCompleted = await reservationRepository.SaveChangesAsync();
@@ -48,12 +49,16 @@ namespace RentACar.Core.Services
             Reservation? reservation = await reservationRepository
                 .GetAllAttached()
                 .Include(c => c.Car)
+                .Include(r => r.InsuranceBenefits)
+                .ThenInclude(r => r.InsuranceBenefit)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
             if (reservation == null)
             {
                 return null;
             }
+
+            reservation.InsuranceBenefits = reservation.InsuranceBenefits.Where(i => i.ReservationId == reservation.Id).ToList();
 
             ReservationDetailsDTO dto = mapperService.Map<ReservationDetailsDTO>(reservation);
 

@@ -14,7 +14,7 @@ namespace RentACar.Web.ViewModels.Reservation
         public decimal TotalPrice { get; set; }
         public string PhoneNumber { get; set; } = null!;
 
-        public ICollection<InsuranceBenefitViewModel> InsuranceBenefits { get; set; } =
-            new HashSet<InsuranceBenefitViewModel>();
+        public ICollection<ReservationDetailsInsuranceBenefitViewModel> InsuranceBenefits { get; set; } =
+            new HashSet<ReservationDetailsInsuranceBenefitViewModel>();
     }
 }

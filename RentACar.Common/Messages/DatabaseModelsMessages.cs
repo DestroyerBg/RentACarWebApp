@@ -61,5 +61,10 @@
             public const string ErrorWhenEditCar = "Възникна грешка при записването на промените по колата.";
             public const string EditCarSuccessfull = "Промените са записани успешно.";
         }
+
+        public static class Reservation
+        {
+            public const string ReservationWithThatIdIsNotAvailable = "Няма резервация с това Id";
+        }
     }
 }
