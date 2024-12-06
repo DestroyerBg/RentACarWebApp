@@ -58,50 +58,5 @@ namespace RentACar.Web.Areas.Admin.Controllers
 
             return View(model);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> SetUserRole([FromBody] SetRoleViewModel model)
-        {
-            SetRoleDTO dto = mapperService.Map<SetRoleDTO>(model);
-            Result result = await adminService.SetRoleToUser(mapperService.Map<SetRoleDTO>(model), User);
-
-            if (result.Success)
-            {
-                return Ok();
-            }
-
-            return BadRequest(new { status = result.Message });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RemoveUserRole([FromBody] SetRoleViewModel model)
-        {
-            SetRoleDTO dto = mapperService.Map<SetRoleDTO>(model);
-
-            Result result = await adminService.DeleteRoleFromUser(dto,User);
-
-            if (result.Success)
-            {
-                return Ok();
-            }
-
-            return BadRequest(new{status = result.Message});
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RemoveUser([FromBody] DeleteUserViewModel model)
-        {
-            
-            DeleteUserDTO dto = mapperService.Map<DeleteUserDTO>(model);
-
-            Result result = await adminService.DeleteUser(dto, User);
-
-            if (result.Success)
-            {
-                return Ok();
-            }
-
-            return BadRequest(new {status = result.Message});
-        }
     }
 }
