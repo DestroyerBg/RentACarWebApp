@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using RentACar.Data.Models;
 using RentACar.DTO.Car;
-using RentACar.DTO.Reservation;
 using RentACar.Web.ViewModels.Admin;
 using RentACar.Web.ViewModels.Car;
 

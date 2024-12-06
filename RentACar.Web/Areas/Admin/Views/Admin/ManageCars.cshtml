@@ -3,7 +3,7 @@
     <h2 class="text-center text-warning mb-4">Менажиране на автомобили</h2>
     <hr class="divider bg-light mb-4" />
     <div class="d-flex justify-content-end mb-3">
-        <a href="@Url.Action("AddCar", "Admin", new { area = "Admin" })" class="btn btn-success">
+        <a href="@Url.Action("AddCar", "Car", new { area = "Admin" })" class="btn btn-success">
             <i class="fa-solid fa-plus me-2"></i> Добави нова кола
         </a>
     </div>
@@ -42,12 +42,12 @@
                         }
                     </td>
                     <td class="text-center">
-                        <a href="@Url.Action("EditCar", "Admin", new {id = @car.Id})" class="btn btn-outline-info btn-sm me-2">
+                        <a href="@Url.Action("EditCar", "Car", new {id = @car.Id})" class="btn btn-outline-info btn-sm me-2">
                             <i class="fa-solid fa-pen"></i> Промяна
                         </a>
                         <form class="d-inline">
                             <button 
-                                onclick="ConfirmAction('@Url.Action("DeleteCar", "Admin", new { id = car.Id, area = "Admin" })', '@($"{car.Brand} {car.Model}".Replace("'", "\\'"))')" 
+                                onclick="ConfirmAction('@Url.Action("DeleteCar", "Car", new { id = car.Id, area = "Admin" })', '@($"{car.Brand} {car.Model}".Replace("'", "\\'"))')" 
                                 type="button" 
                                 class="btn btn-outline-danger btn-sm">
                                 <i class="fa-solid fa-trash"></i> Изтрий
