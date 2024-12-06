@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RentACar.DTO.Category;
 using RentACar.DTO.Feature;
 
@@ -19,7 +20,9 @@ namespace RentACar.DTO.Car
 
         public decimal PricePerDay { get; set; }
 
-        public string CarImageUrl { get; set; } = null!;
+        public string? CarImageUrl { get; set; }
+
+        public IFormFile? CarImage { get; set; }
 
         public ICollection<SelectListItem> Locations { get; set; } = new HashSet<SelectListItem>();
 

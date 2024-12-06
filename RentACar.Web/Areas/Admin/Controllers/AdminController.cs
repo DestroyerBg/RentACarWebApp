@@ -137,36 +137,18 @@ namespace RentACar.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> EditCar(EditCarViewModel model)
         {
-            if (!base.IsValidGuid(model.Id))
-            {
-                TempData[ErrorMessageString] = InvalidGuidId;
-                return RedirectToAction("ManageCars");
-            }
-
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            if (!await carService.FindCarByIdAsync(Guid.Parse(model.Id)))
-            {
-                TempData[ErrorMessageString] = InvalidCarId;
-                return RedirectToAction("ManageCars");
-            }
-
-            if (model.CarImage != null)
-            {
-                string newPhotoPath = await fileService.ChangePhotoAsync(model.CarImage, model.CarImageUrl, model.RegistrationNumber);
-                model.CarImageUrl = newPhotoPath;
-            }
-
             EditCarDTO dto = mapperService.Map<EditCarDTO>(model);
 
-            bool result = await carService.EditCarAsync(dto);
+            ResultWithErrors result = await carService.EditCarAsync(dto);
 
-            if (!result)
+            if (result.Errors.Any())
             {
-                TempData[ErrorMessageString] = ErrorWhenEditCar;
+                ModelState.AddModelError(string.Empty, ErrorWhenAddingCar);
                 return View(model);
             }
 

@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Security.Policy;
 using AutoMapper;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Core.Interfaces;
@@ -193,28 +194,6 @@ namespace RentACar.Core.Services
             return result;
         }
 
-        public async Task<bool> FindCarByRegistrationNumberAsync(string registrationNumber)
-        {
-            Car? car = await carRepository.FirstOrDefaultAsync(c => c.RegistrationNumber == registrationNumber);
-
-            if (car == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
-        public async Task<bool> FindCarByIdAsync(Guid id)
-        {
-            Car? car = await carRepository.GetByIdAsync(id);
-
-            if (car == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
         public async Task<bool> DeleteCarAsync(Guid id)
         {
             Car? car = await carRepository
@@ -292,8 +271,15 @@ namespace RentACar.Core.Services
             return dto;
         }
 
-        public async Task<bool> EditCarAsync(EditCarDTO dto)
+        public async Task<ResultWithErrors> EditCarAsync(EditCarDTO dto)
         {
+            ResultWithErrors result = new ResultWithErrors();
+            if (!base.IsValidGuid(dto.Id))
+            {
+                result.Errors.Add(InvalidGuidId);
+                return result;
+            }
+
             Car? car = await carRepository
                 .GetAllAttached()
                 .Include(cf => cf.CarFeatures)
@@ -301,7 +287,14 @@ namespace RentACar.Core.Services
 
             if (car == null)
             {
-                return false;
+                result.Errors.Add(InvalidCarId);
+                return result;
+            }
+
+            if (dto.CarImage != null)
+            {
+                string newPhotoPath = await fileService.ChangePhotoAsync(dto.CarImage, dto.CarImageUrl, dto.RegistrationNumber);
+                dto.CarImageUrl = newPhotoPath;
             }
 
             mapperService.Map<EditCarDTO, Car>(dto, car);
@@ -325,7 +318,8 @@ namespace RentACar.Core.Services
             }
 
             await carRepository.ApplyAsModified(car);
-            return await carRepository.SaveChangesAsync();
+            result.Success = await carRepository.SaveChangesAsync();
+            return result;
         }
 
 
@@ -374,6 +368,29 @@ namespace RentACar.Core.Services
             Feature? feature = await featureRepository.GetByIdAsync(Guid.Parse(id));
 
             if (feature == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private async Task<bool> FindCarByRegistrationNumberAsync(string registrationNumber)
+        {
+            Car? car = await carRepository.FirstOrDefaultAsync(c => c.RegistrationNumber == registrationNumber);
+
+            if (car == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+        private async Task<bool> FindCarByIdAsync(Guid id)
+        {
+            Car? car = await carRepository.GetByIdAsync(id);
+
+            if (car == null)
             {
                 return false;
             }
