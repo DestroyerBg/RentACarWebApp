@@ -137,6 +137,7 @@ namespace RentACar.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> EditProfile(EditProfileViewModel model)
         {
             if (!ModelState.IsValid)
@@ -197,7 +198,5 @@ namespace RentACar.Web.Controllers
             
         }
 
-
-        
     }
 }

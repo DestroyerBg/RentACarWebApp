@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Core.Interfaces;
 using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
+using RentACar.DTO.Result;
 using RentACar.DTO.Role;
 using RentACar.DTO.User;
 using RentACar.Web.ViewModels.Admin;
@@ -198,6 +200,7 @@ namespace RentACar.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> ManageUsers()
         {
             ManagerUsersViewModel model =
@@ -210,64 +213,45 @@ namespace RentACar.Web.Areas.Admin.Controllers
         public async Task<IActionResult> SetUserRole([FromBody] SetRoleViewModel model)
         {
             SetRoleDTO dto = mapperService.Map<SetRoleDTO>(model);
-            (bool success, string message) result = await adminService.SetRoleToUser(mapperService.Map<SetRoleDTO>(model), User);
+            Result result = await adminService.SetRoleToUser(mapperService.Map<SetRoleDTO>(model), User);
 
-            if (result.success)
+            if (result.Success)
             {
                 return Ok();
             }
 
-            return BadRequest(new { status = result.message });
+            return BadRequest(new { status = result.Message });
         }
 
         [HttpPost]
         public async Task<IActionResult> RemoveUserRole([FromBody] SetRoleViewModel model)
         {
-            if (!await adminService.IsUserAdmin(User))
-            {
-                return Unauthorized();
-            }
-
-            if (!await adminService.IsModifyingOwnRole(User, model.UserId))
-            {
-                return BadRequest(new { status = "Не може да променяш свойте роли." });
-            }
-
             SetRoleDTO dto = mapperService.Map<SetRoleDTO>(model);
 
-            bool result = await adminService.DeleteRoleFromUser(dto);
+            Result result = await adminService.DeleteRoleFromUser(dto,User);
 
-            if (result)
+            if (result.Success)
             {
-                return Ok(new { status = "successfull" });
+                return Ok();
             }
 
-            return BadRequest();
+            return BadRequest(new{status = result.Message});
         }
 
         [HttpPost]
         public async Task<IActionResult> RemoveUser([FromBody] DeleteUserViewModel model)
         {
-            if (!await adminService.IsUserAdmin(User))
-            {
-                return Unauthorized();
-            }
-
-            if (!await adminService.IsModifyingOwnRole(User, model.Id))
-            {
-                return BadRequest(new { status = "Не може да изтриваш своя акаунт от тук." });
-            }
-
+            
             DeleteUserDTO dto = mapperService.Map<DeleteUserDTO>(model);
 
-            bool result = await adminService.DeleteUser(dto);
+            Result result = await adminService.DeleteUser(dto, User);
 
-            if (result)
+            if (result.Success)
             {
-                return Ok(new { status = "successfull" });
+                return Ok();
             }
 
-            return BadRequest();
+            return BadRequest(new {status = result.Message});
         }
     }
 }

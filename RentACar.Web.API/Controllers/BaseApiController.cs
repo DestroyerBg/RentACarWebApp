@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.RegularExpressions;
-using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
-
 namespace RentACar.Web.API.Controllers
 {
     [Route("api/[controller]")]
@@ -11,11 +8,6 @@ namespace RentACar.Web.API.Controllers
         protected bool ValidatePhoneNumber(string phoneNumber)
         {
             if (String.IsNullOrWhiteSpace(phoneNumber))
-            {
-                return false;
-            }
-
-            if (!Regex.IsMatch(phoneNumber, InternationalPhoneNumberRegex))
             {
                 return false;
             }

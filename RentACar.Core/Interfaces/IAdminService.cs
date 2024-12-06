@@ -2,6 +2,7 @@
 using RentACar.Data.Models;
 using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
+using RentACar.DTO.Result;
 using RentACar.DTO.Role;
 using RentACar.DTO.User;
 
@@ -13,11 +14,11 @@ namespace RentACar.Core.Interfaces
         Task<IEnumerable<CarInformationDTO>> GetCarsInformation();
         Task<bool> IsUserAdmin(ClaimsPrincipal claim);
 
-        Task<(bool success, string message)> SetRoleToUser(SetRoleDTO dto, ClaimsPrincipal claim);
+        Task<Result> SetRoleToUser(SetRoleDTO dto, ClaimsPrincipal claim);
 
-        Task<bool> DeleteRoleFromUser(SetRoleDTO dto);
+        Task<Result> DeleteRoleFromUser(SetRoleDTO dto, ClaimsPrincipal claim);
 
-        Task<bool> DeleteUser(DeleteUserDTO dto);
+        Task<Result> DeleteUser(DeleteUserDTO dto, ClaimsPrincipal claim);
 
         Task<bool> IsModifyingOwnRole(ClaimsPrincipal claim, string targetUserId);
 

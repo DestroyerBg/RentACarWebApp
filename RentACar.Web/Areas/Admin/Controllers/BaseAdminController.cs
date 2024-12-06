@@ -5,7 +5,7 @@ using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
 namespace RentACar.Web.Areas.Admin.Controllers
 {
     [Area(AdminRoleName)]
-    [Authorize(Roles = AdminRoleName)]
+    [Authorize(Roles = $"{AdminRoleName},{ModeratorRoleName}")]
     public class BaseAdminController : BaseController
     {
     }

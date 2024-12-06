@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Core.Interfaces;
 using RentACar.Data;
@@ -8,6 +9,7 @@ using RentACar.Data.Models;
 using RentACar.Data.Repository.Interfaces;
 using RentACar.DTO.Admin;
 using RentACar.DTO.Car;
+using RentACar.DTO.Result;
 using RentACar.DTO.Role;
 using RentACar.DTO.User;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
@@ -76,30 +78,56 @@ namespace RentACar.Core.Services
             return true;
         }
 
-        public async Task<(bool success, string message)> SetRoleToUser(SetRoleDTO dto, ClaimsPrincipal claim)
+        public async Task<Result> SetRoleToUser(SetRoleDTO dto, ClaimsPrincipal claim)
         {
             if (!IsValidGuid(dto.UserId))
             {
-                return (false, InvalidGuidId);
+                return new Result()
+                {
+                    Success = false,
+                    Message = InvalidGuidId,
+                };
             }
 
             ApplicationUser? user = await userManager.FindByIdAsync(dto.UserId);
 
             if (user == null)
             {
-                return (false, InvalidUserId);
+                return new Result()
+                {
+                    Success = false, 
+                    Message = InvalidUserId
+                };
             }
 
             IdentityRole<Guid>? role = await roleManager.FindByNameAsync(dto.RoleName);
 
             if (role == null)
             {
-                return (false, InvalidRoleId);
+                return new Result()
+                {
+                    Success = false, 
+                    Message = InvalidRoleId
+                };
             }
 
             if (!await IsModifyingOwnRole(claim, dto.UserId))
             {
-                return (false, CannotModifyYourselfARoleRestrictionMessage);
+                return new Result()
+                {
+                    Success = false, 
+                    Message = CannotModifyYourselfARoleRestrictionMessage
+                };
+            }
+
+            IList<Claim> claims = await GetUserClaims(user);
+            if (claims.Any(c => c.Type == SuperAdminClaimType && c.Value == "true"))
+            {
+                return new Result()
+                {
+                    Success = false,
+                    Message = CannotModifySuperAdmin
+                };
             }
 
             if (dto.RoleName == AdminRoleName)
@@ -108,7 +136,11 @@ namespace RentACar.Core.Services
 
                 if (!checkCurrentAdmin)
                 {
-                    return (false, CannotSetOtherUsersAdminRole);
+                    return new Result()
+                    {
+                        Success = false, 
+                        Message = CannotSetOtherUsersAdminRole
+                    };
                 }
             }
 
@@ -116,66 +148,148 @@ namespace RentACar.Core.Services
 
             if (result.Succeeded)
             {
-                return (true, SuccessfullMessageString);
+                return new Result()
+                {
+                    Success = true, 
+                    Message = SuccessfullMessageString
+                };
             }
 
-            return (false, ErrorWhenAddingRoles);
+            return new Result()
+            {
+                Success = false, 
+                Message = ErrorWhenAddingRoles
+            };
         }
 
-        public async Task<bool> DeleteRoleFromUser(SetRoleDTO dto)
+        public async Task<Result> DeleteRoleFromUser(SetRoleDTO dto, ClaimsPrincipal claim)
         {
             if (!IsValidGuid(dto.UserId))
             {
-                return false;
+                return new Result()
+                {
+                    Success = false,
+                    Message = InvalidGuidId,
+                };
+            }
+
+            if (!await IsModifyingOwnRole(claim, dto.UserId))
+            {
+                return new Result()
+                {
+                    Success = false,
+                    Message = CannotModifyYourselfARoleRestrictionMessage
+                };
             }
 
             ApplicationUser? user = await userManager.FindByIdAsync(dto.UserId);
 
             if (user == null)
             {
-                return false;
+                return new Result()
+                {
+                    Success = false, 
+                    Message = InvalidUserId
+                };
+            }
+
+            IList<Claim> claims = await GetUserClaims(user);
+            if (claims.Any(c => c.Type == SuperAdminClaimType && c.Value == "true"))
+            {
+                return new Result()
+                {
+                    Success = false,
+                    Message = CannotModifySuperAdmin
+                };
             }
 
             IdentityRole<Guid>? role = await roleManager.FindByNameAsync(dto.RoleName);
 
             if (role == null)
             {
-                return false;
+                return new Result()
+                {
+                    Success = false,
+                    Message = InvalidRoleId
+                };
             }
 
             IdentityResult result = await userManager.RemoveFromRoleAsync(user, dto.RoleName);
 
             if (result.Succeeded)
             {
-                return true;
+                return new Result()
+                {
+                    Success = true,
+                    Message = SuccessfullMessageString
+                };
             }
 
-            return false;
+            return new Result()
+            {
+                Success = false, 
+                Message = ErrorWhenDeletingRoles
+            };
 
         }
 
-        public async Task<bool> DeleteUser(DeleteUserDTO dto)
+        public async Task<Result> DeleteUser(DeleteUserDTO dto, ClaimsPrincipal claim)
         {
             if (!IsValidGuid(dto.Id))
             {
-                return false;
+                return new Result()
+                {
+                    Success = false,
+                    Message = InvalidGuidId,
+                };
+            }
+
+            if (!await IsModifyingOwnRole(claim, dto.Id))
+            {
+                return new Result()
+                {
+                    Success = false,
+                    Message = CannotModifyYourselfARoleRestrictionMessage
+                };
             }
 
             ApplicationUser? user = await userManager.FindByIdAsync(dto.Id);
 
             if (user == null)
             {
-                return false;
+                return new Result()
+                {
+                    Success = false,
+                    Message = InvalidUserId
+                };
+            }
+
+            IList<Claim> claims = await GetUserClaims(user);
+            if (claims.Any(c => c.Type == SuperAdminClaimType && c.Value == "true"))
+            {
+                return new Result()
+                {
+                    Success = false,
+                    Message = CannotModifySuperAdmin
+                };
             }
 
             IdentityResult result = await userManager.DeleteAsync(user);
 
             if (result.Succeeded)
             {
-                return true;
+                return new Result()
+                {
+                    Success = true,
+                    Message = SuccessfullMessageString
+                };
             }
 
-            return false;
+            return new Result()
+            {
+                Success = false,
+                Message = ErrorWhenDeletingUser
+            };
         }
 
         public async Task<bool> IsModifyingOwnRole(ClaimsPrincipal claim, string targetUserId)
@@ -198,6 +312,13 @@ namespace RentACar.Core.Services
             IList<Claim> userClaims = await userManager.GetClaimsAsync(user);
 
             return userClaims.Any(c => c.Type == SuperAdminClaimType && c.Value == SuperAdminClaimValue);
+        }
+
+        private async Task<IList<Claim>> GetUserClaims(ApplicationUser user)
+        {
+            IList<Claim> claims = await userManager.GetClaimsAsync(user);
+
+            return claims;
         }
     }
 }

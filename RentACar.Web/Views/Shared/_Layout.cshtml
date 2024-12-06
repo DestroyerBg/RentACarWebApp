@@ -39,10 +39,10 @@
                         @{
                             if (User?.Identity?.IsAuthenticated ?? false)
                             {
-                                if (User.IsInRole("Admin"))
+                                if (User.IsInRole(AdminRoleName) || User.IsInRole(ModeratorRoleName))
                                 {
                                     ApplicationUser? user = await UserManager.GetUserAsync(User);
-                                    if (user != null && await UserManager.IsInRoleAsync(user, "Admin"))
+                                    if (user != null && (await UserManager.IsInRoleAsync(user, AdminRoleName) || await UserManager.IsInRoleAsync(user, ModeratorRoleName)))
                                     {
                                         <li class="nav-item">
                                             <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">Админска страница</a>
