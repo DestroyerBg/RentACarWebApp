@@ -2,11 +2,12 @@
 @model RentACar.Web.ViewModels.CustomerFeedback.SendFeedbackViewModel
 <div class="container my-5">
     <h2 class="text-center mb-4">Напиши рецензия</h2>
-    <form action="/Reviews/AddReview" method="post">
+    <form asp-area="" asp-controller="CustomerFeedback" asp-action="SendFeedback" method="post">
         <div class="mb-3">
+            <span asp-validation-for="@Model.CarId" class="text-danger validation-message"></span>
             <label for="carSelect" class="form-label">Избери кола:</label>
-            <select class="form-select" id="carSelect" name="CarId" required>
-                <option value="" disabled selected>Избери кола</option>
+            <select class="form-select" id="carSelect" asp-for="@Model.CarId" required>
+                <option disabled selected>Избери кола</option>
                 @{
                     foreach (FeedbackCarViewModel car in Model.Cars)
                     {
@@ -16,12 +17,27 @@
             </select>
         </div>
 
+        <div style="display: none;">
+            @{
+                int index = 0;
+                foreach (FeedbackCarViewModel car in Model.Cars)
+                {
+                    <input type="hidden" name="Cars[@index].Id" value="@car.Id" />
+                    <input type="hidden" name="Cars[@index].BrandAndModel" value="@car.BrandAndModel" />
+                    index++;
+                }
+            }
+        </div>
+
+        
         <div class="mb-3">
-            <textarea class="form-control bg-dark text-light custom-input" id="reviewText" name="ReviewText" rows="4" placeholder="Напишете вашето мнение тук..." required></textarea>
+            <label class="form-label" asp-for="@Model.Description">Рецензия</label>
+            <span asp-validation-for="@Model.Description" class="text-danger validation-message"></span>
+            <textarea asp-for="@Model.Description" class="form-control bg-dark text-light custom-input" id="reviewText" rows="4" placeholder="Напишете вашето мнение тук..." required></textarea>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Оцени:</label>
+            <label class="form-label form-stars">Оцени:</label>
             <div id="stars" class="d-flex">
                 <i class="fas fa-star star" data-value="1"></i>
                 <i class="fas fa-star star" data-value="2"></i>
@@ -29,11 +45,12 @@
                 <i class="fas fa-star star" data-value="4"></i>
                 <i class="fas fa-star star" data-value="5"></i>
             </div>
-            <input type="hidden" id="rating" name="Rating" value="0" required>
+            <input type="hidden" id="rating" asp-for="@Model.Stars" value="" required>
+            <span asp-validation-for="@Model.Stars" class="text-danger validation-message"></span>
         </div>
 
         <div class="text-center">
-            <button type="submit" class="btn btn-warning">Изпрати рецензия</button>
+            <button type="submit" class="btn btn-warning" id="submit-btn">Изпрати рецензия</button>
             <a href="/Reviews/AllReviews" class="btn btn-secondary">Виж всички мнения</a>
         </div>
     </form>
@@ -44,7 +61,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const stars = document.querySelectorAll('.star');
         const ratingInput = document.getElementById('rating');
-
+        const form = document.querySelector('form');
         stars.forEach(star => {
             star.addEventListener('click', function () {
                 const rating = this.getAttribute('data-value');
@@ -58,5 +75,6 @@
                 });
             });
         });
+
     });
 </script>

@@ -1,25 +1,32 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
 using RentACar.Data.Repository.Interfaces;
 using RentACar.DTO.Car;
 using RentACar.DTO.CustomerFeedback;
-
+using RentACar.DTO.Result;
+using static RentACar.Common.Constants.DatabaseModelsConstants.CustomerFeedback;
+using static RentACar.Common.Messages.DatabaseModelsMessages.CustomerFeedback;
 namespace RentACar.Core.Services
 {
     public class CustomerFeedbackService : ICustomerFeedbackService
     {
         private readonly IRepository<CustomerFeedback, Guid> customerFeedbackRepository;
+        private UserManager<ApplicationUser> userManager;
         private readonly IRepository<Car, Guid> carRepository;
         private readonly IMapper mapperService;
         public CustomerFeedbackService(IRepository<CustomerFeedback, Guid> _customerFeedbackRepository,
+            UserManager<ApplicationUser> _userManager,
             IRepository<Car, Guid> _carRepository,
             IMapper _mapperService)
         {
             customerFeedbackRepository = _customerFeedbackRepository;
             carRepository = _carRepository;
             mapperService = _mapperService;
+            userManager = _userManager;
         }
         public async Task<SendFeedbackDTO> CreateSendFeedbackDTO()
         {
@@ -31,6 +38,47 @@ namespace RentACar.Core.Services
                 .ToListAsync();
 
             return dto;
+        }
+
+        public async Task<Result> CreateFeedback(SendFeedbackDTO dto, ClaimsPrincipal claim)
+        {
+            if (dto.Rating == null || (dto.Rating < RatingMinValue || dto.Rating > RatingMaxValue))
+            {
+                return new Result()
+                {
+                    Message = RatingValuesError,
+                    Success = false
+                };
+            }
+
+            ApplicationUser? user = await userManager.GetUserAsync(claim);
+
+            if (user == null)
+            {
+                return new Result()
+                {
+                    Message = OnlyLoggedInUsersCanSendFeedback,
+                    Success = false
+                };
+            }
+
+            CustomerFeedback customerFeedback = mapperService.Map<CustomerFeedback>(dto);
+            customerFeedback.CustomerId = user.Id;
+            try
+            {
+                await customerFeedbackRepository.AddAsync(customerFeedback);
+                await customerFeedbackRepository.SaveChangesAsync();
+
+                return new Result() { Success = true };
+            }
+            catch (Exception e)
+            {
+                return new Result()
+                {
+                    Message = ErrorWhenCreatingCustomerFeedback,
+                    Success = false
+                };
+            }
         }
     }
 }

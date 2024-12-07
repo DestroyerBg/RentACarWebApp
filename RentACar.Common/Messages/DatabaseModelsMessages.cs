@@ -66,5 +66,19 @@
         {
             public const string ReservationWithThatIdIsNotAvailable = "Няма резервация с това Id";
         }
+
+        public static class CustomerFeedback
+        {
+            public const string RatingValuesError = "Рейтинга трябва да е между 1 и 5 звезди";
+
+            public const string ErrorWhenCreatingCustomerFeedback =
+                "Възникна грешка при публикуването на вашето мнение";
+
+            public const string OnlyLoggedInUsersCanSendFeedback =
+                "Само логнати потребители могат да изпращат мнения и препоръки.";
+
+            public const string SuccessfullAddedFeedback =
+                "Благодарим за коментара, оценяваме мнението на всеки потребител";
+        }
     }
 }

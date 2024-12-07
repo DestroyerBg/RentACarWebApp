@@ -99,6 +99,8 @@
         {
             public const int DescriptionMinLength = 10;
             public const int DescriptionMaxLength = 3000;
+            public const int RatingMinValue = 1;
+            public const int RatingMaxValue = 5;
         }
 
         public static class Location

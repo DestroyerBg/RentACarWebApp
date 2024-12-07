@@ -18,5 +18,7 @@ namespace RentACar.DTO.CustomerFeedback
         public string CarId { get; set; } = null!;
 
         public string? DateOfSubmission { get; set; }
+
+        public int? Rating { get; set; } 
     }
 }
