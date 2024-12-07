@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using RentACar.Data.Models.Interfaces;
 using static RentACar.Common.Constants.DatabaseModelsConstants.CustomerFeedback;
 namespace RentACar.Data.Models
 {
-    public class CustomerFeedback
+    public class CustomerFeedback :ISoftDeletable
     {
         [Key]
         public Guid Id { get; set; }
@@ -16,13 +17,6 @@ namespace RentACar.Data.Models
         public ApplicationUser Customer { get; set; } = null!;
 
         [Required]
-        [ForeignKey(nameof(Reservation))]
-        [Comment("Id of the reservation")]
-        public Guid ReservationId { get; set; }
-
-        public Reservation Reservation { get; set; } = null!;
-
-        [Required]
         [ForeignKey(nameof(Car))]
         [Comment("Id of the car")]
         public Guid CarId { get; set; }
@@ -31,7 +25,7 @@ namespace RentACar.Data.Models
 
         [Required]
         [Comment("Stars given from user")]
-        public double Rating { get; set; }
+        public int Rating { get; set; }
 
         [Required]
         [MaxLength(DescriptionMaxLength)]
@@ -42,5 +36,7 @@ namespace RentACar.Data.Models
         [DataType(DataType.DateTime)]
         [Comment("Date when comment was post")]
         public DateTime DateOfSubmission { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

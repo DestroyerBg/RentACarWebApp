@@ -1,0 +1,20 @@
+﻿.star {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.star.selected {
+    color: #ffc107;
+}
+
+select.form-select {
+    background-color: #343a40;
+    color: #f8f9fa;
+    border: 1px solid #495057;
+}
+
+select.form-select option {
+    background-color: #343a40;
+    color: #f8f9fa;
+}

@@ -8,9 +8,7 @@ namespace RentACar.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<CustomerFeedback> builder)
         {
-            builder.HasOne(cf => cf.Reservation)
-                .WithMany()
-                .OnDelete(DeleteBehavior.NoAction);
+            builder.HasQueryFilter(b => !b.IsDeleted);
         }
     }
 }

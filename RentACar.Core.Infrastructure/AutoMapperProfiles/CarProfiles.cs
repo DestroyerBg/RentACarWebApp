@@ -54,6 +54,11 @@ namespace RentACar.Core.Infrastructure.AutoMapperProfiles
                     src.MapFrom(s => s.YearOfManufacture))
                 .ForMember(dest => dest.ImageUrl, src => 
                     src.MapFrom(s => s.CarImageUrl));
+            CreateMap<Car, FeedbackCarDTO>()
+                .ForMember(dest => dest.BrandAndModel, src =>
+                    src.MapFrom(s => $"{s.Brand} {s.Model}"))
+                .ForMember(dest => dest.Id, src => src.MapFrom(s => s.Id.ToString()));
+            CreateMap<FeedbackCarDTO, FeedbackCarViewModel>();
         }
     }
 }

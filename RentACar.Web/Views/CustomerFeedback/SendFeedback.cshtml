@@ -1,0 +1,62 @@
+﻿@using RentACar.Web.ViewModels.Car
+@model RentACar.Web.ViewModels.CustomerFeedback.SendFeedbackViewModel
+<div class="container my-5">
+    <h2 class="text-center mb-4">Напиши рецензия</h2>
+    <form action="/Reviews/AddReview" method="post">
+        <div class="mb-3">
+            <label for="carSelect" class="form-label">Избери кола:</label>
+            <select class="form-select" id="carSelect" name="CarId" required>
+                <option value="" disabled selected>Избери кола</option>
+                @{
+                    foreach (FeedbackCarViewModel car in Model.Cars)
+                    {
+                        <option value="@car.Id">@car.BrandAndModel</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <textarea class="form-control bg-dark text-light custom-input" id="reviewText" name="ReviewText" rows="4" placeholder="Напишете вашето мнение тук..." required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Оцени:</label>
+            <div id="stars" class="d-flex">
+                <i class="fas fa-star star" data-value="1"></i>
+                <i class="fas fa-star star" data-value="2"></i>
+                <i class="fas fa-star star" data-value="3"></i>
+                <i class="fas fa-star star" data-value="4"></i>
+                <i class="fas fa-star star" data-value="5"></i>
+            </div>
+            <input type="hidden" id="rating" name="Rating" value="0" required>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-warning">Изпрати рецензия</button>
+            <a href="/Reviews/AllReviews" class="btn btn-secondary">Виж всички мнения</a>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('rating');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                const rating = this.getAttribute('data-value');
+                ratingInput.value = rating;
+
+                stars.forEach(s => {
+                    s.classList.remove('selected');
+                    if (s.getAttribute('data-value') <= rating) {
+                        s.classList.add('selected');
+                    }
+                });
+            });
+        });
+    });
+</script>
