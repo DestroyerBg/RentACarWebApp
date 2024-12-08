@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Админ Панел";
 }
-@inject UserManager<ApplicationUser> userManager;
 
 <div class="admin-panel-wrapper d-flex justify-content-center align-items-center mt-5">
     <div class="admin-panel-box p-4">
@@ -15,9 +14,7 @@
                 <i class="fas fa-car me-2"></i> Автомобили
             </a>
             @{
-                ApplicationUser? user = await userManager.GetUserAsync(User);
-
-                if (await userManager.IsInRoleAsync(user, AdminRoleName))
+                if ((bool?)TempData[ShowPrivateOptions] == true)
                 {
                     <a href="@Url.Action("ManageUsers", "Admin" ,new{area = "Admin"})" class="btn btn-dark text-success btn-lg w-100">
                         <i class="fas fa-users me-2"></i> Потребители
@@ -26,9 +23,6 @@
             }
             <a href="@Url.Action("ManageReservations", "Admin" ,new{area = "Admin"} )" class="btn btn-dark text-primary btn-lg w-100">
                 <i class="fas fa-calendar-check me-2"></i> Резервации
-            </a>
-            <a href="@Url.Action("Feedback", "Admin")" class="btn btn-dark text-danger btn-lg w-100">
-                <i class="fas fa-comments me-2"></i> Мнения и оплаквания
             </a>
         </div>
     </div>

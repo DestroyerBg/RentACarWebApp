@@ -12,6 +12,7 @@
             public const string UniqueDateFormat = "yyyyMMddHHmmss";
             public const string SuccessfullMessageString = "Successfull";
             public const string ErrorMessageString = "Error";
+            public const string ShowPrivateOptions = "Private";
         }
         public static class ApplicationUser
         {

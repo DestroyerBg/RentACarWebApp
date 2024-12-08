@@ -8,6 +8,7 @@ using RentACar.Web.ViewModels.Admin;
 using RentACar.Web.ViewModels.Car;
 using RentACar.Web.ViewModels.User;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
+using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 namespace RentACar.Web.Areas.Admin.Controllers
 {
     public class AdminController : BaseAdminController
@@ -40,6 +41,11 @@ namespace RentACar.Web.Areas.Admin.Controllers
             IEnumerable<CarInformationDTO> dtos = await adminService.GetCarsInformation();
             IEnumerable<CarInformationViewModel> models =
                 dtos.Select(d => mapperService.Map<CarInformationViewModel>(d));
+
+            if (await adminService.IsUserAdmin(User))
+            {
+                TempData[ShowPrivateOptions] = true;
+            }
 
             return View(models);
         }
