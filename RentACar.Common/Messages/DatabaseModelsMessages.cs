@@ -15,6 +15,7 @@
             public const string NumberShouldBeInARange = "{0} трябва да е число в диапазона {1}-{2}";
             public const string UploadPhotoError = "Снимката не можа да се качи успешно. Опитай пак!";
             public const string InvalidGuidId = "Невалидно Id";
+            public const string GivenDateShouldNotBeLowerThanToday = "{0} трябва да е дата започваща от днес";
         }
 
         public static class ApplicationUser

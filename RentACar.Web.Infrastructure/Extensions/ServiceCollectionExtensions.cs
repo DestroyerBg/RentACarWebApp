@@ -2,9 +2,9 @@
 using RentACar.Core.Infrastructure.AutoMapperProfiles;
 using RentACar.Core.Interfaces;
 using RentACar.Core.Services;
-using RentACar.Data.Models;
 using RentACar.Data.Repository;
 using RentACar.Data.Repository.Interfaces;
+using RentACar.Web.Infrastructure.BackgroundServices;
 
 namespace RentACar.Web.Infrastructure.Extensions
 {
@@ -34,6 +34,13 @@ namespace RentACar.Web.Infrastructure.Extensions
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
             services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
+
+            return services;
+        }
+
+        public static IServiceCollection RegisterRentalStatusUpdaterService(this IServiceCollection services)
+        {
+            services.AddHostedService<RentalStatusUpdaterService>();
 
             return services;
         }

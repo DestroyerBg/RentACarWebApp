@@ -173,7 +173,6 @@ namespace RentACar.Core.Services
             }
 
             Car car = mapperService.Map<Car>(dto);
-
             foreach (FeatureCheckboxDTO feature in dto.Features.Where(f => f.IsChecked))
             {
                 if (!await FindFeatureByIdAsync(feature.Id))
@@ -188,10 +187,18 @@ namespace RentACar.Core.Services
                 car.CarFeatures.Add(cf);
             }
 
-            await carRepository.AddAsync(car);
+            try
+            {
+                await carRepository.AddAsync(car);
 
-            result.Success = true;
-            return result;
+                result.Success = true;
+                return result;
+            }
+            catch (Exception e)
+            {
+                result.Errors.Add(ErrorWhenAddingCar);
+                return result;
+            }
         }
 
         public async Task<bool> DeleteCarAsync(Guid id)

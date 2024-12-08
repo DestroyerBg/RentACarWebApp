@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RentACar.Core.Interfaces;
 using RentACar.Data.Models;
+using RentACar.Data.Repository;
 using RentACar.Data.Repository.Interfaces;
 using RentACar.DTO.Car;
 using RentACar.DTO.Reservation;
@@ -12,11 +13,14 @@ namespace RentACar.Core.Services
     {
         private readonly IMapper mapperService;
         private readonly IRepository<Reservation, Guid> reservationRepository;
+        private readonly IRepository<Car, Guid> carRepository;
         public ReservationService(IMapper _mapperService,
-            IRepository<Reservation, Guid> _reservationRepository)
+            IRepository<Reservation, Guid> _reservationRepository,
+            IRepository<Car, Guid> _carRepository)
         {
             mapperService = _mapperService;
             reservationRepository = _reservationRepository;
+            carRepository = _carRepository;
         }
         public async Task<bool> CreateReservation(ConfirmReservationDTO dto)
         {
@@ -26,6 +30,10 @@ namespace RentACar.Core.Services
             reservation.OrderNumber = reservationRepository.GetAllAttached().Count() + 1;
             await reservationRepository.AddAsync(reservation);
 
+            Car? car = await carRepository.GetByIdAsync(Guid.Parse(dto.CarId));
+            car.IsHired = true;
+
+            car.Reservations.Add(reservation);
             bool isCompleted = await reservationRepository.SaveChangesAsync();
 
             return isCompleted;

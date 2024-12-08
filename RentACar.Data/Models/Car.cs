@@ -61,11 +61,14 @@ namespace RentACar.Data.Models
         [Comment("Is car already hired")]
         public bool IsHired { get; set; } = false;
 
+        [Comment("LastReservationDate")]
+        public DateTime? LastReservationDate { get; set; }
+
         public ICollection<CustomerFeedback> Comments { get; set; } = new HashSet<CustomerFeedback>();
 
-        public ICollection<CarFeature> CarFeatures = new HashSet<CarFeature>();
+        public ICollection<CarFeature> CarFeatures { get; set; } = new HashSet<CarFeature>();
 
-        public ICollection<Reservation> Reservations = new HashSet<Reservation>();
+        public ICollection<Reservation> Reservations { get; set; } = new HashSet<Reservation>();
 
         [Comment("Is the entity deleted?")]
         public bool IsDeleted { get; set; } = false;

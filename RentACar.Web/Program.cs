@@ -40,6 +40,8 @@ builder.Services.ConfigureApplicationCookie(opt =>
 builder.Services.RegisterRepositories();
 
 builder.Services.RegisterUserDefinedServices();
+
+builder.Services.RegisterRentalStatusUpdaterService();
 builder.Services.AddHttpClient<LocationService>();
 
 builder.Services.RegisterAutoMapper();
