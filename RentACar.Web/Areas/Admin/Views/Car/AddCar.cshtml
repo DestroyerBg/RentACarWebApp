@@ -4,6 +4,10 @@
 @using RentACar.Web.ViewModels.Feature
 @using RentACar.Web.ViewModels.Location
 @model RentACar.Web.ViewModels.Admin.AddCarViewModel
+
+@{
+    ViewData["Title"] = "Добави кола";
+}
 <div class="row">
     <div class="form-wrapper">
         <section>
@@ -42,8 +46,8 @@
                     <label asp-for="@Model.RegistrationNumber" class="custom-label">Регистрационен номер</label>
                     <span asp-validation-for="@Model.RegistrationNumber" class="text-danger validation-message"></span>
                 </div>
-                
-                <hr/>
+
+                <hr />
                 <div class="form-field">
                     <label class="custom-label-static">Избери екстри, които има колата</label>
                     <div class="checkbox-group">
@@ -52,14 +56,14 @@
                         {
                             <div class="form-check">
 
-                                <input type="hidden" name="Features[@featureIndex].HiddenIsChecked" id="hidden-@featureIndex" value="false"/>
+                                <input type="hidden" name="Features[@featureIndex].HiddenIsChecked" id="hidden-@featureIndex" value="false" />
 
                                 <input class="form-check-input feature-checkbox"
                                        type="checkbox"
                                        id="feature-@featureIndex"
-                                        name="Features[@featureIndex].IsChecked"
+                                       name="Features[@featureIndex].IsChecked"
                                        value="true"
-                                       @(feature.IsChecked ? "checked" : "")/>
+                                       @(feature.IsChecked ? "checked" : "") />
                                 <label class="form-check-label" for="feature_@featureIndex">@feature.Name</label>
                             </div>
                             <input type="hidden" name="Features[@featureIndex].Id" value="@feature.Id" />
@@ -70,7 +74,7 @@
                 </div>
 
 
-                <hr/>
+                <hr />
                 <div class="form-field">
                     <label class="custom-label-static">Избери категория</label>
                     <div class="checkbox-group">
@@ -107,7 +111,7 @@
                                        id="location_@locationIndex"
                                        name="Locations[@locationIndex].IsChecked"
                                        value="@location.Id"
-                                       onclick=""/>
+                                       onclick="" />
                                 <label class="form-check-label" for="location_@location.Id">@location.City</label>
                             </div>
                             <input type="hidden" name="Locations[@locationIndex].Id" value="@location.Id" />

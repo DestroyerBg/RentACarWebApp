@@ -1,4 +1,8 @@
 ﻿@model RentACar.Web.ViewModels.Admin.EditCarViewModel
+
+@{
+    ViewData["Title"] = "Промени кола";
+}
 <div class="row">
     <div class="form-wrapper">
         <section>
@@ -6,8 +10,8 @@
                 <h2>Промени @($"{Model.Brand} {Model.Model}")</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger validation-summary" role="alert"></div>
-                <input type="hidden" asp-for="@Model.CarImageUrl"/>
-                <input type="hidden" asp-for="@Model.Id"/>
+                <input type="hidden" asp-for="@Model.CarImageUrl" />
+                <input type="hidden" asp-for="@Model.Id" />
                 <div class="form-field">
                     <input asp-for="@Model.Brand" class="custom-input" aria-required="true" placeholder="" />
                     <label asp-for="@Model.Brand" class="custom-label">Марка на колата</label>
@@ -104,8 +108,7 @@
                                        id="location_@locationIndex"
                                        name="Locations[@locationIndex].Selected"
                                        value="@location.Selected"
-                                       @(location.Selected ? "checked" : "")
-                                       />
+                                       @(location.Selected ? "checked" : "") />
                                 <label class="form-check-label" for="location_@location.Value">@location.Text</label>
                             </div>
                             <input type="hidden" name="Locations[@locationIndex].Value" value="@location.Value" />

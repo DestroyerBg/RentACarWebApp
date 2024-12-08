@@ -1,10 +1,14 @@
 ﻿@using RentACar.Web.ViewModels.InsuranceBenefit
 @model RentACar.Web.ViewModels.Reservation.ReservationDetailsViewModel;
+
+@{
+    ViewData["Title"] = $"Детайли за вашата резервация";
+}
 <div class="form-wrapper">
     <div class="container mt-5">
         <h2 class="text-center">Резюме на вашата резервация</h2>
         <hr />
-        
+
         <div class="text-center mb-4">
             <img src="@Url.Content(Model.CarImageUrl)" alt="Снимка на автомобила" class="img-fluid rounded shadow" style="max-width: 100%; height: auto; max-height: 300px;" />
         </div>
@@ -53,7 +57,7 @@
                 <h4>Крайна цена:</h4>
                 <p class="text-success display-6 fw-bold text-decoration-underline"><strong>@Model.TotalPrice.ToString("0.00") лв.</strong></p>
             </div>
-            
+
             <div class="d-flex justify-content-between">
                 <a href="@Url.Action("MyReservations", "Reservation")" class="btn btn-secondary">Назад</a>
             </div>

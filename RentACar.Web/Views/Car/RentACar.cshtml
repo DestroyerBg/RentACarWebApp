@@ -1,6 +1,9 @@
 ﻿@using RentACar.Web.ViewModels.InsuranceBenefit
-@using RentACar.Web.ViewModels.Location
 @model RentACar.Web.ViewModels.Car.RentACarViewModel
+
+@{
+    ViewData["Title"] = "Резервирай кола";
+}
 <div class="row">
     <div class="form-wrapper">
         <section>
@@ -50,7 +53,7 @@
                     </div>
                     <span asp-validation-for="@Model.Address" class="text-danger validation-message"></span>
                 </div>
-                
+
                 <div class="form-field">
                     <input asp-for="@Model.PhoneNumber" class="custom-input" placeholder="" />
                     <label asp-for="@Model.PhoneNumber" class="custom-label">Телефонен номер</label>
@@ -70,12 +73,12 @@
                                 <input type="checkbox"
                                        class="form-check-input insurance-checkbox"
                                        id="checkbox-@index"
-                                       value="@benefit.Price"/>
+                                       value="@benefit.Price" />
 
-                                <input type="hidden" name="Benefits[@index].Id" value="@benefit.Id"/>
-                                <input type="hidden" name="Benefits[@index].Name" value="@benefit.Name"/>
-                                <input type="hidden" name="Benefits[@index].Price" value="@benefit.Price"/>
-                                <input type="hidden" name="Benefits[@index].IconClass" value="@benefit.IconClass"/>
+                                <input type="hidden" name="Benefits[@index].Id" value="@benefit.Id" />
+                                <input type="hidden" name="Benefits[@index].Name" value="@benefit.Name" />
+                                <input type="hidden" name="Benefits[@index].Price" value="@benefit.Price" />
+                                <input type="hidden" name="Benefits[@index].IconClass" value="@benefit.IconClass" />
                                 <label for="benefit-@index" class="form-check-label">
                                     @($"{benefit.Name} ({benefit.Price}лв./ден)")
                                 </label>

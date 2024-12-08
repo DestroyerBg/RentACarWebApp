@@ -1,5 +1,9 @@
 ﻿@using RentACar.Web.ViewModels.Car
 @model RentACar.Web.ViewModels.CustomerFeedback.SendFeedbackViewModel
+
+@{
+    ViewData["Title"] = "Напиши мнение.";
+}
 <div class="container my-5">
     <h2 class="text-center mb-4">Напиши рецензия</h2>
     <form asp-area="" asp-controller="CustomerFeedback" asp-action="SendFeedback" method="post">
@@ -29,7 +33,7 @@
             }
         </div>
 
-        
+
         <div class="mb-3">
             <label class="form-label" asp-for="@Model.Description">Рецензия</label>
             <span asp-validation-for="@Model.Description" class="text-danger validation-message"></span>

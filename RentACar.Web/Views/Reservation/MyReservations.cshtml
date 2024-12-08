@@ -1,4 +1,8 @@
 ﻿@model IEnumerable<RentACar.Web.ViewModels.Reservation.ReservationViewModel>
+
+@{
+    ViewData["Title"] = "Моите резервации";
+}
 <div class="container my-5">
     <h2 class="text-center text-light">Вашите резервации</h2>
     <hr class="divider" />
@@ -24,22 +28,22 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach (var reservation in Model)
-            {
-                <tr>
-                    <td>@reservation.OrderNumber</td>
-                    <td>@($"{reservation.CarBrand} {reservation.CarModel}")</td>
-                    <td>@reservation.StartDate)</td>
-                    <td>@reservation.EndDate</td>
-                    <td>@reservation.PhoneNumber</td>
-                    <td>@reservation.Address</td>
-                    <td>
-                        <a asp-action="Details" asp-controller="Reservation" asp-route-id="@reservation.Id" class="btn btn-primary btn-sm">
-                            Виж детайли
-                        </a>
-                    </td>
-                </tr>
-            }
+                @foreach (var reservation in Model)
+                {
+                    <tr>
+                        <td>@reservation.OrderNumber</td>
+                        <td>@($"{reservation.CarBrand} {reservation.CarModel}")</td>
+                        <td>@reservation.StartDate)</td>
+                        <td>@reservation.EndDate</td>
+                        <td>@reservation.PhoneNumber</td>
+                        <td>@reservation.Address</td>
+                        <td>
+                            <a asp-action="Details" asp-controller="Reservation" asp-route-id="@reservation.Id" class="btn btn-primary btn-sm">
+                                Виж детайли
+                            </a>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     }

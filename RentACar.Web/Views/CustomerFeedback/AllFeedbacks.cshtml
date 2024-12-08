@@ -2,6 +2,10 @@
 @using RentACar.Data.Models
 @using RentACar.Web.ViewModels.CustomerFeedback
 @model IEnumerable<UserFeedbackViewModel>
+
+@{
+    ViewData["Title"] = "Мнения на клиенти.";
+}
 <div class="container my-5">
     <h2 class="text-center mb-4">Мнения на потребителите</h2>
     @if (!Model.Any())
