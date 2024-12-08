@@ -9,10 +9,11 @@ using RentACar.DTO.Car;
 using RentACar.DTO.CustomerFeedback;
 using RentACar.DTO.Result;
 using static RentACar.Common.Constants.DatabaseModelsConstants.CustomerFeedback;
+using static RentACar.Common.Messages.DatabaseModelsMessages.Common;
 using static RentACar.Common.Messages.DatabaseModelsMessages.CustomerFeedback;
 namespace RentACar.Core.Services
 {
-    public class CustomerFeedbackService : ICustomerFeedbackService
+    public class CustomerFeedbackService :BaseService, ICustomerFeedbackService
     {
         private readonly IRepository<CustomerFeedback, Guid> customerFeedbackRepository;
         private UserManager<ApplicationUser> userManager;
@@ -91,6 +92,49 @@ namespace RentACar.Core.Services
                 .ToListAsync();
 
             return dtos;
+        }
+
+        public async Task<Result> DeleteFeedback(string id)
+        {
+            if (!base.IsValidGuid(id))
+            {
+                return new Result()
+                {
+                    Message = InvalidGuidId,
+                    Success = false
+                };
+            }
+
+            CustomerFeedback? customerFeedback = await customerFeedbackRepository.GetByIdAsync(Guid.Parse(id));
+
+            if (customerFeedback == null)
+            {
+                return new Result()
+                {
+                    Message = InvalidCustomerFeedbackId,
+                    Success = false
+                };
+            }
+
+            try
+            {
+                await customerFeedbackRepository.DeleteAsync(customerFeedback);
+                await customerFeedbackRepository.SaveChangesAsync();
+
+                return new Result()
+                {
+                    Success = true,
+                    Message = SuccessWithDeletingFeedback
+                };
+            }
+            catch (Exception e)
+            {
+                return new Result()
+                {
+                    Success = false,
+                    Message = ErrorWithDeletingTheFeedback,
+                };
+            }
         }
     }
 }

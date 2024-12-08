@@ -79,6 +79,12 @@
 
             public const string SuccessfullAddedFeedback =
                 "Благодарим за коментара, оценяваме мнението на всеки потребител";
+
+            public const string InvalidCustomerFeedbackId = "Няма мнение с това Id";
+
+            public const string SuccessWithDeletingFeedback = "Успех с изтриването на мнението";
+
+            public const string ErrorWithDeletingTheFeedback = "Възникна грешка с изтриването на мнението";
         }
     }
 }

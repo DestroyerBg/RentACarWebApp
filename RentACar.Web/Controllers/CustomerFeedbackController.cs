@@ -51,6 +51,11 @@ namespace RentACar.Web.Controllers
             {
                 TempData[SuccessfullMessageString] = SuccessfullAddedFeedback;
             }
+            else
+            {
+                TempData[ErrorMessageString] = result.Message;
+                return View(model);
+            }
 
             return RedirectToAction("AllFeedbacks");
         }
@@ -69,6 +74,20 @@ namespace RentACar.Web.Controllers
 
             return View(models);
         }
-        
+
+        [HttpPost]
+        [Authorize(Roles = $"{ModeratorRoleName},{AdminRoleName}")]
+        public async Task<IActionResult> DeleteFeedback([FromQuery]string id)
+        {
+            Result result = await customerFeedbackService.DeleteFeedback(id);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
     }
 }

@@ -56,8 +56,8 @@
 
 @if ((bool?)TempData[ShowDeleteOptionString] == true)
 {
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+    <script>
+       document.addEventListener('DOMContentLoaded', function () {
         const deleteButtons = document.querySelectorAll('.delete-feedback-btn');
 
         deleteButtons.forEach(button => {
@@ -68,6 +68,8 @@
                     title: 'Сигурни ли сте, че искате да изтриете това мнение?',
                     text: 'Това действие не може да бъде отменено!',
                     icon: 'warning',
+                    background: '#343a40',
+                    color: '#f8f9fa',
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
@@ -75,25 +77,18 @@
                     cancelButtonText: 'Отказ'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        fetch(`/Admin/Feedback/DeleteFeedback/${feedbackId}`, {
+                        fetch(`/CustomerFeedback/DeleteFeedback/?id=${feedbackId}`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
                             }
-                        }).then(response => {
-                            if (response.ok) {
-                                Swal.fire(
-                                    'Изтрито!',
-                                    'Мнението беше успешно изтрито.',
-                                    'success'
-                                );
+                        }).then(response => response.json())
+                        .then(data => {
+                            if (data.success == true) {
+                                PrintAlert(data.message);
                                 button.closest('.list-group-item').remove();
                             } else {
-                                Swal.fire(
-                                    'Грешка!',
-                                    'Неуспешно изтриване на мнението.',
-                                    'error'
-                                );
+                                PrintError(data.message);
                             }
                         });
                     }
@@ -101,5 +96,5 @@
             });
         });
     });
-</script>
+    </script>
 }

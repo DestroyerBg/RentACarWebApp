@@ -10,5 +10,7 @@ namespace RentACar.Core.Interfaces
         Task<Result> CreateFeedback(SendFeedbackDTO dto, ClaimsPrincipal claim);
 
         Task<IEnumerable<UserFeedbackDTO>> GetAllFeedbacks();
+
+        Task<Result> DeleteFeedback(string id);
     }
 }
