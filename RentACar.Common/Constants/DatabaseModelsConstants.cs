@@ -101,6 +101,7 @@
             public const int DescriptionMaxLength = 3000;
             public const int RatingMinValue = 1;
             public const int RatingMaxValue = 5;
+            public const string ShowDeleteOptionString = "ShowDeleteOptionsWithJS";
         }
 
         public static class Location

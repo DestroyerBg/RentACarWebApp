@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using RentACar.Data.Models;
-
 namespace RentACar.Web.Controllers
 {
     public class BaseController : Controller

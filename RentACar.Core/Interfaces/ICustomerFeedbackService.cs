@@ -8,5 +8,7 @@ namespace RentACar.Core.Interfaces
     {
         Task<SendFeedbackDTO> CreateSendFeedbackDTO();
         Task<Result> CreateFeedback(SendFeedbackDTO dto, ClaimsPrincipal claim);
+
+        Task<IEnumerable<UserFeedbackDTO>> GetAllFeedbacks();
     }
 }

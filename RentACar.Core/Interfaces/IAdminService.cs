@@ -16,6 +16,8 @@ namespace RentACar.Core.Interfaces
         Task<IEnumerable<ManageReservationDTO>> GetReservationsInformation();
         Task<bool> IsUserAdmin(ClaimsPrincipal claim);
 
+        Task<bool> IsUserModerator(ClaimsPrincipal claim);
+
         Task<Result> SetRoleToUser(SetRoleDTO dto, ClaimsPrincipal claim);
 
         Task<Result> DeleteRoleFromUser(SetRoleDTO dto, ClaimsPrincipal claim);

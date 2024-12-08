@@ -91,6 +91,23 @@ namespace RentACar.Core.Services
             return true;
         }
 
+        public async Task<bool> IsUserModerator(ClaimsPrincipal claim)
+        {
+            ApplicationUser? user = await userManager.GetUserAsync(claim);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            if (!await userManager.IsInRoleAsync(user, ModeratorRoleName))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public async Task<Result> SetRoleToUser(SetRoleDTO dto, ClaimsPrincipal claim)
         {
             if (!IsValidGuid(dto.UserId))

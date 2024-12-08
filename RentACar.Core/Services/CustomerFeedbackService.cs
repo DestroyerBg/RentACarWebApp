@@ -80,5 +80,17 @@ namespace RentACar.Core.Services
                 };
             }
         }
+
+        public async Task<IEnumerable<UserFeedbackDTO>> GetAllFeedbacks()
+        {
+            IEnumerable<UserFeedbackDTO> dtos = await customerFeedbackRepository
+                .GetAllAttached()
+                .Include(c => c.Car)
+                .Include(c => c.Customer)
+                .Select(c => mapperService.Map<UserFeedbackDTO>(c))
+                .ToListAsync();
+
+            return dtos;
+        }
     }
 }

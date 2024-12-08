@@ -7,21 +7,25 @@ using RentACar.DTO.Result;
 using RentACar.Web.ViewModels.CustomerFeedback;
 using static RentACar.Common.Constants.DatabaseModelsConstants.Common;
 using static RentACar.Common.Constants.DatabaseModelsConstants.ApplicationUser;
+using static RentACar.Common.Constants.DatabaseModelsConstants.CustomerFeedback;
 using static RentACar.Common.Messages.DatabaseModelsMessages.CustomerFeedback;
 namespace RentACar.Web.Controllers
 {
     public class CustomerFeedbackController : BaseController
     {
         private readonly ICustomerFeedbackService customerFeedbackService;
+        private readonly IAdminService adminService;
         private readonly IMapper mapperService;
         public CustomerFeedbackController(ICustomerFeedbackService _customerFeedbackService,
+            IAdminService _adminService,
             IMapper _mapperService)
         {
             customerFeedbackService = _customerFeedbackService;
+            adminService = _adminService;
             mapperService = _mapperService;
         }
         [HttpGet]
-        [Authorize(StardardUserRoleName)]
+        [Authorize(Roles = $"{StardardUserRoleName},{ModeratorRoleName},{AdminRoleName}")]
         public async Task<IActionResult> SendFeedback()
         {
             SendFeedbackViewModel model =
@@ -30,7 +34,7 @@ namespace RentACar.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(StardardUserRoleName)]
+        [Authorize(Roles = $"{StardardUserRoleName},{ModeratorRoleName},{AdminRoleName}")]
         public async Task<IActionResult> SendFeedback(SendFeedbackViewModel model)
         {
             if (!ModelState.IsValid)
@@ -48,7 +52,22 @@ namespace RentACar.Web.Controllers
                 TempData[SuccessfullMessageString] = SuccessfullAddedFeedback;
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("AllFeedbacks");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AllFeedbacks()
+        {
+            IEnumerable<UserFeedbackDTO> dtos = await customerFeedbackService.GetAllFeedbacks();
+
+            IEnumerable<UserFeedbackViewModel> models = dtos.Select(d => mapperService.Map<UserFeedbackViewModel>(d));
+
+            if (await adminService.IsUserAdmin(User) || await adminService.IsUserModerator(User))
+            {
+                TempData[ShowDeleteOptionString] = true;
+            }
+
+            return View(models);
         }
         
     }
