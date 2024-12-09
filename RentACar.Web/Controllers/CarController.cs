@@ -105,7 +105,5 @@ namespace RentACar.Web.Controllers
 
             return View("ReservationDone", doneModel);
         }
-
-        
     }
 }

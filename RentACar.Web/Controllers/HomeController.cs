@@ -1,7 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using RentACar.Web.Models;
-using System.Diagnostics;
-
 namespace RentACar.Web.Controllers
 {
     public class HomeController : BaseController
@@ -18,15 +15,26 @@ namespace RentACar.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int? statusCode = null)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (statusCode == 404)
+            {
+                return View("Error404");
+            }
+
+            if (statusCode == 401 || statusCode == 403)
+            {
+                return View("Error401");
+            }
+
+            if (statusCode == 500 || statusCode == null) 
+            {
+                return View("Error500");
+            }
+
+            return View();
+
         }
     }
 }

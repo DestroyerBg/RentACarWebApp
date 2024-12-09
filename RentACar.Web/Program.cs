@@ -35,6 +35,9 @@ builder.Services.AddSession(options =>
 
 builder.Services.ConfigureApplicationCookie(opt =>
 {
+    opt.AccessDeniedPath = "/Home/Error/401";
+    opt.LoginPath = "/Account/Login";
+    opt.LogoutPath = "/Account/Logout";
 });
 
 builder.Services.RegisterRepositories();
@@ -51,10 +54,12 @@ WebApplication app = builder.Build();
 app.ApplyMigrations();
 app.SeedDatabase();
 await app.SeedAdminAndRoles();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseExceptionHandler("/Home/Error");
 }
 else
 {
@@ -65,6 +70,8 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
 
 app.UseRouting();
 
@@ -77,6 +84,10 @@ app.MapControllerRoute(
     name: "Areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
 );
+app.MapControllerRoute(
+    name: "Errors",
+    pattern: "{controller=Home}/{action=Index}/{statusCode?}");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
