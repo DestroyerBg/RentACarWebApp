@@ -61,6 +61,26 @@ namespace RentACar.Core.Services
 
         }
 
+        public async Task<IEnumerable<ViewCarDTO>> GetCarsFilteredByPriceAsync(string price)
+        {
+            bool isPriceValid = decimal.TryParse(price, out decimal result);
+
+            if (!isPriceValid)
+            {
+                return null;
+            }
+
+            IEnumerable<ViewCarDTO> dtos = await carRepository
+                .GetAllAttached()
+                .Include(c => c.CarFeatures)
+                .ThenInclude(c => c.Feature)
+                .Where(c => c.PricePerDay <= result)
+                .Select(c => mapperService.Map<Car, ViewCarDTO>(c))
+                .ToListAsync();
+
+            return dtos;
+        }
+
         public async Task<RentACarDTO> ReserveACar(Guid carId)
         {
             Car? car = await carRepository

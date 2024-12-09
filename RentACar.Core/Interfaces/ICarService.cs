@@ -7,6 +7,7 @@ namespace RentACar.Core.Interfaces
     public interface ICarService
     { 
         Task<IEnumerable<ViewCarDTO>> GetCarsAsync();
+        Task<IEnumerable<ViewCarDTO>> GetCarsFilteredByPriceAsync(string price);
         Task<RentACarDTO> ReserveACar(Guid carId);
         Task<ConfirmReservationDTO> CreateReservationConfirmation(CreateReservationDTO reservationDTO);
         Task<AddCarDTO> CreateAddCarDto();

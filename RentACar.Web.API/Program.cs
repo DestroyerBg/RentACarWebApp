@@ -1,13 +1,11 @@
 using RentACar.Core.Services;
 using RentACar.Web.Infrastructure.Extensions;
-using static System.Net.WebRequestMethods;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration
-    .SetBasePath(Directory.GetCurrentDirectory())
+    .SetBasePath(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory())!.FullName, "RentACar.Web"))
     .AddJsonFile("appsettings.json", true)
-    .AddJsonFile("secrets.json", true)
     .AddUserSecrets<Program>();
 // Add services to the container.
 
