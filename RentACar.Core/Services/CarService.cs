@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Drawing.Imaging;
+using System.Globalization;
 using System.Security.Policy;
 using AutoMapper;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -28,6 +29,7 @@ namespace RentACar.Core.Services
         private readonly IRepository<Feature, Guid> featureRepository;
         private readonly IMapper mapperService;
         private readonly IFileService fileService;
+
         public CarService(IRepository<Car, Guid> _carRepository,
             IMapper _mapperService,
             IRepository<InsuranceBenefit, Guid> _insuranceBenefitRepository,
@@ -44,6 +46,7 @@ namespace RentACar.Core.Services
             featureRepository = _featureRepository;
             fileService = _fileService;
         }
+
         public async Task<IEnumerable<ViewCarDTO>> GetCarsAsync()
         {
             IEnumerable<ViewCarDTO> cars = await carRepository
@@ -52,7 +55,7 @@ namespace RentACar.Core.Services
                 .ThenInclude(c => c.Feature)
                 .Select(c => mapperService.Map<Car, ViewCarDTO>(c))
                 .ToListAsync();
-                
+
 
             return cars;
 
@@ -70,11 +73,11 @@ namespace RentACar.Core.Services
                 return null;
             }
 
-            ICollection<InsuranceBenefitDTO> insuranceBenefits = await 
+            ICollection<InsuranceBenefitDTO> insuranceBenefits = await
                 insuranceBenefitRepository
                     .GetAllAttached()
                     .Select(i => mapperService.Map<InsuranceBenefit, InsuranceBenefitDTO>(i))
-                .ToListAsync();
+                    .ToListAsync();
 
             ICollection<LocationDTO> locations = await
                 locationRepository
@@ -300,7 +303,8 @@ namespace RentACar.Core.Services
 
             if (dto.CarImage != null)
             {
-                string newPhotoPath = await fileService.ChangePhotoAsync(dto.CarImage, dto.CarImageUrl, dto.RegistrationNumber);
+                string newPhotoPath =
+                    await fileService.ChangePhotoAsync(dto.CarImage, dto.CarImageUrl, dto.RegistrationNumber);
                 dto.CarImageUrl = newPhotoPath;
             }
 
@@ -329,6 +333,96 @@ namespace RentACar.Core.Services
             return result;
         }
 
+        public async Task<Result> SetCarAsHired(string id)
+        {
+            if (!base.IsValidGuid(id))
+            {
+                return new Result()
+                {
+                    Message = InvalidGuidId,
+                    Success = false
+                };
+            }
+
+            Car? car = await carRepository.GetByIdAsync(Guid.Parse(id));
+
+            if (car == null)
+            {
+                return new Result()
+                {
+                    Message = InvalidCarId,
+                    Success = false
+                };
+            }
+
+            car.IsHired = true;
+
+            try
+            {
+                await carRepository.SaveChangesAsync();
+
+                return new Result()
+                {
+                    Message = CarStatusWasChangedToHired,
+                    Success = true
+                };
+            }
+
+            catch (Exception e)
+            {
+                return new Result()
+                {
+                    Message = CarStatusChangingError,
+                    Success = false
+                };
+            }
+            
+        }
+
+        public async Task<Result> ReleaseCar(string id)
+        {
+            if (!base.IsValidGuid(id))
+            {
+                return new Result()
+                {
+                    Message = InvalidGuidId,
+                    Success = false
+                };
+            }
+
+            Car? car = await carRepository.GetByIdAsync(Guid.Parse(id));
+
+            if (car == null)
+            {
+                return new Result()
+                {
+                    Message = InvalidCarId,
+                    Success = false
+                };
+            }
+
+            car.IsHired = false;
+
+            try
+            {
+                await carRepository.SaveChangesAsync();
+
+                return new Result()
+                {
+                    Message = CarStatusWasChangedТоReleased,
+                    Success = true
+                };
+            }
+
+            catch (Exception e)
+            {
+                return new Result()
+                {
+                    Message = CarStatusChangingError,
+                    Success = false
+                };
+            }
+        }
 
         private async Task<decimal> CalculateTotalPrice(CreateReservationDTO reservationDTO)
         {

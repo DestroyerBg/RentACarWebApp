@@ -61,6 +61,10 @@
 
             public const string ErrorWhenEditCar = "Възникна грешка при записването на промените по колата.";
             public const string EditCarSuccessfull = "Промените са записани успешно.";
+            public const string CarWasHiredAlready = "Колата вече е наета.";
+            public const string CarStatusWasChangedToHired = "Статуса на колата е успешно зададена на \"Наета\"";
+            public const string CarStatusWasChangedТоReleased = "Колата вече не е наета";
+            public const string CarStatusChangingError = "Грешка при смяната на статуса";
         }
 
         public static class Reservation

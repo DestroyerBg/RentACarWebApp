@@ -20,6 +20,8 @@
 
         public decimal PricePerDay { get; set; }
 
+        public bool IsHired { get; set; }
+
         public ICollection<FeatureDTO> Features { get; set; } = new HashSet<FeatureDTO>();
 
     }

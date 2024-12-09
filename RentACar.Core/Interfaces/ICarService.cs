@@ -15,5 +15,9 @@ namespace RentACar.Core.Interfaces
         Task<EditCarDTO> CreateEditCarDto(Guid id);
         Task<ResultWithErrors> EditCarAsync(EditCarDTO dto);
 
+        Task<Result> SetCarAsHired(string id);
+
+        Task<Result> ReleaseCar(string id);
+
     }
 }

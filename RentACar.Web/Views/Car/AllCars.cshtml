@@ -13,7 +13,6 @@
                     <div class="card-content">
                         <h3 class="car-title">@carModel.Brand</h3>
                         <p class="car-subtitle">@carModel.Model</p>
-                        @*<p class="reservation-info">Последно резервирана: преди 2 дни</p>*@
                         <ul class="features-list">
                             @{
                                 foreach (CarFeatureViewModel feature in carModel.Features)
@@ -24,7 +23,16 @@
                         </ul>
                         <p class="fs-5">Цена за наемане за 1 ден</p>
                         <p class="price"> @carModel.PricePerDay лева</p>
-                        <a class="reserve-button" asp-controller="Car" asp-action="RentACar" asp-route-id="@carModel.Id">Резервирай</a>
+                        @{
+                            if (carModel.IsHired)
+                            {
+                                <a class="reserve-button" aria-disabled="true" onclick="PrintError('@CarWasHiredAlready')">Колата вече е наета</a>
+                            }
+                            else
+                            {
+                                <a class="reserve-button" asp-controller="Car" asp-action="RentACar" asp-route-id="@carModel.Id">Резервирай</a>
+                            }
+                        }
                     </div>
                 </div>
             }

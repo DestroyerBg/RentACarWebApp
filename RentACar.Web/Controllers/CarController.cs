@@ -36,6 +36,7 @@ namespace RentACar.Web.Controllers
                 carDtos.Select(car => mapperService.Map<ViewCarsViewModel>(car));
 
             ViewBag.ShowSideMenu = true;
+
             return View(carModels);
         }
 

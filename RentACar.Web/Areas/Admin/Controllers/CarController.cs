@@ -120,5 +120,39 @@ namespace RentACar.Web.Areas.Admin.Controllers
 
             return RedirectToAction("ManageCars" , "Admin");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SetCarAsHired(string id)
+        {
+            Result result = await carService.SetCarAsHired(id);
+
+            if (result.Success)
+            {
+                TempData[SuccessfullMessageString] = result.Message;
+            }
+            else
+            {
+                TempData[ErrorMessageString] = result.Message;
+            }
+
+            return RedirectToAction("ManageCars", "Admin");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ReleaseCar(string id)
+        {
+            Result result = await carService.ReleaseCar(id);
+
+            if (result.Success)
+            {
+                TempData[SuccessfullMessageString] = result.Message;
+            }
+            else
+            {
+                TempData[ErrorMessageString] = result.Message;
+            }
+
+            return RedirectToAction("ManageCars", "Admin");
+        }
     }
 }

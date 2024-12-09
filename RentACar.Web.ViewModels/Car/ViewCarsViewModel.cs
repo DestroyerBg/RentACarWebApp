@@ -20,6 +20,8 @@
 
         public decimal PricePerDay { get; set; }
 
-        public ICollection<CarFeatureViewModel> Features { get; set; } = new HashSet<CarFeatureViewModel>();
+        public bool IsHired { get; set; }
+
+    public ICollection<CarFeatureViewModel> Features { get; set; } = new HashSet<CarFeatureViewModel>();
     }
 }
