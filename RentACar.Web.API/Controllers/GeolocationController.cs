@@ -17,8 +17,8 @@ namespace RentACar.Web.API.Controllers
         }
 
         [HttpGet("geocode")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string),StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Geocode(string address)
         {
             string apiKey = stringProvider.GetGeolocationApiKey();

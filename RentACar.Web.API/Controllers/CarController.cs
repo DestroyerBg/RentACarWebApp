@@ -14,6 +14,9 @@ namespace RentACar.Web.API.Controllers
             carService = _carService;
         }
         [HttpPost("FilterCarsByPrice")]
+        [ProducesResponseType(typeof(IEnumerable<ViewCarDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> FilterCarsByPrice([FromBody] FilterPrice? price)
         {
             IEnumerable<ViewCarDTO>? dtos = await carService.GetCarsFilteredByPriceAsync(price.Price);
