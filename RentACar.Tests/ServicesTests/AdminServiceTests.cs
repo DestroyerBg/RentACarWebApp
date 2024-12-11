@@ -13,6 +13,7 @@ using RentACar.DTO.Role;
 using RentACar.DTO.User;
 using RentACar.Tests.Helpers;
 using System.Security.Claims;
+using RentACar.DTO.Result;
 
 namespace RentACar.Tests.ServicesTests
 {
@@ -152,7 +153,7 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task GetReservationsInformation_ShouldReturnMappedManageReservationDTOs()
         {
-            var mockReservations = new List<Reservation>
+            IQueryable<Reservation> mockReservations = new List<Reservation>
     {
         new Reservation
         {
@@ -170,7 +171,7 @@ namespace RentACar.Tests.ServicesTests
         }
     }.AsAsyncQueryable();
 
-            var mockReservationDbSet = new Mock<DbSet<Reservation>>();
+            Mock<DbSet<Reservation>> mockReservationDbSet = new Mock<DbSet<Reservation>>();
 
             mockReservationDbSet.As<IQueryable<Reservation>>().Setup(m => m.Provider).Returns(mockReservations.Provider);
             mockReservationDbSet.As<IQueryable<Reservation>>().Setup(m => m.Expression).Returns(mockReservations.Expression);
@@ -188,7 +189,7 @@ namespace RentACar.Tests.ServicesTests
                     TotalPrice = source.TotalPrice
                 });
 
-            var service = new AdminService(
+            AdminService service = new AdminService(
                 mockUserManager.Object,
                 mockRoleManager.Object,
                 mockContext.Object,
@@ -196,17 +197,17 @@ namespace RentACar.Tests.ServicesTests
                 mockReservationRepository.Object,
                 mockMapper.Object);
 
-            var result = await service.GetReservationsInformation();
+            IEnumerable<ManageReservationDTO> result = await service.GetReservationsInformation();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(2, result.Count());
 
-            var firstReservation = result.FirstOrDefault(r => r.AccountUsername == "user1");
+            ManageReservationDTO? firstReservation = result.FirstOrDefault(r => r.AccountUsername == "user1");
             Assert.IsNotNull(firstReservation);
             Assert.AreEqual("BMW X5", firstReservation.CarBrandAndModel);
             Assert.AreEqual(100m, firstReservation.TotalPrice);
 
-            var secondReservation = result.FirstOrDefault(r => r.AccountUsername == "user2");
+            ManageReservationDTO? secondReservation = result.FirstOrDefault(r => r.AccountUsername == "user2");
             Assert.IsNotNull(secondReservation);
             Assert.AreEqual("Audi Q7", secondReservation.CarBrandAndModel);
             Assert.AreEqual(150m, secondReservation.TotalPrice);
@@ -218,8 +219,8 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task IsUserAdmin_ShouldReturnTrue_WhenUserIsAdmin()
         {
-            var claimPrincipal = new ClaimsPrincipal();
-            var user = new ApplicationUser { Id = Guid.NewGuid(), UserName = "adminUser" };
+            ClaimsPrincipal claimPrincipal = new ClaimsPrincipal();
+            ApplicationUser user = new ApplicationUser { Id = Guid.NewGuid(), UserName = "adminUser" };
 
             mockUserManager.Setup(m => m.GetUserAsync(claimPrincipal))
                 .ReturnsAsync(user);
@@ -227,7 +228,7 @@ namespace RentACar.Tests.ServicesTests
             mockUserManager.Setup(m => m.IsInRoleAsync(user, "Admin"))
                 .ReturnsAsync(true);
 
-            var result = await adminService.IsUserAdmin(claimPrincipal);
+            bool result = await adminService.IsUserAdmin(claimPrincipal);
 
             Assert.IsTrue(result);
             mockUserManager.Verify(m => m.GetUserAsync(claimPrincipal), Times.Once);
@@ -237,13 +238,13 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task IsUserAdmin_ShouldReturnFalse_WhenUserIsNull()
         {
-            var claimPrincipal = new ClaimsPrincipal();
+            ClaimsPrincipal claimPrincipal = new ClaimsPrincipal();
 
             mockUserManager.Setup(m => m.GetUserAsync(claimPrincipal))
                 .ReturnsAsync((ApplicationUser)null);
 
             
-            var result = await adminService.IsUserAdmin(claimPrincipal);
+            bool result = await adminService.IsUserAdmin(claimPrincipal);
 
             Assert.IsFalse(result);
             mockUserManager.Verify(m => m.GetUserAsync(claimPrincipal), Times.Once);
@@ -253,8 +254,8 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task IsUserAdmin_ShouldReturnFalse_WhenUserIsNotAdmin()
         {
-            var claimPrincipal = new ClaimsPrincipal();
-            var user = new ApplicationUser { Id = Guid.NewGuid(), UserName = "regularUser" };
+            ClaimsPrincipal claimPrincipal = new ClaimsPrincipal();
+            ApplicationUser user = new ApplicationUser { Id = Guid.NewGuid(), UserName = "regularUser" };
 
             mockUserManager.Setup(m => m.GetUserAsync(claimPrincipal))
                 .ReturnsAsync(user);
@@ -262,7 +263,7 @@ namespace RentACar.Tests.ServicesTests
             mockUserManager.Setup(m => m.IsInRoleAsync(user, "Admin"))
                 .ReturnsAsync(false);
 
-            var result = await adminService.IsUserAdmin(claimPrincipal);
+            bool result = await adminService.IsUserAdmin(claimPrincipal);
 
             Assert.IsFalse(result);
             mockUserManager.Verify(m => m.GetUserAsync(claimPrincipal), Times.Once);
@@ -272,13 +273,13 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task IsUserModerator_ShouldReturnTrue_WhenUserIsModerator()
         {
-            var user = new ApplicationUser();
-            var claimsPrincipal = new ClaimsPrincipal();
+            ApplicationUser user = new ApplicationUser();
+            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal();
 
             mockUserManager.Setup(m => m.GetUserAsync(claimsPrincipal)).ReturnsAsync(user);
             mockUserManager.Setup(m => m.IsInRoleAsync(user, "Moderator")).ReturnsAsync(true);
 
-            var result = await adminService.IsUserModerator(claimsPrincipal);
+            bool result = await adminService.IsUserModerator(claimsPrincipal);
 
             Assert.IsTrue(result);
             mockUserManager.Verify(m => m.GetUserAsync(claimsPrincipal), Times.Once);
@@ -288,11 +289,11 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task IsUserModerator_ShouldReturnFalse_WhenUserIsNull()
         {
-            var claimsPrincipal = new ClaimsPrincipal();
+            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal();
 
             mockUserManager.Setup(m => m.GetUserAsync(claimsPrincipal)).ReturnsAsync((ApplicationUser)null);
 
-            var result = await adminService.IsUserModerator(claimsPrincipal);
+            bool result = await adminService.IsUserModerator(claimsPrincipal);
 
             Assert.IsFalse(result);
             mockUserManager.Verify(m => m.GetUserAsync(claimsPrincipal), Times.Once);
@@ -302,13 +303,13 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task IsUserModerator_ShouldReturnFalse_WhenUserIsNotModerator()
         {
-            var user = new ApplicationUser();
-            var claimsPrincipal = new ClaimsPrincipal();
+            ApplicationUser user = new ApplicationUser();
+            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal();
 
             mockUserManager.Setup(m => m.GetUserAsync(claimsPrincipal)).ReturnsAsync(user);
             mockUserManager.Setup(m => m.IsInRoleAsync(user, "Moderator")).ReturnsAsync(false);
 
-            var result = await adminService.IsUserModerator(claimsPrincipal);
+            bool result = await adminService.IsUserModerator(claimsPrincipal);
 
             Assert.IsFalse(result);
             mockUserManager.Verify(m => m.GetUserAsync(claimsPrincipal), Times.Once);
@@ -318,10 +319,10 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task SetRoleToUser_ShouldReturnInvalidGuidResult_WhenUserIdIsInvalid()
         {
-            var dto = new SetRoleDTO { UserId = "invalid-guid", RoleName = "Admin" };
-            var claim = new ClaimsPrincipal();
+            SetRoleDTO dto = new SetRoleDTO { UserId = "invalid-guid", RoleName = "Admin" };
+            ClaimsPrincipal claim = new ClaimsPrincipal();
 
-            var result = await adminService.SetRoleToUser(dto, claim);
+            Result result = await adminService.SetRoleToUser(dto, claim);
 
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Невалидно Id", result.Message);
@@ -330,12 +331,12 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task SetRoleToUser_ShouldReturnInvalidUserIdResult_WhenUserNotFound()
         {
-            var dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "Admin" };
-            var claim = new ClaimsPrincipal();
+            SetRoleDTO dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "Admin" };
+            ClaimsPrincipal claim = new ClaimsPrincipal();
 
             mockUserManager.Setup(m => m.FindByIdAsync(dto.UserId)).ReturnsAsync((ApplicationUser)null);
 
-            var result = await adminService.SetRoleToUser(dto, claim);
+            Result result = await adminService.SetRoleToUser(dto, claim);
 
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Няма потребител с това Id", result.Message);
@@ -344,14 +345,14 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task SetRoleToUser_ShouldReturnInvalidRoleIdResult_WhenRoleNotFound()
         {
-            var dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "InvalidRole" };
-            var claim = new ClaimsPrincipal();
-            var user = new ApplicationUser();
+            SetRoleDTO dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "InvalidRole" };
+            ClaimsPrincipal claim = new ClaimsPrincipal();
+            ApplicationUser user = new ApplicationUser();
 
             mockUserManager.Setup(m => m.FindByIdAsync(dto.UserId)).ReturnsAsync(user);
             mockRoleManager.Setup(m => m.FindByNameAsync(dto.RoleName)).ReturnsAsync((IdentityRole<Guid>)null);
 
-            var result = await adminService.SetRoleToUser(dto, claim);
+            Result result = await adminService.SetRoleToUser(dto, claim);
 
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Няма роля с това Id", result.Message);
@@ -360,16 +361,16 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task SetRoleToUser_ShouldReturnCannotModifyOwnRoleResult_WhenModifyingOwnRole()
         {
-            var dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "Admin" };
-            var claim = new ClaimsPrincipal();
-            var user = new ApplicationUser();
-            var role = new IdentityRole<Guid>();
+            SetRoleDTO dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "Admin" };
+            ClaimsPrincipal claim = new ClaimsPrincipal();
+            ApplicationUser user = new ApplicationUser();
+            IdentityRole<Guid> role = new IdentityRole<Guid>();
 
             mockUserManager.Setup(m => m.FindByIdAsync(dto.UserId)).ReturnsAsync(user);
             mockRoleManager.Setup(m => m.FindByNameAsync(dto.RoleName)).ReturnsAsync(role);
             mockUserManager.Setup(m => m.GetUserAsync(claim)).ReturnsAsync(user);
 
-            var result = await adminService.SetRoleToUser(dto, claim);
+            Result result = await adminService.SetRoleToUser(dto, claim);
 
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Не може да пипаш нищо по своя акаунт.", result.Message);
@@ -378,14 +379,14 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task SetRoleToUser_ShouldReturnCannotModifySuperAdmin_WhenUserHasSuperAdminClaim()
         {
-            var dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "Admin" };
-            var claim = new ClaimsPrincipal(new ClaimsIdentity(new[]
+            SetRoleDTO dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "Admin" };
+            ClaimsPrincipal claim = new ClaimsPrincipal(new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString())
             }));
 
-            var user = new ApplicationUser();
-            var role = new IdentityRole<Guid> { Name = "Admin" };
+            ApplicationUser user = new ApplicationUser();
+            IdentityRole<Guid> role = new IdentityRole<Guid> { Name = "Admin" };
 
             mockUserManager.Setup(m => m.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(user);
             mockUserManager.Setup(m => m.GetClaimsAsync(user)).ReturnsAsync(new List<Claim>
@@ -398,7 +399,7 @@ namespace RentACar.Tests.ServicesTests
             mockUserManager.Setup(m => m.AddToRoleAsync(user, role.Name)).ReturnsAsync(IdentityResult.Success);
 
             
-            var result = await adminService.SetRoleToUser(dto, claim);
+            Result result = await adminService.SetRoleToUser(dto, claim);
 
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Не може да пипаш нищо по своя акаунт.", result.Message);
@@ -408,10 +409,10 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task DeleteRoleFromUser_ShouldReturnInvalidGuidResult_WhenUserIdIsInvalid()
         {
-            var dto = new SetRoleDTO { UserId = "invalid-guid", RoleName = "Admin" };
-            var claim = new ClaimsPrincipal();
+            SetRoleDTO dto = new SetRoleDTO { UserId = "invalid-guid", RoleName = "Admin" };
+            ClaimsPrincipal claim = new ClaimsPrincipal();
 
-            var result = await adminService.DeleteRoleFromUser(dto, claim);
+            Result result = await adminService.DeleteRoleFromUser(dto, claim);
 
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Невалидно Id", result.Message);
@@ -420,13 +421,13 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task DeleteRoleFromUser_ShouldReturnCannotModifyOwnRole_WhenModifyingOwnRole()
         {
-            var dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "Admin" };
-            var claim = new ClaimsPrincipal(new ClaimsIdentity(new[]
+            SetRoleDTO dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "Admin" };
+            ClaimsPrincipal claim = new ClaimsPrincipal(new ClaimsIdentity(new[]
             {
             new Claim(ClaimTypes.NameIdentifier, dto.UserId)
         }));
 
-            var result = await adminService.DeleteRoleFromUser(dto, claim);
+            Result result = await adminService.DeleteRoleFromUser(dto, claim);
 
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Не може да пипаш нищо по своя акаунт.", result.Message);
@@ -435,13 +436,13 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task DeleteRoleFromUser_ShouldReturnInvalidUserIdResult_WhenUserNotFound()
         {
-            var dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "Admin" };
-            var claim = new ClaimsPrincipal();
+            SetRoleDTO dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "Admin" };
+            ClaimsPrincipal claim = new ClaimsPrincipal();
 
             mockUserManager.Setup(m => m.GetUserAsync(claim)).ReturnsAsync(new ApplicationUser { Id = Guid.NewGuid() });
             mockUserManager.Setup(m => m.FindByIdAsync(dto.UserId)).ReturnsAsync((ApplicationUser)null);
 
-            var result = await adminService.DeleteRoleFromUser(dto, claim);
+            Result result = await adminService.DeleteRoleFromUser(dto, claim);
 
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Няма потребител с това Id", result.Message);
@@ -451,15 +452,15 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task DeleteRoleFromUser_ShouldReturnInvalidRoleIdResult_WhenRoleNotFound()
         {
-            var dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "InvalidRole" };
-            var claim = new ClaimsPrincipal();
-            var user = new ApplicationUser();
+            SetRoleDTO dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "InvalidRole" };
+            ClaimsPrincipal claim = new ClaimsPrincipal();
+            ApplicationUser user = new ApplicationUser();
 
             mockUserManager.Setup(m => m.FindByIdAsync(dto.UserId)).ReturnsAsync(user);
             mockUserManager.Setup(m => m.GetClaimsAsync(user)).ReturnsAsync(new List<Claim>());
             mockRoleManager.Setup(m => m.FindByNameAsync(dto.RoleName)).ReturnsAsync((IdentityRole<Guid>)null);
 
-            var result = await adminService.DeleteRoleFromUser(dto, claim);
+            Result result = await adminService.DeleteRoleFromUser(dto, claim);
 
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Няма роля с това Id", result.Message);
@@ -468,17 +469,17 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task DeleteRoleFromUser_ShouldReturnSuccessResult_WhenRoleRemovedSuccessfully()
         {
-            var dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "Admin" };
-            var claim = new ClaimsPrincipal();
-            var user = new ApplicationUser();
-            var role = new IdentityRole<Guid> { Name = "Admin" };
+            SetRoleDTO dto = new SetRoleDTO { UserId = Guid.NewGuid().ToString(), RoleName = "Admin" };
+            ClaimsPrincipal claim = new ClaimsPrincipal();
+            ApplicationUser user = new ApplicationUser();
+            IdentityRole<Guid> role = new IdentityRole<Guid> { Name = "Admin" };
 
             mockUserManager.Setup(m => m.FindByIdAsync(dto.UserId)).ReturnsAsync(user);
             mockUserManager.Setup(m => m.GetClaimsAsync(user)).ReturnsAsync(new List<Claim>());
             mockRoleManager.Setup(m => m.FindByNameAsync(dto.RoleName)).ReturnsAsync(role);
             mockUserManager.Setup(m => m.RemoveFromRoleAsync(user, dto.RoleName)).ReturnsAsync(IdentityResult.Success);
 
-            var result = await adminService.DeleteRoleFromUser(dto, claim);
+            Result result = await adminService.DeleteRoleFromUser(dto, claim);
 
             Assert.IsTrue(result.Success);
             Assert.AreEqual("Successfull", result.Message);
@@ -489,10 +490,10 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task DeleteUser_ShouldReturnInvalidGuidResult_WhenIdIsInvalid()
         {
-            var dto = new DeleteUserDTO { Id = "invalid-guid" };
-            var claim = new ClaimsPrincipal();
+            DeleteUserDTO dto = new DeleteUserDTO { Id = "invalid-guid" };
+            ClaimsPrincipal claim = new ClaimsPrincipal();
 
-            var result = await adminService.DeleteUser(dto, claim);
+            Result result = await adminService.DeleteUser(dto, claim);
 
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Невалидно Id", result.Message);
@@ -501,13 +502,13 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task DeleteUser_ShouldReturnCannotModifyOwnRole_WhenModifyingOwnRole()
         {
-            var dto = new DeleteUserDTO() { Id = Guid.NewGuid().ToString()};
-            var claim = new ClaimsPrincipal(new ClaimsIdentity(new[]
+            DeleteUserDTO dto = new DeleteUserDTO() { Id = Guid.NewGuid().ToString()};
+            ClaimsPrincipal claim = new ClaimsPrincipal(new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, dto.Id)
             }));
 
-            var result = await adminService.DeleteUser(dto, claim);
+            Result result = await adminService.DeleteUser(dto, claim);
 
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Не може да пипаш нищо по своя акаунт.", result.Message);
@@ -516,16 +517,16 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task DeleteUser_ShouldReturnSuccess_WhenUserDeletedSuccessfully()
         {
-            var dto = new DeleteUserDTO { Id = Guid.NewGuid().ToString() };
-            var claim = new ClaimsPrincipal();
-            var user = new ApplicationUser { Id = Guid.NewGuid() };
+            DeleteUserDTO dto = new DeleteUserDTO { Id = Guid.NewGuid().ToString() };
+            ClaimsPrincipal claim = new ClaimsPrincipal();
+            ApplicationUser user = new ApplicationUser { Id = Guid.NewGuid() };
 
             mockUserManager.Setup(m => m.FindByIdAsync(dto.Id)).ReturnsAsync(user);
             mockUserManager.Setup(m => m.GetClaimsAsync(user)).ReturnsAsync(new List<Claim>());
 
             mockContext.Setup(m => m.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
 
-            var result = await adminService.DeleteUser(dto, claim);
+            Result result = await adminService.DeleteUser(dto, claim);
 
             Assert.IsTrue(result.Success);
             Assert.AreEqual("Successfull", result.Message);
@@ -534,16 +535,16 @@ namespace RentACar.Tests.ServicesTests
         [Test]
         public async Task DeleteUser_ShouldReturnErrorWhenDeletingUser_WhenExceptionThrown()
         {
-            var dto = new DeleteUserDTO { Id = Guid.NewGuid().ToString() };
-            var claim = new ClaimsPrincipal();
-            var user = new ApplicationUser { Id = Guid.NewGuid() };
+            DeleteUserDTO dto = new DeleteUserDTO { Id = Guid.NewGuid().ToString() };
+            ClaimsPrincipal claim = new ClaimsPrincipal();
+            ApplicationUser user = new ApplicationUser { Id = Guid.NewGuid() };
 
             mockUserManager.Setup(m => m.FindByIdAsync(dto.Id)).ReturnsAsync(user);
             mockUserManager.Setup(m => m.GetClaimsAsync(user)).ReturnsAsync(new List<Claim>());
 
             mockContext.Setup(m => m.SaveChangesAsync(It.IsAny<CancellationToken>())).ThrowsAsync(new Exception());
 
-            var result = await adminService.DeleteUser(dto, claim);
+            Result result = await adminService.DeleteUser(dto, claim);
 
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Възникна грешка при изтриването на потребителя.", result.Message);
