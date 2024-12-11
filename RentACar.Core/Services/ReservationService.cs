@@ -31,11 +31,16 @@ namespace RentACar.Core.Services
             await reservationRepository.AddAsync(reservation);
 
             Car? car = await carRepository.GetByIdAsync(Guid.Parse(dto.CarId));
-            car.IsHired = true;
 
             car.Reservations.Add(reservation);
+
             bool isCompleted = await reservationRepository.SaveChangesAsync();
 
+            if (isCompleted == true)
+            {
+                car.IsHired = true;
+            }
+            
             return isCompleted;
         }
 

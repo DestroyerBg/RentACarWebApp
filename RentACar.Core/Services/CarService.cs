@@ -1,11 +1,9 @@
-﻿using System.Drawing.Imaging;
-using System.Globalization;
-using System.Security.Policy;
+﻿using System.Globalization;
 using AutoMapper;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Core.Interfaces;
+using RentACar.Data;
 using RentACar.Data.Models;
 using RentACar.Data.Repository.Interfaces;
 using RentACar.DTO.Car;

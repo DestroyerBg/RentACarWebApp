@@ -2,7 +2,7 @@
 {
     public class BaseService
     {
-        public bool IsValidGuid(string input)
+        public virtual bool IsValidGuid(string input)
         {
             bool isValid = Guid.TryParse(input, out Guid result);
 

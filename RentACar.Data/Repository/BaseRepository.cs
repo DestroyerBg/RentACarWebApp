@@ -1,7 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.Extensions.Logging;
 using RentACar.Data.Models.Interfaces;
 using RentACar.Data.Repository.Interfaces;
 
@@ -12,14 +11,11 @@ namespace RentACar.Data.Repository
     {
         private readonly RentACarDbContext dbContext;
         private readonly DbSet<TType> dbSet;
-        private readonly ILogger<BaseRepository<TType, TId>> logger;
 
-        public BaseRepository(RentACarDbContext _dbContext, 
-            ILogger<BaseRepository<TType, TId>> _logger)
+        public BaseRepository(RentACarDbContext _dbContext)
         {
             dbContext = _dbContext;
             dbSet = dbContext.Set<TType>();
-            logger = _logger;
         }
         public virtual async Task<TType> GetByIdAsync(TId id)
         {
@@ -80,7 +76,6 @@ namespace RentACar.Data.Repository
             }
             catch (Exception e)
             {
-                logger.LogError(e.Message);
                 return false;
             }
         }
@@ -98,7 +93,6 @@ namespace RentACar.Data.Repository
             }
             catch (Exception e)
             {
-                logger.LogError(e.Message);
                 return false;
             }
         }
@@ -112,7 +106,6 @@ namespace RentACar.Data.Repository
             }
             catch (Exception e)
             {
-                logger.LogError(e.Message);
                 return false;
             }
 

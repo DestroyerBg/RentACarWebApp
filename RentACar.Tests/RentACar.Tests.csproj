@@ -16,13 +16,16 @@
     <PackageReference Include="MockQueryable.Core" Version="7.0.3" />
     <PackageReference Include="MockQueryable.Moq" Version="7.0.3" />
     <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="Moq.EntityFrameworkCore" Version="8.0.1.2" />
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="NUnit.Analyzers" Version="3.9.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RentACar.Common\RentACar.Common.csproj" />
+    <ProjectReference Include="..\RentACar.Core.Infrastructure\RentACar.Core.Infrastructure.csproj" />
     <ProjectReference Include="..\RentACar.Core\RentACar.Core.csproj" />
     <ProjectReference Include="..\RentACar.Data\RentACar.Data.csproj" />
   </ItemGroup>
