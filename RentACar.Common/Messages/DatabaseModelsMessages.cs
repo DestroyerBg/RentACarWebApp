@@ -40,7 +40,7 @@
             public const string RegistrationSuccess = "Регистрацията е успешна";
             public const string InvalidUserId = "Няма потребител с това Id";
             public const string InvalidRoleId = "Няма роля с това Id";
-            public const string CannotModifyYourselfARoleRestrictionMessage = "Не може да нищо по своя акаунт.";
+            public const string CannotModifyYourselfARoleRestrictionMessage = "Не може да пипаш нищо по своя акаунт.";
             public const string CannotSetOtherUsersAdminRole = "Не може да задаваш админски роли на други потребители";
             public const string ErrorWhenAddingRoles = "Възникна грешка при задаването на ролята.";
             public const string ErrorWhenDeletingRoles = "Възникна грешка при премахването на ролята от потребителя.";
