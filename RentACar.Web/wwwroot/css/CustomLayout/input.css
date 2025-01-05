@@ -232,7 +232,7 @@
     background-color: #888;
 }
 
-.form-select:focus {
+.form-select:focus:not(.modal .form-select) {
     color: #ff9800;
     border-color: #ff9800;
     outline: none;
