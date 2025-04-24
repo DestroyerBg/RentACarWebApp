@@ -11,9 +11,14 @@ namespace RentACar.Core.Services
         {
             configuration = _configuration;
         }
-        public string GetConnectionString()
+        public string? GetConnectionString()
         {
-            string? connectionString = configuration.GetConnectionString("Development");
+            string? connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                connectionString = configuration.GetConnectionString("Development");
+            }
 
             return connectionString;
         }
