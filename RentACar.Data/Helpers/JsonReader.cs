@@ -14,7 +14,7 @@
             catch (Exception e)
             {
                 solutionRoot = AppContext.BaseDirectory;
-                filePath = Path.Combine(solutionRoot, "Seeder", "JSON", jsonFileName);
+                filePath = Path.Combine(solutionRoot, jsonFileName);
                 jsonContent = File.ReadAllText(filePath);
                 return jsonContent;
             }
