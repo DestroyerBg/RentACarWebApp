@@ -42,4 +42,17 @@
   </Content>
 </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="..\RentACar.Data\Seeder\JSON\Admin.json" />
+    <Content Remove="..\RentACar.Data\Seeder\JSON\CarFeatures.json" />
+    <Content Remove="..\RentACar.Data\Seeder\JSON\Cars.json" />
+    <Content Remove="..\RentACar.Data\Seeder\JSON\Categories.json" />
+    <Content Remove="..\RentACar.Data\Seeder\JSON\Features.json" />
+    <Content Remove="..\RentACar.Data\Seeder\JSON\InsuranceBenefits.json" />
+    <Content Remove="..\RentACar.Data\Seeder\JSON\Locations.json" />
+    <Content Remove="..\RentACar.Data\Seeder\JSON\Moderator.json" />
+    <Content Remove="..\RentACar.Data\Seeder\JSON\Roles.json" />
+    <Content Remove="..\RentACar.Data\Seeder\JSON\User.json" />
+  </ItemGroup>
+
 </Project>

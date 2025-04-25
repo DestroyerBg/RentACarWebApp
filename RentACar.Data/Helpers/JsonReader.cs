@@ -12,13 +12,12 @@
                 return File.ReadAllText(filePath);
             }
 
-            string localJsonPath = Path.Combine(
-                Directory.GetCurrentDirectory(), 
-                "RentACar.Data", "Seeder", "JSON", jsonFileName
-            );
-            if (File.Exists(localJsonPath))
+            string solutionRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".."));
+            filePath = Path.Combine(solutionRoot, "RentACar.Data", "Seeder", "JSON", jsonFileName);
+
+            if (File.Exists(filePath))
             {
-                return File.ReadAllText(localJsonPath);
+                return File.ReadAllText(filePath);
             }
 
             throw new FileNotFoundException(
