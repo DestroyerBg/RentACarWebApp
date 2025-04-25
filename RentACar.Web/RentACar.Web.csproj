@@ -37,7 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-  <Content Include="..\RentACar.Data\Seeder\JSON\**\*.*">
+  <Content Include="..\RentACar.Data\Seeder\JSON\**\*.json">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </Content>
 </ItemGroup>
