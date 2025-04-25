@@ -4,25 +4,27 @@
     {
         public static string ReadJson(string jsonFileName)
         {
-            string solutionRoot = string.Empty;
-            string filePath = string.Empty;
-            string jsonContent = string.Empty;
-            try
-            { 
-                solutionRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".."));
-            }
-            catch (Exception e)
+            string filePath;
+
+            filePath = Path.Combine(AppContext.BaseDirectory, jsonFileName);
+            if (File.Exists(filePath))
             {
-                solutionRoot = AppContext.BaseDirectory;
-                filePath = Path.Combine(solutionRoot, "site", "wwwroot", jsonFileName);
-                jsonContent = File.ReadAllText(filePath);
-                return jsonContent;
+                Console.WriteLine($"[INFO] JSON found (Azure): {filePath}");
+                return File.ReadAllText(filePath);
             }
 
-            filePath = Path.Combine(solutionRoot, "RentACar.Data", "Seeder", "JSON", jsonFileName);
-            jsonContent = File.ReadAllText(filePath);
+            string localJsonPath = Path.Combine(
+                Directory.GetCurrentDirectory(), 
+                "RentACar.Data", "Seeder", "JSON", jsonFileName
+            );
+            if (File.Exists(localJsonPath))
+            {
+                Console.WriteLine($"[INFO] JSON found (Local): {localJsonPath}");
+                return File.ReadAllText(localJsonPath);
+            }
 
-            return jsonContent;
+            throw new FileNotFoundException(
+                $"JSON файлът '{jsonFileName}' не беше намерен нито в wwwroot, нито в локалния проект.");
         }
 
     }
