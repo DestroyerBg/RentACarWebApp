@@ -9,7 +9,6 @@
             filePath = Path.Combine(AppContext.BaseDirectory, jsonFileName);
             if (File.Exists(filePath))
             {
-                Console.WriteLine($"[INFO] JSON found (Azure): {filePath}");
                 return File.ReadAllText(filePath);
             }
 
@@ -19,7 +18,6 @@
             );
             if (File.Exists(localJsonPath))
             {
-                Console.WriteLine($"[INFO] JSON found (Local): {localJsonPath}");
                 return File.ReadAllText(localJsonPath);
             }
 
