@@ -36,4 +36,10 @@
     <ProjectReference Include="..\RentACar.Web.ViewModels\RentACar.Web.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+  <Content Include="..\RentACar.Data\Seeder\JSON\**\*.*">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
+</ItemGroup>
+
 </Project>
