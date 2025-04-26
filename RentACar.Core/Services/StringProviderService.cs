@@ -17,6 +17,7 @@ namespace RentACar.Core.Services
 
             if (string.IsNullOrEmpty(connectionString))
             {
+                Console.WriteLine("ne namerih stringa");
                 connectionString = configuration.GetConnectionString("Development");
             }
 
