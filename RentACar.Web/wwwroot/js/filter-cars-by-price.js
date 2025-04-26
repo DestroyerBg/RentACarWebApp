@@ -1,10 +1,10 @@
 ﻿import { API_URL } from './config.js';
 
-window.updatePriceDisplay = updatePriceDisplay;
-
-function updatePriceDisplay(value) {
-    document.getElementById('priceValue').textContent = 'Максимална цена ' + value + ' лв.';
-}
+const priceRangeInput = document.getElementById('priceRange');
+priceRangeInput.addEventListener('input', (event) => {
+    const value = event.target.value;
+    document.getElementById('priceValue').textContent = `Максимална цена ${value} лв.`;
+});
 
 document.getElementById('filterForm').addEventListener('submit', function (event) {
     event.preventDefault();

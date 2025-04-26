@@ -20,7 +20,11 @@
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.API_URL = "@(Environment.GetEnvironmentVariable("API_URL") ?? "https://localhost:7027")";
+    </script>
     <script type="module" src="~/js/config.js" asp-append-version="true"></script>
+   
 </head>
 <body>
     <header>
@@ -116,6 +120,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/navbar.js" asp-append-version="true"></script>
     <script src="~/js/alert.js" asp-append-version="true"></script>
+    <script type="module" src="~/js/filter-cars-by-price.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
         window.onload = function () {

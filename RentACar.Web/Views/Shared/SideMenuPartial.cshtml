@@ -3,7 +3,7 @@
     <form id="filterForm">
         <div class="form-group">
             <label for="priceRange" class="form-label">Цена (лв.):</label>
-            <input type="range" class="form-range" id="priceRange" name="price" min="20" max="500" step="10" oninput="updatePriceDisplay(this.value)">
+            <input type="range" class="form-range" id="priceRange" name="price" min="20" max="500" step="10">
             <div class="d-flex justify-content-between">
                 <span>0 лв.</span>
                 <span>1000 лв.</span>
@@ -14,4 +14,3 @@
     </form>
 </div>
 
-<script src="~/js/filter-cars-by-price.js" type="module" asp-append-version="true"></script>
