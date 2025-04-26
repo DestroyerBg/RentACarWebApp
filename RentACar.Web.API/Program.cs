@@ -3,11 +3,7 @@ using RentACar.Web.Infrastructure.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration
-    .SetBasePath(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory())!.FullName, "RentACar.Web"))
-    .AddJsonFile("appsettings.json", true)
-    .AddUserSecrets<Program>();
-// Add services to the container.
+builder.ConfigureAPIConfiguration();
 
 builder.Services.AddCors(options =>
 {

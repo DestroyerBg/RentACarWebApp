@@ -52,6 +52,27 @@ namespace RentACar.Web.Infrastructure.Extensions
             return builder;
         }
 
+        public static WebApplicationBuilder ConfigureAPIConfiguration(this WebApplicationBuilder builder)
+        {
+            try
+            {
+                string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory())!.FullName,
+                    "RentACar.Web");
+
+                builder.Configuration
+                    .SetBasePath(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory())!.FullName,
+                        "RentACar.Web"))
+                    .AddJsonFile("appsettings.json", true);
+
+                return builder;
+
+            }
+            catch (Exception e)
+            {
+               return builder;
+            }
+        }
+
         private static void ConfigureIdentity(IdentityOptions options, IConfigurationSection configurationSettings)
         {
             //Password
