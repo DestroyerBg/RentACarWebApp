@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using RentACar.Core.Infrastructure.GenericTypes;
 using RentACar.Core.Interfaces;
 using static RentACar.Common.Messages.ErrorMessages.GeolocationErrorMessages;
 namespace RentACar.Web.API.Controllers
@@ -16,32 +18,21 @@ namespace RentACar.Web.API.Controllers
             stringProvider = _stringProvider;
         }
 
-        [HttpGet("geocode")]
-        [ProducesResponseType(typeof(string),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string),StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Geocode(string address)
-        {
-            string apiKey = stringProvider.GetGeolocationApiKey();
-            string? result = await locationService.GeocodeAsync(address, apiKey);
-            if (string.IsNullOrEmpty(result))
-            {
-                return NotFound(EmptyAddressGiven);
-            }
-            return Ok(result);
-        }
-
         [HttpGet("reverse-geocode")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]
         public async Task<IActionResult> ReverseGeocode(double latitude, double longitude)
-        {
-            string apiKey = stringProvider.GetGeolocationApiKey();
-            string? result = await locationService.ReverseGeocodeAsync(latitude, longitude, apiKey);
-            if (string.IsNullOrEmpty(result))
+        { 
+            HttpResponseServiceResult<string> result = await locationService.ReverseGeocodeAsync(latitude, longitude);
+
+            if (result.StatusCode != HttpStatusCode.OK)
             {
-                return NotFound(DidNotFindInforForCordinates);
+               return StatusCode((int)result.StatusCode, String.Format(ErrorWithExternalServiceForGeolocation, result.StatusCode));
             }
-            return Ok(result);
+
+            return Ok(result.Data);
         }
 
 

@@ -23,10 +23,10 @@ function GetLocation() {
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
-                    return response.text(); 
+                    return response.json(); 
                 })
                 .then((data) => {
-                    const formattedAddress = data || "Адресът не може да бъде намерен.";
+                    const formattedAddress = data.display_name || "Адресът не може да бъде намерен.";
                     const addressInput = document.getElementById('addressInput');
                     if (addressInput) {
                         addressInput.value = formattedAddress;

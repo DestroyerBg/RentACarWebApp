@@ -1,50 +1,34 @@
-﻿using System.Text.Json;
+﻿using System.Net;
+using RentACar.Core.Infrastructure.GenericTypes;
 using RentACar.Core.Interfaces;
-using RentACar.DTO.Location;
+using static RentACar.Common.Messages.ErrorMessages.GeolocationErrorMessages;
 
 namespace RentACar.Core.Services
 {
-    public class LocationService : BaseService, ILocationService
+    public class LocationService : ILocationService
     {
         private readonly HttpClient httpClient;
-        private readonly IStringProvider stringProvider;
-
-        public LocationService(HttpClient _httpClient, 
-            IStringProvider _stringProvider)
-        {
+        public LocationService(HttpClient _httpClient)
+        {       
             httpClient = _httpClient;
-            stringProvider = _stringProvider;
         }
-        public async Task<string?> GeocodeAsync(string address, string apiKey)
+        public async Task<HttpResponseServiceResult<string>> ReverseGeocodeAsync(double latitude, double longitude)
         {
-            string url = $"https://api.opencagedata.com/geocode/v1/json?q={Uri.EscapeDataString(address)}&key={apiKey}";
+            string url = string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                "https://nominatim.openstreetmap.org/reverse?lat={0}&lon={1}&format=json",
+                latitude, longitude);
 
-            HttpResponseMessage response = await httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
+            request.Headers.UserAgent.ParseAdd("RentACarApp/1.0 (rent-a-car@abv.bg)");
 
-            string json = await response.Content.ReadAsStringAsync();
-            OpenCageResponseDTO? data = JsonSerializer.Deserialize<OpenCageResponseDTO>(json, new JsonSerializerOptions()
+            HttpResponseMessage response = await httpClient.SendAsync(request);
+            if (response.StatusCode == HttpStatusCode.OK)
             {
-                PropertyNameCaseInsensitive = true
-            });
+                string content = await response.Content.ReadAsStringAsync();
+                return HttpResponseServiceResult<string>.Success(content);
+            }
 
-            return data?.Results?.FirstOrDefault()?.Formatted;
-        }
-
-        public async Task<string?> ReverseGeocodeAsync(double latitude, double longitude, string apiKey)
-        {
-            string url = $"https://api.opencagedata.com/geocode/v1/json?q={latitude},{longitude}&key={apiKey}&language=bg";
-
-            HttpResponseMessage response = await httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-
-            string json = await response.Content.ReadAsStringAsync();
-            OpenCageResponseDTO? data = JsonSerializer.Deserialize<OpenCageResponseDTO>(json,new JsonSerializerOptions()
-            {
-                PropertyNameCaseInsensitive = true
-            });
-
-            return data?.Results?.FirstOrDefault()?.Formatted;
+            return HttpResponseServiceResult<string>.Failure(response.StatusCode, string.Format(ErrorWithExternalServiceForGeolocation, response.StatusCode));
         }
     }
 }

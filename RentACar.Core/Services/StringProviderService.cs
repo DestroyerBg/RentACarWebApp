@@ -22,12 +22,5 @@ namespace RentACar.Core.Services
 
             return connectionString;
         }
-
-        public string GetGeolocationApiKey()
-        {
-            string? apiKey = configuration.GetValue<string>("ApiKeys:GeolocationApiKey");
-
-            return apiKey;
-        }
     }
 }

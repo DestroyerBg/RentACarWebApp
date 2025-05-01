@@ -3,7 +3,5 @@
     public interface IStringProvider
     {
         string GetConnectionString();
-        string GetGeolocationApiKey();
-
     }
 }

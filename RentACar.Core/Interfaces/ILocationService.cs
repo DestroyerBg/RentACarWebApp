@@ -1,8 +1,9 @@
-﻿namespace RentACar.Core.Interfaces
+﻿using RentACar.Core.Infrastructure.GenericTypes;
+
+namespace RentACar.Core.Interfaces
 {
     public interface ILocationService
-    {
-        Task<string?> GeocodeAsync(string address,string apiKey);
-        Task<string?> ReverseGeocodeAsync(double latitude, double longitude, string apiKey);
+    { 
+        Task<HttpResponseServiceResult<string>> ReverseGeocodeAsync(double latitude, double longitude);
     }
 }
